@@ -7,18 +7,27 @@ import { LoginComponent } from './login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RequestTokenComponent } from './reset-password/request-token/request-token.component';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ResetPasswordComponent,
+    RequestTokenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

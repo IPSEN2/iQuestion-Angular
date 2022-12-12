@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, setTestabilityGetter } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { RouterLinkWithHref } from '@angular/router';
 
 
 
@@ -15,12 +16,10 @@ export class ChangePasswordComponent {
   resetTokenForm!: FormGroup;
 
   showAlert: boolean = false;
+  alertType: String = 'danger';
   statusMessage!: String;
 
   isLoading: boolean = false;
-
-  //$2a$10$AMq4yemf7uHP4niqRD0Dp.E9kXIAhP5hynwZKs/Bp4wunD2BLazXC
-  //$2a$10$u084aoBEHPqT.15ZHHyfTecUl74A9dFEZhq.gKRlFlohcEqwGKdke
 
   showTokenResetBody: boolean = false;
 
@@ -47,17 +46,26 @@ export class ChangePasswordComponent {
 
     this.http.post(url, { email: email }).subscribe(
       (response) => {
-        this.showAlert = false;
-        this.isLoading = true;
-        this.showTokenResetBody = true;
+        this.showAlert = true;
+        this.alertType = 'success';
+        this.statusMessage = 'Er is een email verstuurd met een reset link';
+        setTimeout(() => {
+          this.showTokenResetBody = true;
+          this.showAlert = false;
+        }, 2500);
       },
       (error) => {
-        this.isLoading = true;
         this.showAlert = true;
+        this.alertType = 'danger';
+        this.isLoading = true;
         let statuscode = error.error.status;
         switch (statuscode) {
           case 400:
             this.statusMessage = 'Je heb al een reset link ontvangen, bekijk je email';
+            setTimeout(() => {
+              this.showTokenResetBody = true;
+              this.showAlert = false;
+            }, 2500);
             break;
           case 404:
             this.statusMessage = 'Er is geen account met dit email adres';
@@ -85,13 +93,27 @@ export class ChangePasswordComponent {
     this.http.post(url, { token: token, newPassword: newPassword}).subscribe(
       (response) => {
         // TODO: Handle response
-
+        this.showAlert = true;
+        this.alertType = 'success';
+        this.statusMessage = 'Je wachtwoord is succesvol gewijzigd';
+        // Redirect to login page
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2500);
       },
       (error) => {
         // TODO: Handle error
         let statuscode = error.error.status;
+        this.showAlert = true;
+        this.alertType = 'danger';
         switch (statuscode) {
           // TODO: Handle error codes
+          case 404:
+            this.statusMessage = 'Deze reset link is niet meer geldig of bestaat niet';
+            break;
+          default:
+            this.statusMessage = 'Er is een onbekende fout opgetreden, probeer het later opnieuw';
+            break;
         }
       }
     );

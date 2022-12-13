@@ -3,12 +3,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {QuestionnairesComponent} from './questionnaires/questionnaires.component';
 import {UsersComponent} from './users/users.component';
 import {LoginComponent} from "./auth/login/login.component";
+import {AuthGuard} from "./auth/auth.guard";
 
 const routes: Routes = [
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'questionnaires', component: QuestionnairesComponent},
-  {path: 'users', component: UsersComponent},
+  {path: '', redirectTo: '/questionnaires', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'questionnaires', component: QuestionnairesComponent, canActivate: [AuthGuard]},
+  {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

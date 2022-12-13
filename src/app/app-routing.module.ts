@@ -12,10 +12,10 @@ const routes: Routes = [
   {path: '', redirectTo: '/questionnaires', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'questionnaires', component: QuestionnairesComponent, canActivate: [AuthGuard]},
-  {path: 'user', component: UserComponent},
-  {path: 'userOverview', component: UserOverviewComponent},
-  {path: 'userCreate', component: UserCreateComponent},
-  {path: 'userEdit', component: UserEditComponent},
+  {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+  {path: 'userOverview', component: UserOverviewComponent, canActivate: [AuthGuard]},
+  {path: 'userCreate', component: UserCreateComponent, canActivate: [AuthGuard]},
+  {path: 'userEdit', component: UserEditComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

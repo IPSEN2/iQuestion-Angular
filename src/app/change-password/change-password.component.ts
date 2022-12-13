@@ -49,10 +49,8 @@ export class ChangePasswordComponent {
         this.showAlert = true;
         this.alertType = 'success';
         this.statusMessage = 'Er is een email verstuurd met een reset link';
-        setTimeout(() => {
-          this.showTokenResetBody = true;
-          this.showAlert = false;
-        }, 2500);
+        this.showTokenResetBody = true;
+
       },
       (error) => {
         this.showAlert = true;
@@ -92,24 +90,20 @@ export class ChangePasswordComponent {
 
     this.http.post(url, { token: token, newPassword: newPassword}).subscribe(
       (response) => {
-        // TODO: Handle response
         this.showAlert = true;
         this.alertType = 'success';
         this.statusMessage = 'Je wachtwoord is succesvol gewijzigd';
-        // Redirect to login page
         setTimeout(() => {
           window.location.href = '/login';
         }, 2500);
       },
       (error) => {
-        // TODO: Handle error
         let statuscode = error.error.status;
         this.showAlert = true;
         this.alertType = 'danger';
         switch (statuscode) {
-          // TODO: Handle error codes
           case 404:
-            this.statusMessage = 'Deze reset link is niet meer geldig of bestaat niet';
+            this.statusMessage = 'Deze reset token is niet meer geldig of bestaat niet, heb je je wachtwoord al gewijzigd?';
             break;
           default:
             this.statusMessage = 'Er is een onbekende fout opgetreden, probeer het later opnieuw';

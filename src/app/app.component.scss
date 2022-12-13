@@ -1,22 +1,21 @@
 @media only screen and (max-width: 600px) {
-    main {
-      margin-left: 20px;
-      margin-top: 20px;
-    }
-  }
-  
-  @media only screen and (min-width: 600px) {
-    main {
-      margin-left: 280px;
-      margin-top: 20px;
-    }
-  }
-  
   main {
-    margin-right: 16px;
+    margin-left: 20px;
+    margin-top: 20px;
   }
-  
-  .vAlignIcon {
-    vertical-align: 0.08em;
+}
+
+@media only screen and (min-width: 600px) {
+  main {
+    margin-left: 280px;
+    margin-top: 20px;
   }
-  
+}
+
+main {
+  margin-right: 16px;
+}
+
+.vAlignIcon {
+  vertical-align: 0.08em;
+}

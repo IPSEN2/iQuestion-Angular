@@ -1,6 +1,6 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins";
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+@import "../../../../node_modules/bootstrap/scss/mixins";
 
 .card-login-img{
   //background: #0e1922 url("../../assets/img/LOGO-SPINE-DARK-BG.png") no-repeat center / 50%;
@@ -9,7 +9,7 @@
   background-color: #0e1922;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("../../assets/img/LOGO-SPINE-DARK-BG.png");
+  background-image: url("../../../assets/img/LOGO-SPINE-DARK-BG.png");
   background-size: 15rem;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;

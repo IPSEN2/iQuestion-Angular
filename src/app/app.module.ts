@@ -9,9 +9,9 @@ import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
 import { UserComponent } from './user/user.component';
-import {CreateComponent} from "./user/create/create.component";
-import {OverviewComponent} from "./user/overview/overview.component";
-import {EditComponent} from "./user/edit/edit.component";
+import {UserCreateComponent} from "./user/user-create/user-create.component";
+import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
+import {UserEditComponent} from "./user/user-edit/user-edit.component";
 import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
@@ -21,9 +21,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     NavigationComponent,
     QuestionnairesComponent,
     UserComponent,
-    CreateComponent,
-    OverviewComponent,
-    EditComponent,
+    UserCreateComponent,
+    UserOverviewComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,10 +4,10 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-userOverview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss']
+  templateUrl: './user-overview.component.html',
+  styleUrls: ['./user-overview.component.scss']
 })
-export class OverviewComponent implements OnInit{
+export class UserOverviewComponent implements OnInit{
 
   ngOnInit() {
     this.getUsers();

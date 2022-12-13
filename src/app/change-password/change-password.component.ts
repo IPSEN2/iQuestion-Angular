@@ -1,7 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, setTestabilityGetter } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RouterLinkWithHref } from '@angular/router';
 
 
 
@@ -40,7 +39,7 @@ export class ChangePasswordComponent {
   }
 
   onChangePassword() {
-    const url = 'http://localhost:8080/auth/request-password-reset';
+    const url = '/auth/request-password-reset';
     const email = this.changePasswordForm.value['email'];
     this.isLoading = true;
 
@@ -85,7 +84,7 @@ export class ChangePasswordComponent {
     let newPassword = this.resetTokenForm.value['newPassword'];
 
 
-    const url = 'http://localhost:8080/auth/change-password';
+    const url = '/auth/change-password';
     this.isLoading = true;
 
     this.http.post(url, { token: token, newPassword: newPassword}).subscribe(

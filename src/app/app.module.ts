@@ -8,7 +8,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
-import { UsersComponent } from './users/users.component';
+import { UserComponent } from './user/user.component';
+import {CreateComponent} from "./user/create/create.component";
+import {OverviewComponent} from "./user/overview/overview.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { UsersComponent } from './users/users.component';
     LoginComponent,
     NavigationComponent,
     QuestionnairesComponent,
-    UsersComponent
+    UserComponent,
+    CreateComponent,
+    OverviewComponent,
   ],
   imports: [
     BrowserModule,

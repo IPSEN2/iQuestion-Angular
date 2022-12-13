@@ -1,15 +1,21 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {QuestionnairesComponent} from './questionnaires/questionnaires.component';
-import {UsersComponent} from './users/users.component';
-import {LoginComponent} from "./auth/login/login.component";
 import {AuthGuard} from "./auth/auth.guard";
+import {LoginComponent} from "./auth/login/login.component";
+import {UserComponent} from './user/user.component';
+import {UserCreateComponent} from "./user/user-create/user-create.component";
+import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
+import {UserEditComponent} from "./user/user-edit/user-edit.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/questionnaires', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'questionnaires', component: QuestionnairesComponent, canActivate: [AuthGuard]},
-  {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
+  {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+  {path: 'userOverview', component: UserOverviewComponent, canActivate: [AuthGuard]},
+  {path: 'userCreate', component: UserCreateComponent, canActivate: [AuthGuard]},
+  {path: 'userEdit', component: UserEditComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

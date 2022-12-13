@@ -7,10 +7,13 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavigationComponent} from './navigation/navigation.component';
 import {QuestionnairesComponent} from './questionnaires/questionnaires.component';
-import {UsersComponent} from './users/users.component';
-import {LoginComponent} from './auth/login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpInterceptorService} from "./interceptors/http-interceptor.service";
+import {LoginComponent} from './auth/login/login.component';
+import {UserComponent} from './user/user.component';
+import {UserCreateComponent} from "./user/user-create/user-create.component";
+import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
+import {UserEditComponent} from "./user/user-edit/user-edit.component";
 
 @NgModule({
   declarations: [
@@ -18,13 +21,15 @@ import {HttpInterceptorService} from "./interceptors/http-interceptor.service";
     LoginComponent,
     NavigationComponent,
     QuestionnairesComponent,
-    UsersComponent
+    UserComponent,
+    UserCreateComponent,
+    UserOverviewComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbDropdownModule,
-    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule

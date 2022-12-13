@@ -9,7 +9,7 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {QuestionnairesComponent} from './questionnaires/questionnaires.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpInterceptorService} from "./interceptors/http-interceptor.service";
-import {LoginComponent} from './login/login.component';
+import {LoginComponent} from './auth/login/login.component';
 import {UserComponent} from './user/user.component';
 import {UserCreateComponent} from "./user/user-create/user-create.component";
 import {UserOverviewComponent} from "./user/user-overview/user-overview.component";

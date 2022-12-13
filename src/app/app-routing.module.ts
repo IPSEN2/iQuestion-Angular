@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {QuestionnairesComponent} from './questionnaires/questionnaires.component';
 import {AuthGuard} from "./auth/auth.guard";
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./auth/login/login.component";
 import {UserComponent} from './user/user.component';
 import {UserCreateComponent} from "./user/user-create/user-create.component";
 import {UserOverviewComponent} from "./user/user-overview/user-overview.component";

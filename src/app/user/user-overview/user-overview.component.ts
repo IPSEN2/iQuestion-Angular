@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { User} from "../user.component";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-userOverview',
@@ -18,9 +18,7 @@ export class UserOverviewComponent implements OnInit{
   }
 
   getUsers(){
-    const headers = new HttpHeaders().set('content-type', 'application/json')
-      .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJJLlF1ZXN0aW9uIiwiaWF0IjoxNjcwNzY4MjczLCJlbWFpbCI6InNwaW5lX2FkbWluQHRlc3QuY29tIn0.j4SBytNDMTXXyHimJFaFWwuM1VBTsqvnCBVV7cD4zuo');
-    this.http.get('http://localhost:8080/user/all', {headers: headers})
+    this.http.get('/user/all')
       .subscribe((data: Object) => {
         this.fillUsers(data);
       });

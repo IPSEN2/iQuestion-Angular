@@ -32,7 +32,7 @@ export class OverviewComponent implements OnInit{
         id: data[i].id,
         email: data[i].email,
         name: data[i].name,
-        organisation: data[i].organisation,
+        organization: data[i].organization,
         role: data[i].role
       });
     }

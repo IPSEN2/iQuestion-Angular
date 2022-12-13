@@ -12,6 +12,7 @@ import { UserComponent } from './user/user.component';
 import {CreateComponent} from "./user/create/create.component";
 import {OverviewComponent} from "./user/overview/overview.component";
 import {EditComponent} from "./user/edit/edit.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {EditComponent} from "./user/edit/edit.component";
     BrowserModule,
     AppRoutingModule,
     NgbDropdownModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

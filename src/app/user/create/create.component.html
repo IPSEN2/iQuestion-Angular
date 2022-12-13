@@ -1,4 +1,26 @@
-<p>create works!</p>
-<button (click)="createUser()" class="btn btn-primary">
-  Create User
-</button>
+<form [formGroup]="registerForm" (ngSubmit)="createUser()">
+  <div class="mb-3">
+    <label for="userEmailInput" class="form-label">Email addres</label>
+    <input type="email" class="form-control" id="userEmailInput" formControlName="inputEmail">
+  </div>
+  <div class="mb-3">
+    <label for="userNameInput" class="form-label">Naam</label>
+    <input type="email" class="form-control" id="userNameInput" formControlName="inputName">
+  </div>
+  <div class="mb-3">
+    <label for="userOrganizationInput" class="form-label">Organisatie</label>
+    <input type="email" class="form-control" id="userOrganizationInput" formControlName="inputOrganization">
+  </div>
+  <label for="userRoleInput" class="form-label">Rol</label>
+  <select id="userRoleInput" class="form-select" aria-label="Default select example" formControlName="inputRole">
+    <option value="SPINE_USER">Spine gebruiker</option>
+    <option value="SPINE_ADMIN">Spine administrator</option>
+    <option value="CAREGIVER">Zorgverlener</option>
+  </select>
+  <hr>
+  <button type="submit" class="mb-2 btn btn-primary" [disabled]="!registerForm.valid">
+    Create User
+  </button>
+</form>
+
+

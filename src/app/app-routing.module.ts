@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {QuestionnairesComponent} from './questionnaires/questionnaires.component';
 import {AuthGuard} from "./auth/auth.guard";
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import {LoginComponent} from "./auth/login/login.component";
 import {UserComponent} from './user/user.component';
 import {UserCreateComponent} from "./user/user-create/user-create.component";
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'userOverview', component: UserOverviewComponent, canActivate: [AuthGuard]},
   {path: 'userCreate', component: UserCreateComponent, canActivate: [AuthGuard]},
   {path: 'userEdit', component: UserEditComponent, canActivate: [AuthGuard]},
+  {path: 'change-password', component: ChangePasswordComponent},
 ];
 
 @NgModule({

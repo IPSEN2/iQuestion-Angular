@@ -48,6 +48,10 @@ export class AuthService {
     localStorage.removeItem('userData');
   }
 
+  whoAmI() {
+    return this.http.get('/auth/me');
+  }
+
   private handleAuthentication(token: string) {
     const user = new UserModel(token);
     this.user.next(user);

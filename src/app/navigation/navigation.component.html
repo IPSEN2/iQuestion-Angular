@@ -24,7 +24,7 @@
     >
       <div ngbDropdown class="d-inline-block">
         <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
-          Jesse de Zwart&nbsp;&nbsp;<i
+          {{ user.name }}&nbsp;&nbsp;<i
           class="bi bi-person-fill vAlignIcon"
         ></i>
         </button>
@@ -39,3 +39,6 @@
 
   </div>
 </header>
+<main>
+  <ng-content></ng-content>
+</main>

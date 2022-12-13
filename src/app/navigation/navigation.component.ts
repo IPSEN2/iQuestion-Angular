@@ -11,6 +11,10 @@ export class NavigationComponent {
   constructor(private authService: AuthService) {
   }
 
+  user = {
+    name: this.authService.whoAmI(),
+  };
+
   ngOnInit() {
     // when the user clicks on the hamburger button, toggle between hiding and showing the sidebar
     $('#hamburgerButton').on('click', function () {

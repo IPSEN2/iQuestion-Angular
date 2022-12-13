@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { User} from "../user.component";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
@@ -7,10 +7,17 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent {
+export class OverviewComponent implements OnInit{
+
+  ngOnInit() {
+    this.getUsers();
+  }
 
   users: User[] = [];
   constructor(private http: HttpClient) {
+  }
+
+  getUsers(){
     const headers = new HttpHeaders().set('content-type', 'application/json')
       .set('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIERldGFpbHMiLCJpc3MiOiJJLlF1ZXN0aW9uIiwiaWF0IjoxNjcwNzY4MjczLCJlbWFpbCI6InNwaW5lX2FkbWluQHRlc3QuY29tIn0.j4SBytNDMTXXyHimJFaFWwuM1VBTsqvnCBVV7cD4zuo');
     this.http.get('http://localhost:8080/user/all', {headers: headers})

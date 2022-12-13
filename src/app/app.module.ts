@@ -11,6 +11,7 @@ import { QuestionnairesComponent } from './questionnaires/questionnaires.compone
 import { UserComponent } from './user/user.component';
 import {CreateComponent} from "./user/create/create.component";
 import {OverviewComponent} from "./user/overview/overview.component";
+import {EditComponent} from "./user/edit/edit.component";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {OverviewComponent} from "./user/overview/overview.component";
     UserComponent,
     CreateComponent,
     OverviewComponent,
+    EditComponent,
   ],
   imports: [
     BrowserModule,

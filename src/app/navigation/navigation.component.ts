@@ -12,7 +12,7 @@ export class NavigationComponent {
   }
 
   user = {
-    name: this.authService.whoAmI(),
+    name: this.authService.whoAmI() || 'Gebruiker',
   };
 
   ngOnInit() {

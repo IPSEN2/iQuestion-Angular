@@ -16,8 +16,8 @@
         <tr *ngFor="let questionnaire of questionnaires; index as i" class="align-middle">
           <th>{{ i + 1 }}</th>
           <td class="align-middle">{{ questionnaire.name }}</td>
-          <td>{{ questionnaire.date | date }}</td>
-          <td>{{ questionnaire.author }}</td>
+          <td>{{ questionnaire.timestamp | date }}</td>
+          <td>{{ questionnaire.author.name }}</td>
           <td class="text-nowrap">
             <div class="btn-group" role="group">
               <button type="button" class="btn btn-outline-primary tableIcon">

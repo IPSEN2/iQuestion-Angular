@@ -5,7 +5,6 @@ interface Questionnaire {
   id: number;
   name: string;
   date: string;
-  entryCount: number;
   author: string;
 }
 
@@ -30,9 +29,8 @@ export class QuestionnairesComponent {
       this.questionnaires.push({
         id: data[i].id,
         name: data[i].name,
-        date: '',
-        entryCount: 0,
-        author: '',
+        date: data[i].timestamp,
+        author: data[i].author.name,
       });
     }
   }

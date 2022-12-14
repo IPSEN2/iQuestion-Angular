@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -15,11 +15,9 @@ import {UserCreateComponent} from "./user/user-create/user-create.component";
 import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
 import {ChangePasswordComponent} from './change-password/change-password.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { RequestTokenComponent } from './reset-password/request-token/request-token.component';
-
-
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
+import {RequestTokenComponent} from './reset-password/request-token/request-token.component';
+import {ToastsContainer} from "./shared/toast/toasts-container.component";
 
 
 @NgModule({
@@ -43,7 +41,8 @@ import { RequestTokenComponent } from './reset-password/request-token/request-to
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ToastsContainer
   ],
   providers: [
     {

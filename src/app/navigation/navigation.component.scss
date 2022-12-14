@@ -1,24 +1,31 @@
 @media only screen and (max-width: 600px) {
-    #sidebar {
-        width: 0px;
+    .sidenav {
+        width: 0px; 
     }
     #hamburgerButton {
         display: block;
     }
+  main {
+    margin-left: 20px;
+    margin-top: 20px;
+  }
 }
 
 @media only screen and (min-width: 600px) {
-    #sidebar {
+    .sidenav {
         width: 250px;
     }
     #hamburgerButton {
         display: none;
     }
+  main {
+    margin-left: 280px;
+    margin-top: 20px;
+  }
 }
 
 .sidenav {
   height: 100%;
-  width: 0;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -28,36 +35,30 @@
   transition: 0.5s;
   padding-top: 60px;
   box-shadow: 0px 0px 8px #888888;
-}
 
-.sidenav a {
-  padding: 8px 8px 8px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #f1f1f1;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidenav a:hover {
-  color: #818181;
-}
-
-.sidenav::-webkit-scrollbar {
-  display: none;
-}
-
-@media only screen and (max-width: 600px) {
-  main {
-    margin-left: 20px;
-    margin-top: 20px;
+  &.open {
+    width: 250px;
   }
-}
 
-@media only screen and (min-width: 600px) {
-  main {
-    margin-left: 280px;
-    margin-top: 20px;
+  .closed {
+    width: 0;
+  }
+
+  a {
+    padding: 8px 8px 8px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #f1f1f1;
+    display: block;
+    transition: 0.3s;
+  }
+
+  a:hover {
+    color: #818181;
+  }
+
+  .sidenav::-webkit-scrollbar {
+    display: none;
   }
 }
 

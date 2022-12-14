@@ -1,16 +1,26 @@
 <header class="p-3 text-bg-dark">
   <div class="row">
     <div class="col-1 d-flex justify-content-center">
-      <div id="sidebar" class="sidenav" [ngStyle]="{'width': 'navbarWidth'}">
-        <a routerLink="/questionnaires"><i class="bi bi-list-ol vAlignIcon"></i>&nbsp;&nbsp;Vragenlijsten</a>
-        <a routerLink="/user"><i class="bi bi-people-fill vAlignIcon"></i>&nbsp;&nbsp;Gebruikers</a>
+      <div
+        [ngClass]="{ open: !navOpen, closed: navOpen }"
+        id="sidebar"
+        class="sidenav"
+      >
+        <a routerLink="/questionnaires"
+          ><i class="bi bi-list-ol vAlignIcon"></i>&nbsp;&nbsp;Vragenlijsten</a
+        >
+        <a routerLink="/users"
+          ><i class="bi bi-people-fill vAlignIcon"></i>&nbsp;&nbsp;Gebruikers</a
+        >
       </div>
     </div>
   </div>
+
   <div
     class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
   >
     <button
+      (click)="navOpen = !navOpen"
       id="hamburgerButton"
       class="navbar-toggler hamburger-button bi bi-list"
       type="button"
@@ -30,14 +40,12 @@
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <button ngbDropdownItem>Bewerk profiel</button>
-          <button ngbDropdownItem (click)="onLogout()">Uitloggen</button>
+          <button ngbDropdownItem>Uitloggen</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="container">
-
-  </div>
+  <div class="container"></div>
 </header>
 <main>
   <ng-content></ng-content>

@@ -2,8 +2,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, setTestabilityGetter } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 
-
-
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',

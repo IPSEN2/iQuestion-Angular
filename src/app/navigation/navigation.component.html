@@ -9,7 +9,7 @@
         <a routerLink="/questionnaires"
           ><i class="bi bi-list-ol vAlignIcon"></i>&nbsp;&nbsp;Vragenlijsten</a
         >
-        <a routerLink="/users"
+        <a routerLink="/user"
           ><i class="bi bi-people-fill vAlignIcon"></i>&nbsp;&nbsp;Gebruikers</a
         >
       </div>
@@ -40,7 +40,7 @@
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <button ngbDropdownItem>Bewerk profiel</button>
-          <button ngbDropdownItem>Uitloggen</button>
+          <button (click)="onLogout()" ngbDropdownItem>Uitloggen</button>
         </div>
       </div>
     </div>

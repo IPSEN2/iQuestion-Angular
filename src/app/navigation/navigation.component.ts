@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import * as $ from 'jquery';
 import {AuthService} from "../auth/auth.service";
 
 @Component({

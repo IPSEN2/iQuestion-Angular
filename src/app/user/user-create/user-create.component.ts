@@ -23,6 +23,7 @@ export class UserCreateComponent implements OnDestroy {
   }
 
   createUser() {
+    this.toastService.show('We zijn bezig om een account aan te maken!', {classname: 'bg-info text-light', delay: 3000});
     this.http.post('/auth/register/', {
       name: this.registerForm.value.registerName,
       email: this.registerForm.value.registerEmail,
@@ -31,7 +32,6 @@ export class UserCreateComponent implements OnDestroy {
     })
       .subscribe({
         next: () => {
-          console.log("hdam")
           this.toastService.show('Gebruiker succesvol aangemaakt', {classname: 'bg-success text-light', delay: 3000});
         }
       });

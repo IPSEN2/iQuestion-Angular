@@ -25,7 +25,6 @@ export class AuthService {
         }
       )
       .pipe(catchError(this.handleError), tap(response => {
-        console.log(response);
         this.handleAuthentication(response.token);
       }));
   }

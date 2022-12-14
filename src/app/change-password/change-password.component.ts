@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, setTestabilityGetter } from '@angular/core';
+import { Component, OnInit, setTestabilityGetter } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,7 @@ import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./change-password.component.scss'],
 })
 
-export class ChangePasswordComponent {
+export class ChangePasswordComponent implements OnInit {
   changePasswordForm!: FormGroup;
   resetTokenForm!: FormGroup;
 

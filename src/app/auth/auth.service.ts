@@ -49,7 +49,10 @@ export class AuthService {
   }
 
   whoAmI() {
-    return this.http.get('/auth/me');
+    this.http.get('/auth/me')
+      .subscribe(response => {
+        return response
+      });
   }
 
   private handleAuthentication(token: string) {

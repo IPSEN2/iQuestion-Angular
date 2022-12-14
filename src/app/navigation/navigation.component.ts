@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import * as $ from 'jquery';
+import {Component} from '@angular/core';
+import {AuthService} from "../auth/auth.service";
 
 @Component({
   selector: 'app-navigation',
@@ -7,27 +7,15 @@ import * as $ from 'jquery';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent {
-  
-  ngOnInit() {
-    // when the user clicks on the hamburger button, toggle between hiding and showing the sidebar
-    $('#hamburgerButton').on('click', function () {
-      if ($('#sidebar').width() == 0) {
-        openNav();
-      } else {
-        closeNav();
-      }
-    });
+  navOpen : boolean = false;
+  constructor(private authService: AuthService) {
+  }
 
-    function openNav() {
-      $('#sidebar').css('width', '250px');
-      $('#hamburgerButton').removeClass('bi-list');
-      $('#hamburgerButton').addClass('bi-x');
-    }
+  user = {
+    name: 'Gebruiker',
+  };
 
-    function closeNav() {
-      $('#sidebar').css('width', '');
-      $('#hamburgerButton').removeClass('bi-x');
-      $('#hamburgerButton').addClass('bi-list');
-    }    
+  onLogout() {
+    this.authService.logout();
   }
 }

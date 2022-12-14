@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
 import { UsersComponent } from './users/users.component';
+import { CreateQuestionnaireComponent } from './create-questionnaire/create-questionnaire.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { UsersComponent } from './users/users.component';
     LoginComponent,
     NavigationComponent,
     QuestionnairesComponent,
-    UsersComponent
+    UsersComponent,
+    CreateQuestionnaireComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbDropdownModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-<div class="vh-100 bg-secondary">
+<div class="vh-100 bg-dark">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-9 col-lg-12 col-xl-10">
@@ -6,11 +6,11 @@
           <div class="card-body p-0">
             <div class="row">
               <div class="col-lg-6 d-none d-lg-flex pe-0">
-                <div class="flex-grow-1 card-login-img"></div>
+                <div class="flex-grow-1 card-login-img bg-primary"></div>
               </div>
               <div class="col-lg-6">
                 <div class="p-5">
-                  <h4 class="text-center text-dark mb-4">Welkom terug!</h4>
+                  <h4 class="text-center text-primary mb-4">Welkom terug!</h4>
                   <div class="alert alert-danger" *ngIf="error">
                     <p class="m-0">{{error}}</p>
                   </div>
@@ -25,7 +25,7 @@
                     </button>
                   </form>
                   <div class="text-center">
-                    <a class="small" routerLink="/change-password">Wachtwoord herstellen</a>
+                    <a class="small text-decoration-none" routerLink="/change-password">Wachtwoord herstellen</a>
                   </div>
                 </div>
               </div>

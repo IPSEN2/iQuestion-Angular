@@ -12,6 +12,10 @@ export class NavigationComponent {
   constructor(private authService: AuthService) {
   }
 
+  user = {
+    name: 'Gebruiker',
+  };
+
   onLogout() {
     this.authService.logout();
   }

@@ -33,13 +33,10 @@
       class="d-flex flex-row align-items-center navbar-nav ms-auto justify-content-md-end mb-2 mb-lg-0 text-white text-decoration-none"
     >
       <div ngbDropdown class="d-inline-block">
-        <button
-          type="button"
-          class="btn btn-light"
-          id="dropdownBasic1"
-          ngbDropdownToggle
-        >
-          Jesse de Zwart&nbsp;&nbsp;<i class="bi bi-person-fill vAlignIcon"></i>
+        <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
+          {{ user.name }}&nbsp;&nbsp;<i
+          class="bi bi-person-fill vAlignIcon"
+        ></i>
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <button ngbDropdownItem>Bewerk profiel</button>
@@ -50,3 +47,6 @@
   </div>
   <div class="container"></div>
 </header>
+<main>
+  <ng-content></ng-content>
+</main>

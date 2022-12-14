@@ -14,6 +14,13 @@ import {UserComponent} from './user/user.component';
 import {UserCreateComponent} from "./user/user-create/user-create.component";
 import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
+import {ChangePasswordComponent} from './change-password/change-password.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RequestTokenComponent } from './reset-password/request-token/request-token.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -25,6 +32,9 @@ import {UserEditComponent} from "./user/user-edit/user-edit.component";
     UserCreateComponent,
     UserOverviewComponent,
     UserEditComponent,
+    ChangePasswordComponent,
+    ResetPasswordComponent,
+    RequestTokenComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +42,8 @@ import {UserEditComponent} from "./user/user-edit/user-edit.component";
     NgbDropdownModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [
     {

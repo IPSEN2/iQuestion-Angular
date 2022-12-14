@@ -5,6 +5,10 @@
     #hamburgerButton {
         display: block;
     }
+  main {
+    margin-left: 20px;
+    margin-top: 20px;
+  }
 }
 
 @media only screen and (min-width: 600px) {
@@ -14,6 +18,10 @@
     #hamburgerButton {
         display: none;
     }
+  main {
+    margin-left: 280px;
+    margin-top: 20px;
+  }
 }
 
 .sidenav {
@@ -52,4 +60,8 @@
   .sidenav::-webkit-scrollbar {
     display: none;
   }
+}
+
+main {
+  margin-right: 16px;
 }

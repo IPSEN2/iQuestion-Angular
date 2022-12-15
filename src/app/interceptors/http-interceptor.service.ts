@@ -9,7 +9,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return this.authService.user.pipe(
+    return this.authService.user$.pipe(
       take(1),
       exhaustMap(user => {
         const urlReq = req.clone({

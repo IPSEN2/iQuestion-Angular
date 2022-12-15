@@ -1,64 +1,74 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject, catchError, tap, throwError} from "rxjs";
-import {UserModel} from "./user.model";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {ErrorModel} from "../shared/error.model";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { ErrorModel } from '../shared/error.model';
+import { LocalUser } from '../shared/models/localUser.model';
+import { UserService } from '../service/api/user.service';
 
 export interface AuthResponseData {
   token: string;
 }
 
-@Injectable({providedIn: "root"})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  user = new BehaviorSubject<UserModel | null>(null);
+  user$ = new BehaviorSubject<LocalUser | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userService: UserService
+  ) {
+    this.user$.subscribe((user) => {
+      // check if user is logged in
+      if (user && !user.user) {
+        this.userService.getMe().subscribe((userDetails) => {
+          user.user = userDetails;
+          this.user$.next(user);
+        });
+      }
+      localStorage.setItem('userData', JSON.stringify(user));
+    });
   }
 
   login(email: string, password: string) {
     return this.http
-      .post<AuthResponseData>('/auth/login',
-        {
-          email: email,
-          password: password
-        }
-      )
-      .pipe(catchError(this.handleError), tap(response => {
-        console.log(response);
-        this.handleAuthentication(response.token);
-      }));
+      .post<AuthResponseData>('/auth/login', {
+        email: email,
+        password: password,
+      })
+      .pipe(
+        catchError(this.handleError),
+        tap((response) => {
+          console.log(response);
+          this.handleAuthentication(response.token);
+        })
+      );
   }
 
   autoLogin() {
-    const userData: { _token: string; } = JSON.parse(localStorage.getItem('userData') || '{}');
+    const userData: { _token: string } = JSON.parse(
+      localStorage.getItem('userData') || '{}'
+    );
     if (!userData) {
       return;
     }
 
-    const loadedUser = new UserModel(userData._token);
+    const loadedUser = new LocalUser(userData._token);
     if (loadedUser.token) {
-      this.user.next(loadedUser);
+      this.user$.next(loadedUser);
     }
   }
 
   logout() {
-    this.user.next(null);
+    this.user$.next(null);
     this.router.navigate(['/login']);
     localStorage.removeItem('userData');
   }
 
-  whoAmI() {
-    this.http.get('/auth/me')
-      .subscribe(response => {
-        return response
-      });
-  }
-
   private handleAuthentication(token: string) {
-    const user = new UserModel(token);
-    this.user.next(user);
-    localStorage.setItem('userData', JSON.stringify(user));
+    const user = new LocalUser(token);
+    this.user$.next(user);
   }
 
   private handleError(errorRes: HttpErrorResponse) {
@@ -75,4 +85,5 @@ export class AuthService {
     }
     return throwError(() => errorMessage);
   }
+
 }

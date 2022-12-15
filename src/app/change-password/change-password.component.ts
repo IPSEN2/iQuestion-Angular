@@ -45,7 +45,7 @@ export class ChangePasswordComponent implements OnInit {
       (response) => {
         this.showAlert = true;
         this.alertType = 'success';
-        this.statusMessage = 'Er is een email verstuurd met een reset link';
+        this.statusMessage = 'Er is een e-mail verstuurd met een reset link';
         this.showTokenResetBody = true;
 
       },
@@ -56,14 +56,14 @@ export class ChangePasswordComponent implements OnInit {
         let statuscode = error.error.status;
         switch (statuscode) {
           case 400:
-            this.statusMessage = 'Je heb al een reset link ontvangen, bekijk je email';
+            this.statusMessage = 'Je heb al een reset link ontvangen, bekijk je e-mail';
             setTimeout(() => {
               this.showTokenResetBody = true;
               this.showAlert = false;
             }, 2500);
             break;
           case 404:
-            this.statusMessage = 'Er is geen account met dit email adres';
+            this.statusMessage = 'Er is geen account met dit e-mail adres';
             break;
           case 500:
             this.statusMessage = 'Er is iets mis gegaan, probeer het later opnieuw'

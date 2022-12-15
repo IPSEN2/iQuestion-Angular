@@ -28,7 +28,7 @@ export class UserCreateComponent implements OnDestroy {
       name: this.registerForm.value.registerName,
       email: this.registerForm.value.registerEmail,
       organization: this.registerForm.value.registerOrganization,
-      role: 'SPINE_ADMIN',
+      role: this.registerForm.value.registerRole,
     })
       .subscribe({
         next: () => {

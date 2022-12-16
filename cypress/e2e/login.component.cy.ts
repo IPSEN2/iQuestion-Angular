@@ -16,8 +16,6 @@ describe('test', () => {
   });
 
   it('should not login if invalid but validated credentials are provided', function () {
-    // cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginFailed.json'});
-
     cy.visit("/");
     cy.url().should('includes', '');
     cy.get('[formControlName="email"').type('test@account.com');

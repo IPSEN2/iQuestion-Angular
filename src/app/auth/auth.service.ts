@@ -60,19 +60,4 @@ export class AuthService {
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
   }
-
-  // private handleError(errorRes: HttpErrorResponse) {
-  //   let errorMessage = 'An unknown error occurred!';
-  //   if (!errorRes.error || !errorRes.error.message) {
-  //     return throwError(() => errorMessage);
-  //   }
-  //
-  //   for (const [key, value] of ErrorModel.errorMap) {
-  //     if (errorRes.error.message === key) {
-  //       errorMessage = value;
-  //       break;
-  //     }
-  //   }
-  //   return throwError(() => errorMessage);
-  // }
 }

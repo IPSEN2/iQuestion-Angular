@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { QuestionnaireService } from '../service/api/questionnaire.service';
 import { Questionnaire } from '../shared/models/questionnaire.model';
 
@@ -11,7 +11,8 @@ export class QuestionnairesComponent {
   questionnaires: Questionnaire[] = [];
 
   constructor(private questionnaireService: QuestionnaireService) {
-    this.questionnaireService.getAll().subscribe(questionnaires => this.questionnaires = questionnaires);
+    this.questionnaireService
+      .getAll()
+      .subscribe((questionnaires) => (this.questionnaires = questionnaires));
   }
-
 }

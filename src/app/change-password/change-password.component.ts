@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, setTestabilityGetter } from '@angular/core';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastService } from '../shared/toast/toast-service';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ToastService} from '../shared/toast/toast-service';
 
 @Component({
   selector: 'app-change-password',
@@ -14,7 +14,8 @@ export class ChangePasswordComponent implements OnInit {
 
   showTokenResetBody: boolean = false;
 
-  constructor(private http: HttpClient, private toastService: ToastService) {}
+  constructor(private http: HttpClient, private toastService: ToastService) {
+  }
 
   ngOnInit() {
     this.initForm();
@@ -35,14 +36,14 @@ export class ChangePasswordComponent implements OnInit {
     const email = this.changePasswordForm.value['email'];
     this.toastService.show(
       '⚙️ - Bezig met het aanvragen van een nieuw wachtwoord...',
-      { classname: 'bg-info text-light', delay: 3000 }
+      {classname: 'bg-info text-light', delay: 3000}
     );
 
-    this.http.post(url, { email: email }).subscribe(
+    this.http.post(url, {email: email}).subscribe(
       (response) => {
         this.toastService.show(
-          '✅ - We hebben een email gestuurd met je verficatie token!',
-          { classname: 'bg-success text-light', delay: 5000 }
+          '✅ - We hebben een e-mail gestuurd met je verficatie token!',
+          {classname: 'bg-success text-light', delay: 5000}
         );
         this.showTokenResetBody = true;
       },
@@ -52,7 +53,7 @@ export class ChangePasswordComponent implements OnInit {
           case 400:
             this.toastService.show(
               '❌ - Dit account heeft al een token ontvangen, vul hem op de volgende pagina in',
-              { classname: 'bg-danger text-light', delay: 5000 }
+              {classname: 'bg-danger text-light', delay: 5000}
             );
             setTimeout(() => {
               this.showTokenResetBody = true;
@@ -60,20 +61,20 @@ export class ChangePasswordComponent implements OnInit {
             break;
           case 404:
             this.toastService.show(
-              '❌ - Dit email adres is niet bekend bij ons, probeer het opnieuw',
-              { classname: 'bg-danger text-light', delay: 5000 }
+              '❌ - Dit e-mail adres is niet bekend bij ons, probeer het opnieuw',
+              {classname: 'bg-danger text-light', delay: 5000}
             );
             break;
           case 500:
             this.toastService.show(
               '❌ - Er is een onbekende fout opgetreden, probeer het later opnieuw',
-              { classname: 'bg-danger text-light', delay: 5000 }
+              {classname: 'bg-danger text-light', delay: 5000}
             );
             break;
           default:
             this.toastService.show(
               '❌ - Er is een onbekende fout opgetreden, probeer het later opnieuw',
-              { classname: 'bg-danger text-light', delay: 5000 }
+              {classname: 'bg-danger text-light', delay: 5000}
             );
             break;
         }
@@ -85,16 +86,16 @@ export class ChangePasswordComponent implements OnInit {
     let token = this.resetTokenForm.value['resetToken'];
     let newPassword = this.resetTokenForm.value['newPassword'];
     this.toastService.show('⚙️ - Bezig met het veranderen van je wachtwoord...',
-    { classname: 'bg-info text-light', delay: 3000 }
-  );
+      {classname: 'bg-info text-light', delay: 3000}
+    );
 
     const url = '/auth/change-password';
 
-    this.http.post(url, { token: token, newPassword: newPassword }).subscribe(
+    this.http.post(url, {token: token, newPassword: newPassword}).subscribe(
       (response) => {
         this.toastService.show(
           '✅ - Je wachtwoord is succesvol gewijzigd, je wordt doorgestuurd naar de login pagina',
-          { classname: 'bg-success text-light', delay: 3000 }
+          {classname: 'bg-success text-light', delay: 3000}
         );
         setTimeout(() => {
           window.location.href = '/login';
@@ -106,13 +107,13 @@ export class ChangePasswordComponent implements OnInit {
           case 404:
             this.toastService.show(
               '❌ - Dit token is niet bekend bij ons, probeer het opnieuw',
-              { classname: 'bg-danger text-light', delay: 5000 }
+              {classname: 'bg-danger text-light', delay: 5000}
             );
             break;
           default:
             this.toastService.show(
               '❌ - Er is een onbekende fout opgetreden, probeer het later opnieuw',
-              { classname: 'bg-danger text-light', delay: 5000 }
+              {classname: 'bg-danger text-light', delay: 5000}
             );
             break;
         }

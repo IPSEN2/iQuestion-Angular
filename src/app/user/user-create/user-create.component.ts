@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {FormGroup, FormControl, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ToastService} from "../../shared/toast/toast-service";
 
 
 @Component({
@@ -9,7 +10,7 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
   styleUrls: ['./user-create.component.scss']
 })
 
-export class UserCreateComponent {
+export class UserCreateComponent implements OnDestroy {
   registerForm = new FormGroup({
     registerEmail: new FormControl(null, [Validators.required, Validators.email, Validators.pattern(/^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/)]),
     registerName: new FormControl(null, Validators.required),
@@ -18,21 +19,25 @@ export class UserCreateComponent {
   })
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastService: ToastService) {
   }
 
-  createUser(){
+  createUser() {
+    this.toastService.show('We zijn bezig om een account aan te maken!', {classname: 'bg-info text-light', delay: 3000});
     this.http.post('/auth/register/', {
       name: this.registerForm.value.registerName,
       email: this.registerForm.value.registerEmail,
       organization: this.registerForm.value.registerOrganization,
-      role: 'SPINE_ADMIN',
+      role: this.registerForm.value.registerRole,
     })
-      .subscribe();
+      .subscribe({
+        next: () => {
+          this.toastService.show('Gebruiker succesvol aangemaakt', {classname: 'bg-success text-light', delay: 3000});
+        }
+      });
   }
 
-  getDataFromForms(){
-
+  ngOnDestroy(): void {
+    this.toastService.clear();
   }
-
 }

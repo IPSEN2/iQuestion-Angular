@@ -9,7 +9,7 @@ export class ErrorModel {
       ['INVALID_CREDENTIALS', 'Ongeldige inloggegevens'],
       ['TOKEN_EXISTS', 'Je hebt al een token'],
       ['ENTRY_NOT_FOUND', 'De entry is niet gevonden'],
-      ['USER_NOT_FOUND', 'De gebruiker is niet vonden'],
+      ['USER_NOT_FOUND', 'De gebruiker is niet gevonden'],
       ['EMAIL_NOT_FOUND', 'Het email adres is niet gevonden'],
       ['TOKEN_NOT_FOUND', 'De token is niet gevonden'],
       ['QUESTIONNAIRE_NOT_FOUND', 'De vragenlijst is niet gevonden'],

@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import { KeyValue } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 
 @Component({
@@ -6,14 +7,20 @@ import {AuthService} from "../auth/auth.service";
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
   navOpen : boolean = false;
+  user: any;
+
   constructor(private authService: AuthService) {
   }
 
-  user = {
-    name: 'Gebruiker',
-  };
+  ngOnInit() {
+    this.authService.user$
+      .subscribe((user) => {
+        this.user = user?.user;
+      }
+    );
+  }
 
   onLogout() {
     this.authService.logout();

@@ -32,10 +32,14 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(email, password).subscribe({
       next: () => {
-        if (this.authService.user){
-          this.router.navigate(['']);
-          this.loginForm.reset();
-        }
+        this.authService.user.subscribe({
+          next: user => {
+            if (user?.token != null) {
+              this.router.navigate(['']);
+              this.loginForm.reset();
+            }
+          }
+        })
       },
       error: errorMessage => {
         this.error = errorMessage;

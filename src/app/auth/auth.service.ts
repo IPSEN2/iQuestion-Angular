@@ -47,13 +47,6 @@ export class AuthService {
     localStorage.removeItem('userData');
   }
 
-  whoAmI() {
-    this.http.get('/auth/me')
-      .subscribe(response => {
-        return response
-      });
-  }
-
   private handleAuthentication(token: string) {
     const user = new UserModel(token);
     this.user.next(user);

@@ -1,6 +1,5 @@
-<button type="button" class="returnButton">Terug</button>
-
 <div class="container">
+  <button class="btn btn-outline-primary" type="button">Terug</button>
   <h1>Creëer een vragenlijst</h1>
   <div class="form-group">
     <label for="questionnaireName">Naam vragenlijst</label>
@@ -20,20 +19,19 @@
     <div class="form-group">
       <label for="questionnaireQuestions">Vraag</label>
       <input type="text" class="form-control" id="questionnaireQuestions" placeholder="Vul de vraag in">
-        <button (click)="vraagVerwijderen()" type="button" class="btn btn-primary">Vraag verwijderen</button>
-        <div ngbDropdown class="d-inline-block">
-        <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
-          Vraagvorm
-        </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem>Open</button>
-          <button ngbDropdownItem>Gesloten</button>
-        </div>
+    <div class="pull-right">
+        <button (click)="vraagVerwijderen()" type="button" class="btn btn-danger">Vraag verwijderen</button>
+    </div>
+      <div class="container mt-5">
+        <select class="form-control" id="questionnaireType">
+          <option value="1">Open vraag</option>
+          <option value="2">Gesloten vraag</option>
+        </select>
       </div>
     </div>
       <button type="button" class="btn btn-primary">Creëer vragenlijst</button>
-      <button (click)="vraagToevoegen()" type="button" class="btn btn-primary">Vraag toevoegen</button>
-      <button type="button" class="btn btn-primary">Segment toevoegen</button>
+      <button (click)="vraagToevoegen()" type="button" class="btn btn-success">Vraag toevoegen</button>
+      <button type="button" class="btn btn-success">Segment toevoegen</button>
   </form>
 </div>
 

@@ -14,11 +14,17 @@ describe('UserComponent', () => {
     cy.get('[routerLink="/user"]').click();
     cy.get('[routerLink="/userCreate"]').click();
 
+    cy.url().should("includes", '/userCreate')
+
     cy.get('[formControlName="registerEmail"]').type('cypress@student.hsleiden.nl');
     cy.get('[formControlName="registerName"]').type('Cypress');
     cy.get('[formControlName="registerOrganization"]').type('Cypress');
     cy.get('[formControlName="registerRole"]').select('SPINE_USER');
 
     cy.get('[type="submit"]').click();
+
+    cy.wait(500);
+
+    cy.get('app-toasts').should('contain', 'Gebruiker succesvol aangemaakt')
   });
 })

@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, catchError, tap, throwError} from "rxjs";
+import {BehaviorSubject, catchError, tap} from "rxjs";
 import {UserModel} from "./user.model";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {ErrorModel} from "../shared/error.model";
+import {ErrorHandlingService} from "../shared/services/error-handling.service";
 
 export interface AuthResponseData {
   token: string;
@@ -13,7 +13,7 @@ export interface AuthResponseData {
 export class AuthService {
   user = new BehaviorSubject<UserModel | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private errorHandlingService: ErrorHandlingService) {
   }
 
   login(email: string, password: string) {
@@ -24,8 +24,7 @@ export class AuthService {
           password: password
         }
       )
-      .pipe(catchError(this.handleError), tap(response => {
-        console.log(response);
+      .pipe(catchError(this.errorHandlingService.handleError), tap(response => {
         this.handleAuthentication(response.token);
       }));
   }
@@ -48,31 +47,9 @@ export class AuthService {
     localStorage.removeItem('userData');
   }
 
-  whoAmI() {
-    this.http.get('/auth/me')
-      .subscribe(response => {
-        return response
-      });
-  }
-
   private handleAuthentication(token: string) {
     const user = new UserModel(token);
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
-  }
-
-  private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-    if (!errorRes.error || !errorRes.error.message) {
-      return throwError(() => errorMessage);
-    }
-
-    for (const [key, value] of ErrorModel.errorMap) {
-      if (errorRes.error.message === key) {
-        errorMessage = value;
-        break;
-      }
-    }
-    return throwError(() => errorMessage);
   }
 }

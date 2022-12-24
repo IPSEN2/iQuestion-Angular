@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(email, password).subscribe({
       next: () => {
-        this.authService.user.subscribe({
+        this.authService.user$.subscribe({
           next: user => {
             if (user?.token != null) {
               this.router.navigate(['']);

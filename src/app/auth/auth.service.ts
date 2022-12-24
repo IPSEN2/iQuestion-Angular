@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { ErrorModel } from '../shared/error.model';
-import { LocalUser } from '../shared/models/localUser.model';
-import { UserService } from '../service/api/user.service';
+import {Injectable} from "@angular/core";
+import {BehaviorSubject, catchError, tap} from "rxjs";
+import {UserModel} from "./user.model";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {ErrorHandlingService} from "../shared/services/error-handling.service";
+import { LocalUser } from "../shared/models/localUser.model";
 
 export interface AuthResponseData {
   token: string;
@@ -14,21 +14,7 @@ export interface AuthResponseData {
 export class AuthService {
   user$ = new BehaviorSubject<LocalUser | null>(null);
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private userService: UserService
-  ) {
-    this.user$.subscribe((user) => {
-      // check if user is logged in
-      if (user && !user.user) {
-        this.userService.getMe().subscribe((userDetails) => {
-          user.user = userDetails;
-          this.user$.next(user);
-        });
-      }
-      localStorage.setItem('userData', JSON.stringify(user));
-    });
+  constructor(private http: HttpClient, private router: Router, private errorHandlingService: ErrorHandlingService) {
   }
 
   login(email: string, password: string) {
@@ -43,14 +29,12 @@ export class AuthService {
           this.handleAuthentication(response.token);
         })
       );
-  }
-
-  autoLogin() {
-    const userData: { _token: string } = JSON.parse(
-      localStorage.getItem('userData') || '{}'
-    );
-    if (!userData) {
-      return;
+      .post<AuthResponseData>('/auth/login',
+        {
+          email: email,
+          password: password
+        }
+      )
     }
 
     const loadedUser = new LocalUser(userData._token);
@@ -60,7 +44,6 @@ export class AuthService {
   }
 
   logout() {
-    this.user$.next(null);
     this.router.navigate(['/login']);
     localStorage.removeItem('userData');
   }
@@ -69,20 +52,3 @@ export class AuthService {
     const user = new LocalUser(token);
     this.user$.next(user);
   }
-
-  private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-    if (!errorRes.error || !errorRes.error.message) {
-      return throwError(() => errorMessage);
-    }
-
-    for (const [key, value] of ErrorModel.errorMap) {
-      if (errorRes.error.message === key) {
-        errorMessage = value;
-        break;
-      }
-    }
-    return throwError(() => errorMessage);
-  }
-
-}

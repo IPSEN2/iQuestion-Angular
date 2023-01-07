@@ -8,10 +8,12 @@ import {UserComponent} from './user/user.component';
 import {UserCreateComponent} from "./user/user-create/user-create.component";
 import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
+import { QuestionnaireFillComponent } from './questionnaire-fill/questionnaire-fill.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/questionnaires', pathMatch: 'full'},
+  {path: '', redirectTo: 'questionnaire/fill/29f86e5d-98f5-466f-9f81-b87005a006ac', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'questionnaire/fill/:id', component: QuestionnaireFillComponent, canActivate: [AuthGuard]},
   {path: 'change-password', component: ChangePasswordComponent},
   {path: 'questionnaires', component: QuestionnairesComponent, canActivate: [AuthGuard]},
   {path: 'user', component: UserComponent, canActivate: [AuthGuard]},

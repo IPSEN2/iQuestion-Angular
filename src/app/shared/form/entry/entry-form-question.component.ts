@@ -10,5 +10,4 @@ import { QuestionBase } from '../question-base';
 export class EntryFormQuestionComponent {
   @Input() question!: QuestionBase<string>;
   @Input() form!: FormGroup;
-  get isValid() { return this.form.controls[this.question.key].valid; }
 }

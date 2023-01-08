@@ -25,6 +25,10 @@ export class QuestionnaireFillComponent {
     if (id == null) {    
       throw new Error('No id found');
     }
-    this.questions$ = this.entryFormService.getQuestions();
+    
+    // get questionnaire from api then create questions
+    this.questionnaireService.get(id).subscribe((questionnaire) => {
+      this.questions$ = this.entryFormService.getQuestions(questionnaire);
+    });
   }
 }

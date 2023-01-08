@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { QuestionBase } from '../question-base';
@@ -6,9 +6,10 @@ import { QuestionControlService } from '../question-controle.service';
 
 @Component({
   selector: 'app-entry-form',
-  templateUrl: './entry-form.component.html'
+  templateUrl: './entry-form.component.html',
+  providers: [ QuestionControlService ]
 })
-export class EntryFormComponent {
+export class EntryFormComponent implements OnInit{
   @Input() questions: QuestionBase<string>[] | null = [];
   form!: FormGroup;
   payLoad = '';
@@ -16,6 +17,10 @@ export class EntryFormComponent {
   constructor(private qcs: QuestionControlService) {}
 
   ngOnInit() {
+    if (this.questions == null) {
+      this.form = new FormGroup({});
+      return;
+    }
     this.form = this.qcs.toFormGroup(this.questions as QuestionBase<string>[]);
   }
 

@@ -17,10 +17,6 @@ export class EntryFormComponent implements OnInit{
   constructor(private qcs: QuestionControlService) {}
 
   ngOnInit() {
-    if (this.questions == null) {
-      this.form = new FormGroup({});
-      return;
-    }
     this.form = this.qcs.toFormGroup(this.questions as QuestionBase<string>[]);
   }
 

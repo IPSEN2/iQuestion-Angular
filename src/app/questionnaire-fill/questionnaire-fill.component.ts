@@ -9,18 +9,16 @@ import { QuestionBase } from '../shared/form/question-base';
   selector: 'app-questionnaire-fill',
   templateUrl: './questionnaire-fill.component.html',
   styleUrls: ['./questionnaire-fill.component.scss'],
+  providers: [ EntryFormService ]
 })
 export class QuestionnaireFillComponent {
-  questions$: Observable<QuestionBase<any>[]>;
+  questions$: Observable<QuestionBase<any>[]> | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private questionnaireService: QuestionnaireService,
-    private entryFormService: EntryFormService
+    service: EntryFormService
   ) {
-    this.questions$ = new Observable<QuestionBase<any>[]>();
-  }
-  ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id == null) {    
       throw new Error('No id found');
@@ -28,7 +26,7 @@ export class QuestionnaireFillComponent {
     
     // get questionnaire from api then create questions
     this.questionnaireService.get(id).subscribe((questionnaire) => {
-      this.questions$ = this.entryFormService.getQuestions(questionnaire);
+      this.questions$ = service.getQuestions(questionnaire);
     });
   }
 }

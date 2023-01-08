@@ -1,4 +1,4 @@
 <app-navigation>
     <h2>Invullen questionnaire</h2>
-    <app-entry-form [questions]="questions$ | async"></app-entry-form>
+    <app-entry-form *ngIf="questions$" [questions]="questions$ | async"></app-entry-form>
 </app-navigation>

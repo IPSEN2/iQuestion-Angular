@@ -2,6 +2,7 @@
   <label [attr.for]="question.key">{{ question.label }}</label>
 
   <input
+    class="form-control"
     [formControlName]="question.key"
     [id]="question.key"
     [type]="question.type"

@@ -5,7 +5,8 @@ import { QuestionBase } from '../question-base';
 
 @Component({
   selector: 'app-entry-form-question',
-  templateUrl: './entry-form-question.component.html'
+  templateUrl: './entry-form-question.component.html',
+  styleUrls: ['./entry-form-question.component.scss'],
 })
 export class EntryFormQuestionComponent {
   @Input() question!: QuestionBase<string>;

@@ -1,4 +1,14 @@
 <app-navigation>
+  <div *ngIf="questionnaire$ && questions$">
     <h2>Invullen questionnaire</h2>
-    <app-entry-form *ngIf="questions$" [questions]="questions$ | async"></app-entry-form>
+    <hr />
+    <h3>{{ questionnaire$.name }}</h3>
+    <p>
+      Auteur: {{ questionnaire$.author.name }} -
+      {{ questionnaire$.author.organization }}
+    </p>
+    <app-entry-form
+      [questions]="questions$ | async"
+    ></app-entry-form>
+  </div>
 </app-navigation>

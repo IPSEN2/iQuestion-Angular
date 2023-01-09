@@ -11,7 +11,7 @@ import {UserEditComponent} from "./user/user-edit/user-edit.component";
 import { QuestionnaireFillComponent } from './questionnaire-fill/questionnaire-fill.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'questionnaire/fill/29f86e5d-98f5-466f-9f81-b87005a006ac', pathMatch: 'full'},
+  {path: '', redirectTo: 'questionnaires', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'questionnaire/fill/:id', component: QuestionnaireFillComponent, canActivate: [AuthGuard]},
   {path: 'change-password', component: ChangePasswordComponent},

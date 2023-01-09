@@ -15,4 +15,12 @@ export class QuestionnairesComponent {
       .getAll()
       .subscribe((questionnaires) => (this.questionnaires = questionnaires));
   }
+
+  delete(id: string) {
+    this.questionnaireService.delete(id).subscribe(() => {
+      this.questionnaires = this.questionnaires.filter(
+        (questionnaire) => questionnaire.id !== id
+      );
+    });
+  }
 }

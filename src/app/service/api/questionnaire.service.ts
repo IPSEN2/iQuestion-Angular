@@ -26,4 +26,8 @@ export class QuestionnaireService {
   getQuestions(id: string): Observable<QuestionBase<any>[]> {
     return this.http.get<QuestionBase<any>[]>('/questionnaire/' + id + '/questions');
   }
+
+  delete(id: string) {
+    return this.http.delete('/questionnaire/' + id);
+  }
 }

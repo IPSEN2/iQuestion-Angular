@@ -32,7 +32,7 @@
     <div
       class="d-flex flex-row align-items-center navbar-nav ms-auto justify-content-md-end mb-2 mb-lg-0 text-white text-decoration-none"
     >
-      <div ngbDropdown class="d-inline-block">
+      <div *ngIf="this.user" ngbDropdown class="d-inline-block">
         <button
           type="button"
           class="btn btn-light"

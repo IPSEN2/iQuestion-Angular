@@ -1,0 +1,10 @@
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+  "user": {
+    "email": "spine_admin@student.hsleiden.nl",
+    "id": "fc017a7e-5919-45f8-9b47-18e69d4db351",
+    "name": "Spine admin",
+    "organization": "Spine",
+    "role": "SPINE_ADMIN"
+  }
+}

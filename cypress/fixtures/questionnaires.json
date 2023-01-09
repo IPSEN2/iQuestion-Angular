@@ -1,0 +1,33 @@
+[
+  {
+    "id": "4c83415c-4489-4f4a-be74-4ba110ee5c03",
+    "name": "Questionnaire",
+    "segments": [
+      {
+        "id": "ac11bf8b-1dd5-48f3-a5b3-c4cda4ecadf1",
+        "title": "Segment",
+        "description": "This is a test description.",
+        "questions": [
+          {
+            "id": "7e1b51b2-0fcb-42dc-b6ad-eadbe267cba2",
+            "label": "TEST LABEL Q2",
+            "type": "CLOSED_CLIENT"
+          },
+          {
+            "id": "c4d24ad3-9c35-43f3-9c21-faf3f049f3e9",
+            "label": "TEST LABEL Q1",
+            "type": "OPEN_CLIENT"
+          }
+        ]
+      }
+    ],
+    "author": {
+      "id": "fac79cc3-6b4c-434f-b00e-b9c7edecb25c",
+      "name": "Cypress",
+      "email": "cypress@student.hsleiden.nl",
+      "organization": "Cypress",
+      "role": "SPINE_ADMIN"
+    },
+    "timestamp": 1673270230471
+  }
+]

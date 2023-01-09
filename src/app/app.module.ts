@@ -18,6 +18,7 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {RequestTokenComponent} from './reset-password/request-token/request-token.component';
 import {ToastsContainer} from "./shared/toast/toasts-container.component";
+import { UserDeleteComponent } from './user/user-delete/user-delete.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {ToastsContainer} from "./shared/toast/toasts-container.component";
     UserEditComponent,
     ChangePasswordComponent,
     ResetPasswordComponent,
-    RequestTokenComponent
+    RequestTokenComponent,
+    UserDeleteComponent,
   ],
   imports: [
     BrowserModule,

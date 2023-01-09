@@ -1,12 +1,12 @@
 export class Answer { 
-    public id: string;
-    public questionId: string;
+    public id: string | undefined;
+    public question: string;
     public result: string;
     public comment: string;
 
-    constructor(id: string, questionId: string, result: string, comment: string) {
+    constructor(id: string, question: string, result: string, comment: string) {
         this.id = id;
-        this.questionId = questionId;
+        this.question = question;
         this.result = result;
         this.comment = comment;
     }

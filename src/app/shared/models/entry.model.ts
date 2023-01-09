@@ -2,16 +2,16 @@ import { FormGroup } from "@angular/forms";
 import { Answer } from "./answer.model";
 
 export class Entry {
-    id: string;
-    questionnaireId: String;
-    caregiverId: String;
+    id: string | undefined;
+    questionnaire: String;
+    caregiver: String | undefined;
     answers: Answer[];
-    timestamp: number;
+    timestamp: number | undefined;
 
-    constructor(id: string, questionnaireId: String, caregiverId: String, answers: Answer[], timestamp: number) {
+    constructor(id: string, questionnaire: String, caregiver: String, answers: Answer[], timestamp: number) {
         this.id = id;
-        this.questionnaireId = questionnaireId;
-        this.caregiverId = caregiverId;
+        this.questionnaire = questionnaire;
+        this.caregiver = caregiver;
         this.answers = answers;
         this.timestamp = timestamp;
     }

@@ -9,7 +9,7 @@ export class EntryService {
   constructor(private http: HttpClient) {
   }
 
-  save(entry: Entry) {
+  create(entry: Entry) {
     return this.http.put('/entry/', entry);
   }
 }

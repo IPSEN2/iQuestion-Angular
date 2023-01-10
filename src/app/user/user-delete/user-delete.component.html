@@ -1,5 +1,19 @@
-<p>user-delete works!</p>
-<p>Weet je zeker dat je de gebruiker wilt verwijderen?</p>
-<!--<p> Je naam is: {{ user.name }}</p>-->
-<button class="btn btn-danger" (click)="activeModal.dismiss()">Nee</button>
-<button class="btn btn-success" (click)="deleteUser()">Ja</button>
+<div class="modal-content">
+    <div class="modal-header">
+      <h4>Gebruiker verwijderen</h4>
+      <button type="button" aria-label="Close button" aria-describedby="modal-title" class="btn-close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <p>Weet u zeker dat u de gebruiker:
+        <span class="text-info"> {{user?.name}} </span>
+        wilt verwijderen?
+      </p>
+      <p>Alle informatie van deze gebruiker wordt permanent verwijderd
+        <span class="text-danger"> en kan niet hersteld worden.</span>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-primary" type="button" (click)="activeModal.dismiss()">Nee</button>
+      <button class="btn btn-danger"  type="button" (click)="deleteUser()">Ja</button>
+    </div>
+</div>

@@ -13,5 +13,6 @@ describe('QuestionnaireComponent', () => {
         // intercept the call, and return a 200 status code
         cy.intercept("DELETE", 'http://localhost:8080/questionnaire/*', {statusCode: 200});
         cy.get('.deleteButton').click();
+        cy.get('app-toasts').should('contain', '✅ - Successvol verwijderd!');
     })
 });

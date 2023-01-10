@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuestionnaireService } from '../service/api/questionnaire.service';
 import { Questionnaire } from '../shared/models/questionnaire.model';
+import { ToastService } from '../shared/toast/toast-service';
 import { QuestionnaireDeleteComponent } from './questionnaire-delete/questionnaire-delete.component';
 
 @Component({
@@ -14,7 +15,8 @@ export class QuestionnairesComponent {
 
   constructor(
     private questionnaireService: QuestionnaireService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastService: ToastService
   ) {
     this.questionnaireService
       .getAll()
@@ -26,10 +28,18 @@ export class QuestionnairesComponent {
     modalRef.componentInstance.questionnaire = questionnaire;
     modalRef.componentInstance.deleteConfirmed.subscribe((deleteConfirmed: boolean) => {
       if (deleteConfirmed) {
+        this.toastService.show(
+          '⚙️ - Bezig met verwijderen',
+          {classname: 'bg-info text-light', delay: 3000}
+        );
         this.questionnaireService.delete(questionnaire.id).subscribe(() => {
           // remove from overview
           this.questionnaires = this.questionnaires.filter(
             (q) => q.id !== questionnaire.id
+          );
+          this.toastService.show(
+            '✅ - Successvol verwijderd!',
+            {classname: 'bg-success text-light', delay: 5000}
           );
         });
       }

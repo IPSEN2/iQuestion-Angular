@@ -19,12 +19,12 @@
       <option value="SPINE_ADMIN">Spine administrator</option>
       <option value="CAREGIVER">Zorgverlener</option>
     </select>
-    <button type="submit" class="m-2 btn btn-primary" [disabled]="!registerForm.valid">
-      Creëer gebruiker
-    </button>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="button" class="m-2 btn btn-primary" routerLink="/userOverview">Terug</button>
+      <button type="submit" class="m-2 btn btn-primary" [disabled]="!registerForm.valid">
+        Creëer gebruiker
+      </button>
+    </div>
   </form>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-primary" routerLink="/userOverview">Gebruiker Overzicht</button>
-  </div>
 </app-navigation>
 

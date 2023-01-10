@@ -1,4 +1,5 @@
 <app-navigation>
+  <app-toasts></app-toasts>
   <h1>Vragenlijsten</h1>
   <div class="table-responsive">
     <table class="table table-striped">
@@ -48,7 +49,7 @@
             "
           >
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-outline-primary tableIcon">
+              <button type="button" class="btn btn-outline-primary tableIcon" title="Exporteer naar CSV">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -63,7 +64,7 @@
                   />
                 </svg>
               </button>
-              <button type="button" class="btn btn-outline-primary tableIcon">
+              <button type="button" class="btn btn-outline-primary tableIcon" title="Exporteer naar PDF">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -87,7 +88,7 @@
             "
           >
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-outline-primary tableIcon">
+              <button type="button" class="btn btn-outline-primary tableIcon deleteQuestionnaireButton" (click)="delete(questionnaire)" title="Verwijder">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"

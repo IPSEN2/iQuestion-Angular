@@ -24,6 +24,7 @@ import { EntryFormQuestionComponent } from './shared/form/entry/entry-form-quest
 import { EntryFormService } from './service/entry-form.service';
 import { QuestionControlService } from './shared/form/question-controle.service';
 import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
+import { UserDeleteComponent } from './user/user-delete/user-delete.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {ErrorInterceptorService} from "./interceptors/error-interceptor.service"
     QuestionnaireFillComponent,
     EntryFormQuestionComponent,
     EntryFormComponent
+    UserDeleteComponent,
   ],
   imports: [
     BrowserModule,

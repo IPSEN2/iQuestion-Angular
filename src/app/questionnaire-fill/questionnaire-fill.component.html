@@ -1,4 +1,5 @@
 <app-navigation>
+  <app-toasts></app-toasts>
   <div *ngIf="questionnaire$ && questions$">
     <h2>Invullen questionnaire</h2>
     <hr />
@@ -7,9 +8,15 @@
       Auteur: {{ questionnaire$.author.name }} -
       {{ questionnaire$.author.organization }}
     </p>
-    <app-entry-form #form
-      [questions]="questions$ | async"
-    ></app-entry-form>
-    <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>
+    <app-entry-form #form [questions]="questions$ | async"></app-entry-form>
+    <button
+      id="submitBtn"
+      [disabled]="submitBtnDisabled"
+      type="button"
+      class="btn btn-primary"
+      (click)="onSubmit()"
+    >
+      Save
+    </button>
   </div>
 </app-navigation>

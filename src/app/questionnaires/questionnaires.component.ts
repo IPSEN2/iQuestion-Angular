@@ -1,11 +1,11 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../shared/toast/toast-service';
-import { QuestionnaireDeleteComponent } from './questionnaire-delete/questionnaire-delete.component';
 import { Component } from '@angular/core';
 import { EntryService } from '../service/api/entry.service';
 import { QuestionnaireService } from '../service/api/questionnaire.service';
 import { Questionnaire } from '../shared/models/questionnaire.model';
 import { LocalUserService } from '../shared/services/localUser.service';
+import { QuestionnaireDeleteComponent } from './questionnaire-delete/questionnaire-delete.component';
 
 @Component({
   selector: 'app-questionnaires',
@@ -17,7 +17,7 @@ export class QuestionnairesComponent {
 
   constructor(
     private questionnaireService: QuestionnaireService,
-    private entryService: EntryService
+    private entryService: EntryService,
     private modalService: NgbModal,
     private toastService: ToastService,
     private localUserService: LocalUserService

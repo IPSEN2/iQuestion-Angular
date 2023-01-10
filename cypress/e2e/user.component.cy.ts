@@ -93,7 +93,6 @@ describe('UserComponent', () => {
     cy.get('.deleteButton').click();
 
     cy.wait("@userDelete").then(({request}) => {
-        // @ts-ignore
       expect(request.method).to.contains("DELETE")
     });
 

@@ -14,14 +14,9 @@ export class UserDeleteComponent {
   constructor(private http: HttpClient, public activeModal: NgbActiveModal) {
   }
 
-
   deleteUser(){
-    console.log(this.user);
-    // @ts-ignore
-    this.http.delete("/user/" + String(this.user.id))
-      .subscribe((s) => {
-        console.log(s)
-      });
+    this.http.delete("/user/" + String(this.user?.id))
+      .subscribe();
     this.activeModal.dismiss();
   }
 

@@ -1,3 +1,33 @@
 <app-navigation>
-    <p>edit works!</p>
+  <div *ngIf="user$">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Attribuut</th>
+            <th scope="col">Hudige</th>
+            <th scope="col">Nieuwe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th> Naam </th>
+            <td>{{ user$.name }}</td>
+            <td>Placeholder</td>
+          </tr>
+          <tr>
+            <th> Rol </th>
+            <td>{{ user$.role }}</td>
+            <td>Placeholder</td>
+          </tr>
+          <tr>
+            <th> Organisatie </th>
+            <td>{{ user$.organization }}</td>
+            <td>Placeholder</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </app-navigation>
+

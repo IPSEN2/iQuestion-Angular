@@ -3,6 +3,7 @@ import { User} from "../user.component";
 import {HttpClient} from "@angular/common/http";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {UserDeleteComponent} from "../user-delete/user-delete.component";
+import {UserEditComponent} from "../user-edit/user-edit.component";
 
 @Component({
   selector: 'app-userOverview',
@@ -37,13 +38,16 @@ export class UserOverviewComponent implements OnInit{
         role: data[i].role
       });
     }
-
   }
 
   showDeleteModal(clickedUser: User){
     const modalRef = this.modalService.open(UserDeleteComponent);
     modalRef.componentInstance.user = clickedUser;
-    console.log(clickedUser);
+  }
+
+  showEditModal(clickedUser: User){
+    const modalRef = this.modalService.open(UserEditComponent);
+    modalRef.componentInstance.user = clickedUser;
   }
 
 }

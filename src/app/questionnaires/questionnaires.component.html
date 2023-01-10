@@ -9,17 +9,45 @@
           <th scope="col">Naam</th>
           <th scope="col">Aangemaakt</th>
           <th scope="col">Auteur</th>
-          <th scope="col">Exporteer</th>
-          <th scope="col">Verwijder</th>
+          <th
+            scope="col"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
+            Exporteer
+          </th>
+          <th
+            scope="col"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
+            Verwijder
+          </th>
+          <th scope="col" *ngIf="this.user.user?.role == 'CAREGIVER'">
+            Vul in
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let questionnaire of questionnaires; index as i" class="align-middle">
+        <tr
+          *ngFor="let questionnaire of questionnaires; index as i"
+          class="align-middle"
+        >
           <th>{{ i + 1 }}</th>
           <td class="align-middle">{{ questionnaire.name }}</td>
           <td>{{ questionnaire.timestamp | date }}</td>
           <td>{{ questionnaire.author.name }}</td>
-          <td class="text-nowrap">
+          <td
+            class="text-nowrap"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
             <div class="btn-group" role="group">
               <button type="button" class="btn btn-outline-primary tableIcon" title="Exporteer naar CSV">
                 <svg
@@ -53,7 +81,12 @@
               </button>
             </div>
           </td>
-          <td>
+          <td
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
             <div class="btn-group" role="group">
               <button type="button" class="btn btn-outline-primary tableIcon deleteQuestionnaireButton" (click)="delete(questionnaire)" title="Verwijder">
                 <svg
@@ -69,13 +102,33 @@
                   />
                 </svg>
               </button>
-              </div>
+            </div>
+          </td>
+
+          <td class="text-nowrap" *ngIf="this.user.user?.role == 'CAREGIVER'">
+            <div class="btn-group" role="group">
+              <a
+                type="button"
+                class="btn btn-outline-primary tableIcon"
+                routerLink="view"
+              >
+                Vul vragenlijst in
+              </a>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-primary">Creëer vragenlijst</button>
+  <div
+    class="d-grid gap-2 d-md-flex justify-content-md-end"
+    *ngIf="
+      this.user.user?.role == 'SPINE_USER' ||
+      this.user.user?.role == 'SPINE_ADMIN'
+    "
+  >
+    <a type="button" class="btn btn-primary" [routerLink]="['view', '1']"
+      >Creëer vragenlijst</a
+    >
   </div>
 </app-navigation>

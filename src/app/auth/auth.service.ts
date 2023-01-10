@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {catchError, tap, throwError} from 'rxjs';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {catchError, tap} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {ErrorModel} from '../shared/error.model';
 import {LocalUser} from '../shared/models/localUser.model';
 import {LocalUserService} from "../shared/services/localUser.service";
+import {ErrorHandlingService} from "../shared/services/error-handling.service";
 
 export interface IAuthResponseData {
   token: string;
@@ -22,7 +22,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private localUserService: LocalUserService
+    private localUserService: LocalUserService,
+    private errorHandlingService: ErrorHandlingService
   ) {
   }
 
@@ -33,7 +34,7 @@ export class AuthService {
         password: password,
       })
       .pipe(
-        catchError(this.handleError),
+        catchError(this.errorHandlingService.handleError),
         tap((response) => {
           this.handleAuthentication(response, rememberMe);
         })
@@ -78,20 +79,5 @@ export class AuthService {
 
     this.localUserService.setLoggedIn = true;
     this.localUserService.localUser = localUser;
-  }
-
-  private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-    if (!errorRes.error || !errorRes.error.message) {
-      return throwError(() => errorMessage);
-    }
-
-    for (const [key, value] of ErrorModel.errorMap) {
-      if (errorRes.error.message === key) {
-        errorMessage = value;
-        break;
-      }
-    }
-    return throwError(() => errorMessage);
   }
 }

@@ -1,4 +1,5 @@
 <app-navigation>
+  <app-toasts></app-toasts>
   <h1>Vragenlijsten</h1>
   <div class="table-responsive">
     <table class="table table-striped">
@@ -8,8 +9,27 @@
           <th scope="col">Naam</th>
           <th scope="col">Aangemaakt</th>
           <th scope="col">Auteur</th>
-          <th scope="col">Exporteer</th>
-          <th scope="col">Verwijder</th>
+          <th
+            scope="col"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
+            Exporteer
+          </th>
+          <th
+            scope="col"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
+            Verwijder
+          </th>
+          <th scope="col" *ngIf="this.user.user?.role == 'CAREGIVER'">
+            Vul in
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -21,7 +41,13 @@
           <td class="align-middle">{{ questionnaire.name }}</td>
           <td>{{ questionnaire.timestamp | date }}</td>
           <td>{{ questionnaire.author.name }}</td>
-          <td class="text-nowrap">
+          <td
+            class="text-nowrap"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
             <div class="btn-group" role="group">
               <button
                 type="button"
@@ -67,7 +93,12 @@
               </button>
             </div>
           </td>
-          <td>
+          <td
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
             <div class="btn-group" role="group">
               <button
                 type="button"
@@ -90,11 +121,31 @@
               </button>
             </div>
           </td>
+
+          <td class="text-nowrap" *ngIf="this.user.user?.role == 'CAREGIVER'">
+            <div class="btn-group" role="group">
+              <a
+                type="button"
+                class="btn btn-outline-primary tableIcon"
+                routerLink="view"
+              >
+                Vul vragenlijst in
+              </a>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-primary">Creëer vragenlijst</button>
+  <div
+    class="d-grid gap-2 d-md-flex justify-content-md-end"
+    *ngIf="
+      this.user.user?.role == 'SPINE_USER' ||
+      this.user.user?.role == 'SPINE_ADMIN'
+    "
+  >
+    <a type="button" class="btn btn-primary" [routerLink]="['view', '1']"
+      >Creëer vragenlijst</a
+    >
   </div>
 </app-navigation>

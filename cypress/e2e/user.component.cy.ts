@@ -67,4 +67,35 @@ describe('UserComponent', () => {
 
     cy.url().should("includes", '/login');
   });
+
+  it('Should delete user when logged in as admin', () => {
+    cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginSpineAdminSuccess.json'});
+    cy.intercept("GET", 'http://localhost:8080/questionnaire/all', {fixture: 'questionnaires.json'});
+    cy.intercept("GET", 'http://localhost:8080/user/all', {fixture: 'users.json'});
+    cy.intercept("POST", 'http://localhost:8080/auth/register/', {fixture: 'registerSuccess.json'});
+
+    cy.visit('/');
+    cy.url().should('includes', '');
+    cy.get('[formControlName="email"]').type('spine_admin@student.hsleiden.nl');
+    cy.get('[formControlName="password"]').type('12345678');
+    cy.get('button').click();
+
+    cy.url().should('include', 'questionnaires');
+    cy.get('[routerLink="/user"]').click();
+
+    cy.intercept({
+      method: "DELETE",
+      url: '/user/*'
+    }).as("userDelete");
+
+    // cy.contains('th', 1).contains('td').contains('button').click();
+    cy.get('.userDeleteButton').first().click();
+    cy.get('.deleteButton').click();
+
+    cy.wait("@userDelete").then(({request}) => {
+        // @ts-ignore
+      expect(request.method).to.contains("DELETE")
+    });
+
+  });
 });

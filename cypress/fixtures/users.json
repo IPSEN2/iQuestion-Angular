@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1b45cfb8-5d67-440b-adf1-191d69fb6ccb",
+    "name": "Hulpverlener",
+    "email": "hulpverlener@live.nl",
+    "organization": "Hulpverlener",
+    "role": "CAREGIVER"
+  },
+  {
+    "id": "a3f4d59d-8200-45cb-9b18-5fa55742a51a",
+    "name": "Cypress",
+    "email": "cypress@student.hsleiden.nl",
+    "organization": "Cypress",
+    "role": "SPINE_USER"
+  }
+]

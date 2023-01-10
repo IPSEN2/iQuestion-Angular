@@ -18,6 +18,7 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {RequestTokenComponent} from './reset-password/request-token/request-token.component';
 import {ToastsContainer} from "./shared/toast/toasts-container.component";
+import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
 
 
@@ -51,7 +52,13 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true
-    }],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

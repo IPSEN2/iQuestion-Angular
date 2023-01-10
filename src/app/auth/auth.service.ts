@@ -1,73 +1,83 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { ErrorModel } from '../shared/error.model';
-import { LocalUser } from '../shared/models/localUser.model';
-import { UserService } from '../service/api/user.service';
+import {Injectable} from '@angular/core';
+import {catchError, tap, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {ErrorModel} from '../shared/error.model';
+import {LocalUser} from '../shared/models/localUser.model';
+import {LocalUserService} from "../shared/services/localUser.service";
 
-export interface AuthResponseData {
+export interface IAuthResponseData {
   token: string;
+  user: {
+    email: string,
+    id: string,
+    name: string
+    organization: string
+    role: string
+  }
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthService {
-  user$ = new BehaviorSubject<LocalUser | null>(null);
-
   constructor(
     private http: HttpClient,
     private router: Router,
-    private userService: UserService
+    private localUserService: LocalUserService
   ) {
-    this.user$.subscribe((user) => {
-      // check if user is logged in
-      if (user && !user.user) {
-        this.userService.getMe().subscribe((userDetails) => {
-          user.user = userDetails;
-          this.user$.next(user);
-        });
-      }
-      localStorage.setItem('userData', JSON.stringify(user));
-    });
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string, rememberMe: boolean) {
     return this.http
-      .post<AuthResponseData>('/auth/login', {
+      .post<IAuthResponseData>('/auth/login', {
         email: email,
         password: password,
       })
       .pipe(
         catchError(this.handleError),
         tap((response) => {
-          this.handleAuthentication(response.token);
+          this.handleAuthentication(response, rememberMe);
         })
       );
   }
 
   autoLogin() {
-    const userData: { _token: string } = JSON.parse(
-      localStorage.getItem('userData') || '{}'
-    );
-    if (!userData) {
+    let userData;
+
+    if (localStorage.getItem('userData') !== null) {
+      userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    } else if (sessionStorage.getItem('userData') !== null) {
+      userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+    } else {
       return;
     }
 
-    const loadedUser = new LocalUser(userData._token);
-    if (loadedUser.token) {
-      this.user$.next(loadedUser);
-    }
+    this.localUserService.setLoggedIn = true;
+    this.localUserService.localUser = userData;
   }
 
   logout() {
-    this.user$.next(null);
-    this.router.navigate(['/login']);
     localStorage.removeItem('userData');
+    sessionStorage.removeItem('userData');
+    this.localUserService.localUser = undefined;
+    this.localUserService.setLoggedIn = false;
+    this.router.navigate(['/login']);
   }
 
-  private handleAuthentication(token: string) {
-    const user = new LocalUser(token);
-    this.user$.next(user);
+  private handleAuthentication(response: IAuthResponseData, rememberMe: boolean) {
+    if (!response.token) {
+      return;
+    }
+
+    const localUser = new LocalUser(response.token, response.user);
+
+    if (rememberMe) {
+      localStorage.setItem('userData', JSON.stringify(localUser));
+    } else {
+      sessionStorage.setItem('userData', JSON.stringify(localUser));
+    }
+
+    this.localUserService.setLoggedIn = true;
+    this.localUserService.localUser = localUser;
   }
 
   private handleError(errorRes: HttpErrorResponse) {
@@ -84,5 +94,4 @@ export class AuthService {
     }
     return throwError(() => errorMessage);
   }
-
 }

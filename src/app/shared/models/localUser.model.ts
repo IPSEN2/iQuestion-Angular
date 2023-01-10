@@ -1,10 +1,11 @@
-import { User } from "./user.model";
+import {User} from "./user.model";
 
 export class LocalUser {
-    user!: User;
-    token: string;
+  user?: User;
+  token: string;
 
-    constructor(token: string) {
-        this.token = token;
-    }
+  constructor(token: string, user?: User) {
+    this.token = token;
+    this.user = user;
+  }
 }

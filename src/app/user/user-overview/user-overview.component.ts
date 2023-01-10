@@ -1,52 +1,26 @@
-import {Component, OnInit} from '@angular/core';
-import { User} from "../user.component";
+import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {UserDeleteComponent} from "../user-delete/user-delete.component";
-import {UserEditComponent} from "../user-edit/user-edit.component";
+import {UserService} from "../../service/api/user.service";
+import {User} from "../../shared/models/user.model";
 
 @Component({
   selector: 'app-userOverview',
   templateUrl: './user-overview.component.html',
   styleUrls: ['./user-overview.component.scss']
 })
-export class UserOverviewComponent implements OnInit{
-
+export class UserOverviewComponent{
   users: User[] = [];
 
-  constructor(private http: HttpClient, public modalService: NgbModal) {
-  }
-
-  ngOnInit() {
-    this.getUsers();
-  }
-
-  getUsers(){
-    this.http.get('/user/all')
-      .subscribe((data: Object) => {
-        this.fillUsers(data);
-      });
-  }
-
-  fillUsers(data: any){
-    for(let i = 0; i < data.length; i++){
-      this.users.push({
-        id: data[i].id,
-        email: data[i].email,
-        name: data[i].name,
-        organization: data[i].organization,
-        role: data[i].role
-      });
-    }
+  constructor(private http: HttpClient,
+              public modalService: NgbModal,
+              public userService: UserService) {
+    this.userService.getAll().subscribe((users) => (this.users = users));
   }
 
   showDeleteModal(clickedUser: User){
     const modalRef = this.modalService.open(UserDeleteComponent);
-    modalRef.componentInstance.user = clickedUser;
-  }
-
-  showEditModal(clickedUser: User){
-    const modalRef = this.modalService.open(UserEditComponent);
     modalRef.componentInstance.user = clickedUser;
   }
 

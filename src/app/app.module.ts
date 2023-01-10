@@ -41,7 +41,7 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
     RequestTokenComponent,
     QuestionnaireFillComponent,
     EntryFormQuestionComponent,
-    EntryFormComponent
+    EntryFormComponent,
     UserDeleteComponent,
   ],
   imports: [

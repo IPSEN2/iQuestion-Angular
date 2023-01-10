@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuestionnaireService } from '../service/api/questionnaire.service';
 import { Questionnaire } from '../shared/models/questionnaire.model';
+import { User } from '../shared/models/user.model';
+import { LocalUserService } from '../shared/services/localUser.service';
 
 @Component({
   selector: 'app-questionnaires',
@@ -8,11 +10,12 @@ import { Questionnaire } from '../shared/models/questionnaire.model';
   styleUrls: ['./questionnaires.component.scss'],
 })
 export class QuestionnairesComponent {
-  questionnaires: Questionnaire[] = [];
-
-  constructor(private questionnaireService: QuestionnaireService) {
+  constructor(private questionnaireService: QuestionnaireService, private localUserService: LocalUserService) {
     this.questionnaireService
       .getAll()
       .subscribe((questionnaires) => (this.questionnaires = questionnaires));
   }
+
+  questionnaires: Questionnaire[] = [];
+  user = this.localUserService.localUser
 }

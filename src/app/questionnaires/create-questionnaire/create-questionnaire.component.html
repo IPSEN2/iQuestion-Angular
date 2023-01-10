@@ -1,37 +1,45 @@
 <div class="container">
-  <button class="btn btn-outline-primary" type="button" routerLink="/questionnaires">Terug</button>
-  <h1>Creëer een vragenlijst</h1>
-  <div class="form-group">
-    <label for="questionnaireName">Naam vragenlijst</label>
-    <input type="text" class="form-control" id="questionnaireName" placeholder="Naam vragenlijst">
-  </div>
-  <form>
-    <div class="form-group">
-      <label for="question">Titel</label>
-      <input type="text" class="form-control" id="question" placeholder="Titel">
-    </div>
-    <pre></pre>
+
+  <button class="btn btn-primary mb-3" type="button" routerLink="/questionnaires">Terug</button>
+
+  <h1> Creeer een vragenlijst </h1>
+
+  <form [formGroup]="productForm" (ngSubmit)="createQuestionnaire()">
+
+    <p>
+      <label for="name">Naam vragenlijst</label>
+      <input type="text" id="name" name="name" formControlName="name" class="form-control mt-2" placeholder="Naam vragenlijst">
+    </p>
+
     <div class="form-group">
       <label for="questionnaireDescription">Beschrijving</label>
-      <input type="text" class="form-control" id="questionnaireDescription" placeholder="Beschrijving">
-      </div>
-    <pre></pre>
-    <div class="form-group">
-      <label for="questionnaireQuestions">Vraag</label>
-      <input type="text" class="form-control" id="questionnaireQuestions" placeholder="Vul de vraag in">
-    <div class="pull-right">
-        <button (click)="vraagVerwijderen()" type="button" class="btn btn-danger">Vraag verwijderen</button>
+      <input type="text" class="form-control mt-2" id="questionnaireDescription" placeholder="Beschrijving">
     </div>
-      <div class="container mt-5">
-        <select class="form-control" id="questionnaireType">
-          <option value="1">Open vraag</option>
-          <option value="2">Gesloten vraag</option>
-        </select>
-      </div>
-    </div>
-      <button type="button" class="btn btn-primary">Creëer vragenlijst</button>
-      <button (click)="vraagToevoegen()" type="button" class="btn btn-success">Vraag toevoegen</button>
-      <button type="button" class="btn btn-success">Segment toevoegen</button>
-  </form>
-</div>
 
+    <table class="table table-bordered" formArrayName="quantities">
+      <tr>
+        <th colspan="2">Vragen</th>
+        <th width="150px"><button type="button" (click)="addQuestion()" class="btn btn-success active mt-3 mb-3">Vraag toevoegen</button></th>
+      </tr>
+      <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">
+        <td>
+          <label class="mt-3"> Vraag {{i+1}} </label>
+          <input type="text" class="form-control">
+        </td>
+        <td>
+            <select class="form-control" id="questionnaireType">
+              <option value="1">Open vraag</option>
+              <option value="2">Gesloten vraag</option>
+            </select>
+        <td>
+          <button (click)="deleteQuestion(i)" class="btn btn-danger active">Vraag verwijderen</button>
+        </td>
+      </tr>
+    </table>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+
+  <br/>
+</div>

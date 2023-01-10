@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { FormGroup, FormBuilder, FormArray} from '@angular/forms';
 @Component({
   selector: 'app-create-questionnaire',
   templateUrl: './create-questionnaire.component.html',
@@ -8,15 +8,38 @@ import { Component } from '@angular/core';
 
 export class CreateQuestionnaireComponent {
 
-  constructor() {
+  name = 'Angular';
 
+  productForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.productForm = this.fb.group({
+      quantities: this.fb.array([])
+    });
   }
 
-  vraagToevoegen() {
+  quantities(): FormArray {
+    return this.productForm.get("quantities") as FormArray
+  }
+
+  newQuantity(): FormGroup {
+    return this.fb.group({
+      vraag: '',
+      antwoord: ''
+    })
+  }
+
+  addQuestion() {
+    this.quantities().push(this.newQuantity());
     console.log('Vraag toegevoegd');
   }
 
-  vraagVerwijderen() {
+  deleteQuestion(i:number) {
+    this.quantities().removeAt(i);
     console.log('Vraag verwijderd');
+  }
+
+  createQuestionnaire() {
+    console.log(this.productForm.value);
   }
 }

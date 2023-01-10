@@ -9,7 +9,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { QuestionnairesComponent } from './questionnaires/questionnaires.component';
 import { UsersComponent } from './users/users.component';
 import { CreateQuestionnaireComponent } from './questionnaires/create-questionnaire/create-questionnaire.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import {FormsModule} from "@angular/forms";
     AppRoutingModule,
     NgbDropdownModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

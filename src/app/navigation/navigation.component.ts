@@ -1,6 +1,7 @@
-import { KeyValue } from '@angular/common';
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
+import {LocalUserService} from "../shared/services/localUser.service";
+import {User} from "../shared/models/user.model";
 
 @Component({
   selector: 'app-navigation',
@@ -8,18 +9,14 @@ import {AuthService} from "../auth/auth.service";
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
-  navOpen : boolean = false;
-  user: any;
+  navOpen: boolean = false;
+  user: User | undefined;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private localUserService: LocalUserService) {
   }
 
   ngOnInit() {
-    this.authService.user$
-      .subscribe((user) => {
-        this.user = user?.user;
-      }
-    );
+    this.user = this.localUserService.localUser.user;
   }
 
   onLogout() {

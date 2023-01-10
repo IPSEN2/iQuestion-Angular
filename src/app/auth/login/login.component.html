@@ -19,6 +19,12 @@
                            placeholder="E-mail adres" formControlName="email" name="email">
                     <input class="mb-3 form-control form-control-user" type="password"
                            placeholder="Wachtwoord" formControlName="password" name="password">
+                    <div class="form-check mb-3">
+                      <input class="form-check-input" formControlName="rememberMe" type="checkbox" value="" id="rememberMe">
+                      <label class="form-check-label" for="rememberMe">
+                        Remember me
+                      </label>
+                    </div>
                     <button class="btn btn-primary d-block btn-user w-100 mb-2" type="submit"
                             [disabled]="!loginForm.valid">
                       Login

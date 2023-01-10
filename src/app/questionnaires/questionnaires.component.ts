@@ -17,8 +17,4 @@ export class QuestionnairesComponent implements OnInit {
       .getAll()
       .subscribe((questionnaires) => (this.questionnaires = questionnaires));
   }
-
-  ngOnInit(): void {
-      console.log(this.user.user)
-  }
 }

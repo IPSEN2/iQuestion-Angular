@@ -88,7 +88,6 @@ describe('UserComponent', () => {
       url: '/user/*'
     }).as("userDelete");
 
-    // cy.contains('th', 1).contains('td').contains('button').click();
     cy.get('.userDeleteButton').first().click();
     cy.get('.deleteButton').click();
 

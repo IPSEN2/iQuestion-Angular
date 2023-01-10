@@ -18,9 +18,13 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {RequestTokenComponent} from './reset-password/request-token/request-token.component';
 import {ToastsContainer} from "./shared/toast/toasts-container.component";
+import { QuestionnaireFillComponent } from './questionnaire-fill/questionnaire-fill.component';
+import { EntryFormComponent } from './shared/form/entry/entry-form.component';
+import { EntryFormQuestionComponent } from './shared/form/entry/entry-form-question.component';
+import { EntryFormService } from './service/entry-form.service';
+import { QuestionControlService } from './shared/form/question-controle.service';
 import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
-
 
 @NgModule({
   declarations: [
@@ -35,6 +39,9 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
     ChangePasswordComponent,
     ResetPasswordComponent,
     RequestTokenComponent,
+    QuestionnaireFillComponent,
+    EntryFormQuestionComponent,
+    EntryFormComponent
     UserDeleteComponent,
   ],
   imports: [
@@ -53,6 +60,8 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
       useClass: HttpInterceptorService,
       multi: true
     },
+    EntryFormService,
+    QuestionControlService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

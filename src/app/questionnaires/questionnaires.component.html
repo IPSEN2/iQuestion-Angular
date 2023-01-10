@@ -25,7 +25,8 @@
             <div class="btn-group" role="group">
               <button
                 type="button"
-                class="btn btn-outline-primary tableIcon"
+                [attr.data-questionnaire-name]="questionnaire.name"
+                class="btn btn-outline-primary tableIcon exportCsvButton"
                 (click)="exportToCsv(questionnaire)"
                 title="Exporteer naar CSV"
               >
@@ -45,7 +46,8 @@
               </button>
               <button
                 type="button"
-                class="btn btn-outline-primary tableIcon"
+                [attr.data-questionnaire-name]="questionnaire.name"
+                class="btn btn-outline-primary tableIcon exportJsonButton"
                 (click)="exportToJson(questionnaire)"
                 title="Exporteer naar JSON"
               >

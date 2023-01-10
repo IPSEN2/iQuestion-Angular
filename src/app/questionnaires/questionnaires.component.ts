@@ -27,17 +27,31 @@ export class QuestionnairesComponent {
       .subscribe((questionnaires) => (this.questionnaires = questionnaires));
   }
 
-
   exportToCsv(questionnaire: Questionnaire) {
-    this.entryService.exportToCsv(questionnaire.id).subscribe((blob) => {
-      this.downloadFile(blob, questionnaire.name + '.csv')
-    });
-  }
+    this.entryService.exportToCsv(questionnaire.id).subscribe(
+      (blob) => {
+        this.downloadFile(blob, questionnaire.name + '.csv');
+      },
+      (error) => {
+          this.toastService.show('❌ - Er is iets misgegaan!', {
+            classname: 'bg-danger text-light',
+            delay: 5000,
+          });
+        }
+    )}
 
   exportToJson(questionnaire: Questionnaire) {
-    this.entryService.exportToJson(questionnaire.id).subscribe((blob) => {
-      this.downloadFile(blob, questionnaire.name + '.json')
-    });
+    this.entryService.exportToJson(questionnaire.id).subscribe(
+      (blob) => {
+        this.downloadFile(blob, questionnaire.name + '.json');
+      },
+      (error) => {
+        this.toastService.show('❌ - Er is iets misgegaan!', {
+          classname: 'bg-danger text-light',
+          delay: 5000,
+        });
+      }
+    );
   }
 
   private downloadFile(blob: Blob, filename: string) {
@@ -52,24 +66,34 @@ export class QuestionnairesComponent {
   delete(questionnaire: Questionnaire) {
     const modalRef = this.modalService.open(QuestionnaireDeleteComponent);
     modalRef.componentInstance.questionnaire = questionnaire;
-    modalRef.componentInstance.deleteConfirmed.subscribe((deleteConfirmed: boolean) => {
-      if (deleteConfirmed) {
-        this.toastService.show(
-          '⚙️ - Bezig met verwijderen',
-          {classname: 'bg-info text-light', delay: 3000}
-        );
-        this.questionnaireService.delete(questionnaire.id).subscribe(() => {
-          // remove from overview
-          this.questionnaires = this.questionnaires.filter(
-            (q) => q.id !== questionnaire.id
+    modalRef.componentInstance.deleteConfirmed.subscribe(
+      (deleteConfirmed: boolean) => {
+        if (deleteConfirmed) {
+          this.toastService.show('⚙️ - Bezig met verwijderen', {
+            classname: 'bg-info text-light',
+            delay: 3000,
+          });
+          this.questionnaireService.delete(questionnaire.id).subscribe(
+            (response) => {
+              // remove from overview
+              this.questionnaires = this.questionnaires.filter(
+                (q) => q.id !== questionnaire.id
+              );
+              this.toastService.show('✅ - Successvol verwijderd!', {
+                classname: 'bg-success text-light',
+                delay: 5000,
+              });
+            },
+            (error) => {
+              this.toastService.show(
+                '❌ - Er ging iets mis: ' + error.error.message,
+                { classname: 'bg-danger text-light', delay: 5000 }
+              );
+            }
           );
-          this.toastService.show(
-            '✅ - Successvol verwijderd!',
-            {classname: 'bg-success text-light', delay: 5000}
-          );
-        });
+        }
       }
-    });
+    );
   }
-  user = this.localUserService.localUser
+  user = this.localUserService.localUser;
 }

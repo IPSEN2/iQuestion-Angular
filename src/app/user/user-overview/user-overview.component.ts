@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { User} from "../user.component";
 import {HttpClient} from "@angular/common/http";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {UserDeleteComponent} from "../user-delete/user-delete.component";
 
 @Component({
   selector: 'app-userOverview',
@@ -9,12 +11,13 @@ import {HttpClient} from "@angular/common/http";
 })
 export class UserOverviewComponent implements OnInit{
 
-  ngOnInit() {
-    this.getUsers();
+  users: User[] = [];
+
+  constructor(private http: HttpClient, public modalService: NgbModal) {
   }
 
-  users: User[] = [];
-  constructor(private http: HttpClient) {
+  ngOnInit() {
+    this.getUsers();
   }
 
   getUsers(){
@@ -37,5 +40,10 @@ export class UserOverviewComponent implements OnInit{
 
   }
 
+  showDeleteModal(clickedUser: User){
+    const modalRef = this.modalService.open(UserDeleteComponent);
+    modalRef.componentInstance.user = clickedUser;
+    console.log(clickedUser);
+  }
 
 }

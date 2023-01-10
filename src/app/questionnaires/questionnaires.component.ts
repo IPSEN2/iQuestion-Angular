@@ -30,23 +30,23 @@ export class QuestionnairesComponent {
 
   exportToCsv(questionnaire: Questionnaire) {
     this.entryService.exportToCsv(questionnaire.id).subscribe((blob) => {
-      const a = document.createElement('a');
-      const objectUrl = URL.createObjectURL(blob);
-      a.href = objectUrl;
-      a.download = questionnaire.name + '.csv';
-      a.click();
-      URL.revokeObjectURL(objectUrl);
+      this.downloadFile(blob, questionnaire.name + '.csv')
     });
   }
 
   exportToJson(questionnaire: Questionnaire) {
     this.entryService.exportToJson(questionnaire.id).subscribe((blob) => {
-      const a = document.createElement('a');
-      const objectUrl = URL.createObjectURL(blob);
-      a.href = objectUrl;
-      a.download = questionnaire.name + '.json';
-      a.click();
-      URL.revokeObjectURL(objectUrl);
+      this.downloadFile(blob, questionnaire.name + '.json')
     });
+  }
+
+  private downloadFile(blob: Blob, filename: string) {
+    // A temportary link html-element is used to download the blob
+    const a = document.createElement('a');
+    const objectUrl = URL.createObjectURL(blob);
+    a.href = objectUrl;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(objectUrl);
   }
 }

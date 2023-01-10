@@ -8,13 +8,27 @@
           <th scope="col">Naam</th>
           <th scope="col">Aangemaakt</th>
           <th scope="col">Auteur</th>
-          <th scope="col" *ngIf="this.user.user.role == 'SPINE_USER'">
+          <th
+            scope="col"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
             Exporteer
           </th>
-          <th scope="col" *ngIf="this.user.user.role == 'SPINE_USER'">
+          <th
+            scope="col"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
             Verwijder
           </th>
-          <th scope="col" *ngIf="this.user.user.role == 'CAREGIVER'">Vul in</th>
+          <th scope="col" *ngIf="this.user.user?.role == 'CAREGIVER'">
+            Vul in
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -26,7 +40,13 @@
           <td class="align-middle">{{ questionnaire.name }}</td>
           <td>{{ questionnaire.timestamp | date }}</td>
           <td>{{ questionnaire.author.name }}</td>
-          <td class="text-nowrap" *ngIf="this.user.user.role == 'SPINE_USER'">
+          <td
+            class="text-nowrap"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
             <div class="btn-group" role="group">
               <button type="button" class="btn btn-outline-primary tableIcon">
                 <svg
@@ -60,7 +80,12 @@
               </button>
             </div>
           </td>
-          <td *ngIf="this.user.user.role == 'SPINE_USER'">
+          <td
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
             <div class="btn-group" role="group">
               <button type="button" class="btn btn-outline-primary tableIcon">
                 <svg
@@ -79,24 +104,28 @@
             </div>
           </td>
 
-          <div *ngIf="this.user.user.role == 'CAREGIVER'">
-            <td class="text-nowrap">
-              <div class="btn-group" role="group">
-                <a
-                  type="button"
-                  class="btn btn-outline-primary tableIcon"
-                  routerLink="view"
-                >
-                  Vul vragenlijst in
-                </a>
-              </div>
-            </td>
-          </div>
+          <td class="text-nowrap" *ngIf="this.user.user?.role == 'CAREGIVER'">
+            <div class="btn-group" role="group">
+              <a
+                type="button"
+                class="btn btn-outline-primary tableIcon"
+                routerLink="view"
+              >
+                Vul vragenlijst in
+              </a>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end" *ngIf="this.user.user.role == 'SPINE_USER'">
+  <div
+    class="d-grid gap-2 d-md-flex justify-content-md-end"
+    *ngIf="
+      this.user.user?.role == 'SPINE_USER' ||
+      this.user.user?.role == 'SPINE_ADMIN'
+    "
+  >
     <a type="button" class="btn btn-primary" [routerLink]="['view', '1']"
       >Creëer vragenlijst</a
     >

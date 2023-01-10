@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../shared/toast/toast-service';
 import { QuestionnaireDeleteComponent } from './questionnaire-delete/questionnaire-delete.component';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { QuestionnaireService } from '../service/api/questionnaire.service';
 import { Questionnaire } from '../shared/models/questionnaire.model';
-import { User } from '../shared/models/user.model';
 import { LocalUserService } from '../shared/services/localUser.service';
 
 @Component({

@@ -9,7 +9,7 @@
         <a routerLinkActive="active" routerLink="/questionnaires"
           ><i class="bi bi-list-ol vAlignIcon"></i>&nbsp;&nbsp;Vragenlijsten</a
         >
-        <a routerLinkActive="active" routerLink="/user"
+        <a routerLinkActive="active" routerLink="/user" *ngIf="this.user.user.role == 'SPINE_ADMIN'"
           ><i class="bi bi-people-fill vAlignIcon"></i>&nbsp;&nbsp;Gebruikers</a
         >
       </div>
@@ -39,7 +39,7 @@
           id="dropdownBasic1"
           ngbDropdownToggle
         >
-          {{ this.user?.name }}&nbsp;&nbsp;<i
+          {{ this.user.user.name }}&nbsp;&nbsp;<i
             class="bi bi-person-fill vAlignIcon"
           ></i>
         </button>

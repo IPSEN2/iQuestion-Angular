@@ -59,7 +59,7 @@ import {ErrorInterceptorService} from "./interceptors/error-interceptor.service"
       multi: true
     },
     EntryFormService,
-    QuestionControlService
+    QuestionControlService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

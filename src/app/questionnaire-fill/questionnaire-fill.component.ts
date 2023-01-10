@@ -38,8 +38,6 @@ export class QuestionnaireFillComponent {
   }
 
   onSubmit() {
-    console.log(JSON.stringify(this.formComponent.form.getRawValue()));
-    
     let answers = [];
     // loop over form controls
     for (const control in this.formComponent.form.controls) {

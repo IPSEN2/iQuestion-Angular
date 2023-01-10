@@ -1,21 +1,15 @@
 <div class="container">
-
   <button class="btn btn-primary mb-3" type="button" routerLink="/questionnaires">Terug</button>
-
   <h1> Creeer een vragenlijst </h1>
-
   <form [formGroup]="productForm" (ngSubmit)="createQuestionnaire()">
-
     <p>
       <label for="name">Naam vragenlijst</label>
       <input type="text" id="name" name="name" formControlName="name" class="form-control mt-2" placeholder="Naam vragenlijst">
     </p>
-
     <div class="form-group">
       <label for="questionnaireDescription">Beschrijving</label>
       <input type="text" class="form-control mt-2" id="questionnaireDescription" placeholder="Beschrijving">
     </div>
-
     <table class="table table-bordered" formArrayName="quantities">
       <tr>
         <th colspan="2">Vragen</th>
@@ -36,10 +30,7 @@
         </td>
       </tr>
     </table>
-
-    <button type="submit" class="btn btn-success">Submit</button>
-
+    <button type="submit" class="btn btn-success" routerLink="/questionnaires">Submit</button>
   </form>
-
   <br/>
 </div>

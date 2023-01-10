@@ -96,7 +96,7 @@
       </tbody>
     </table>
   </div>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end" *ngIf="this.user.user.role == 'SPINE_USER'">
     <a type="button" class="btn btn-primary" [routerLink]="['view', '1']"
       >Creëer vragenlijst</a
     >

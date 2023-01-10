@@ -1,10 +1,10 @@
 import {Component, OnDestroy} from '@angular/core';
 import {User} from "../../shared/models/user.model";
 import {ActivatedRoute} from "@angular/router";
-import {UserService} from "../../service/api/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastService} from "../../shared/toast/toast-service";
 import {HttpClient} from "@angular/common/http";
+import {UserService} from "../../service/api/user.service";
 
 
 @Component({

@@ -1,35 +1,38 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { delay, Observable } from 'rxjs';
 import { EntryService } from '../service/api/entry.service';
 import { QuestionnaireService } from '../service/api/questionnaire.service';
 import { EntryFormService } from '../service/entry-form.service';
 import { QuestionBase } from '../shared/form/question-base';
-import { Answer } from '../shared/models/answer.model';
 import { Questionnaire } from '../shared/models/questionnaire.model';
+import { ToastService } from '../shared/toast/toast-service';
 
 @Component({
   selector: 'app-questionnaire-fill',
   templateUrl: './questionnaire-fill.component.html',
   styleUrls: ['./questionnaire-fill.component.scss'],
-  providers: [ EntryFormService ]
+  providers: [EntryFormService],
 })
 export class QuestionnaireFillComponent {
   questions$: Observable<QuestionBase<any>[]> | null = null;
   questionnaire$!: Questionnaire;
   @ViewChild('form') formComponent: any;
+  submitBtnDisabled: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private questionnaireService: QuestionnaireService,
     private entryService: EntryService,
-    service: EntryFormService
+    service: EntryFormService,
+    private toastService: ToastService,
+    private router: Router
   ) {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id == null) {    
+    if (id == null) {
       throw new Error('No id found');
     }
-    
+
     // get questionnaire from api then create questions
     this.questionnaireService.get(id).subscribe((questionnaire) => {
       this.questions$ = service.getQuestions(questionnaire);
@@ -38,6 +41,11 @@ export class QuestionnaireFillComponent {
   }
 
   onSubmit() {
+    this.toastService.show('⚙️ - Verwerken...', {
+      classname: 'bg-info text-light',
+      delay: 3000,
+    });
+
     let answers = [];
     // loop over form controls
     for (const control in this.formComponent.form.controls) {
@@ -46,7 +54,7 @@ export class QuestionnaireFillComponent {
           question: control,
           result: this.formComponent.form.controls[control].value,
           comment: '',
-          id: undefined
+          id: undefined,
         });
       }
     }
@@ -55,11 +63,20 @@ export class QuestionnaireFillComponent {
       caregiver: undefined,
       questionnaire: this.questionnaire$.id,
       answers: answers,
-      timestamp: undefined
-    }
+      timestamp: undefined,
+    };
 
     this.entryService.create(entry).subscribe((entry) => {
-      console.log(entry);
+      this.toastService.show('✅ - Opgeslagen, u wordt doorverwezen...', {
+        classname: 'bg-success text-light',
+        delay: 2000,
+      });
+      setTimeout(() => {
+        this.router.navigate(['/questionnaires']);
+      }, 2000);
     });
+  }
+  private delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

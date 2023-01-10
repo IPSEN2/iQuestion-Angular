@@ -10,7 +10,7 @@ import { User } from '../shared/models/user.model';
 })
 export class QuestionnairesComponent implements OnInit {
   questionnaires: Questionnaire[] = [];
-  user = JSON.parse(sessionStorage.getItem("userData") || "{}")
+  user = JSON.parse(localStorage.getItem("userData") || sessionStorage.getItem("userData") || "{}")
 
   constructor(private questionnaireService: QuestionnaireService) {
     this.questionnaireService

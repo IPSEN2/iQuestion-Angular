@@ -12,6 +12,9 @@
         <a routerLinkActive="active" routerLink="/user" *ngIf="this.user.user.role == 'SPINE_ADMIN'"
           ><i class="bi bi-people-fill vAlignIcon"></i>&nbsp;&nbsp;Gebruikers</a
         >
+        <a routerLinkActive="active" routerLink="/entries" *ngIf="this.user.user.role == 'CAREGIVER'"
+          ><i class="bi bi-envelope-paper vAlignIcon"></i>&nbsp;&nbsp;Inzendingen </a
+        >
       </div>
     </div>
   </div>

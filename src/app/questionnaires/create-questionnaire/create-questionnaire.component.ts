@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray} from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {HttpClient} from "@angular/common/http";
+
 @Component({
   selector: 'app-create-questionnaire',
   templateUrl: './create-questionnaire.component.html',
@@ -8,38 +10,71 @@ import { FormGroup, FormBuilder, FormArray} from '@angular/forms';
 
 export class CreateQuestionnaireComponent {
 
-  name = 'Angular';
+  questionnaireQuestions = new FormArray([]);
+  questionnaireSegments = new FormArray([]);
 
-  productForm: FormGroup;
+  questionnaireForm = new FormGroup({
+    questionnaireName: new FormControl(null),
+    questionnaireDescription: new FormControl(null),
+    questionnaireDate: new FormControl(null),
+    userName: new FormControl(null),
+    questions: this.questionnaireQuestions,
+    segments: this.questionnaireSegments
+  })
 
-  constructor(private fb: FormBuilder) {
-    this.productForm = this.fb.group({
-      quantities: this.fb.array([])
-    });
-  }
 
-  quantities(): FormArray {
-    return this.productForm.get("quantities") as FormArray
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+
   }
 
   newQuantity(): FormGroup {
     return this.fb.group({
       vraag: '',
-      antwoord: ''
     })
   }
 
-  addQuestion() {
-    this.quantities().push(this.newQuantity());
-    console.log('Vraag toegevoegd');
+  get segmentControls(){
+    return (<FormArray>this.questionnaireForm.get('segments')).controls;
   }
 
-  deleteQuestion(i:number) {
-    this.quantities().removeAt(i);
-    console.log('Vraag verwijderd');
+  addSegment() {
+    (<FormArray>this.questionnaireForm.get('segments')).push(new FormGroup({
+        'segments': new FormControl(null),
+      })
+    );
+  }
+
+  deleteSegment(index: number) {
+    (<FormArray>this.questionnaireForm.get('segments')).removeAt(index);
+  }
+
+  get questionControls(){
+    return (<FormArray>this.questionnaireForm.get('questions')).controls;
+  }
+
+  addQuestion() {
+    (<FormArray>this.questionnaireForm.get('questions')).push(new FormGroup({
+        'question': new FormControl(null),
+        'questionType': new FormControl(null)
+      })
+    );
+  }
+
+  deleteQuestion(index: number) {
+    (<FormArray>this.questionnaireForm.get('questions')).removeAt(index);
   }
 
   createQuestionnaire() {
-    console.log(this.productForm.value);
+    this.http.put('/questionnaire', {
+      name: this.questionnaireForm.value["questionnaireName"],
+      userName: this.questionnaireForm.value.userName,
+      description: this.questionnaireForm.value.questionnaireDescription,
+      date: this.questionnaireForm.value.questionnaireDate,
+      // questions: this.questionnaireForm.value.questionnaireQuantities,
+      // type: this.questionnaireForm.value.questionType
+    })
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 }

@@ -43,8 +43,7 @@ describe('UserComponent', () => {
 
     cy.url().should('include', 'questionnaires');
 
-    cy.get('[routerLink="/user"]').click();
-    cy.get('[routerLink="/userCreate"]').click();
+    cy.visit('/userCreate');
 
     cy.url().should("includes", '/questionnaires');
   });
@@ -63,7 +62,8 @@ describe('UserComponent', () => {
 
     cy.url().should('include', 'questionnaires');
 
-    cy.get('[routerLink="/user"]').click();
+    cy.visit('/userCreate');
+    cy.visit('/user');
 
     cy.url().should("includes", '/login');
   });

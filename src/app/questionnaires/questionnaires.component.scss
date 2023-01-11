@@ -1,6 +1,10 @@
 .tableIcon {
-    color: black;
-    margin-right: 4px;
-    text-decoration: none;
-    cursor:pointer
-  }
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2 ease-in-out;
+}
+
+.tableIcon:hover {
+  color: white;
+}

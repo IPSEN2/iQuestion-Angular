@@ -1,55 +1,83 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject, catchError, tap} from "rxjs";
-import {UserModel} from "./user.model";
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {Injectable} from '@angular/core';
+import {catchError, tap} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {LocalUser} from '../shared/models/localUser.model';
+import {LocalUserService} from "../shared/services/localUser.service";
 import {ErrorHandlingService} from "../shared/services/error-handling.service";
 
-export interface AuthResponseData {
+export interface IAuthResponseData {
   token: string;
+  user: {
+    email: string,
+    id: string,
+    name: string
+    organization: string
+    role: string
+  }
 }
 
-@Injectable({providedIn: "root"})
+@Injectable({providedIn: 'root'})
 export class AuthService {
-  user = new BehaviorSubject<UserModel | null>(null);
-
-  constructor(private http: HttpClient, private router: Router, private errorHandlingService: ErrorHandlingService) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private localUserService: LocalUserService,
+    private errorHandlingService: ErrorHandlingService
+  ) {
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string, rememberMe: boolean) {
     return this.http
-      .post<AuthResponseData>('/auth/login',
-        {
-          email: email,
-          password: password
-        }
-      )
-      .pipe(catchError(this.errorHandlingService.handleError), tap(response => {
-        this.handleAuthentication(response.token);
-      }));
+      .post<IAuthResponseData>('/auth/login', {
+        email: email,
+        password: password,
+      })
+      .pipe(
+        catchError(this.errorHandlingService.handleError),
+        tap((response) => {
+          this.handleAuthentication(response, rememberMe);
+        })
+      );
   }
 
   autoLogin() {
-    const userData: { _token: string; } = JSON.parse(localStorage.getItem('userData') || '{}');
-    if (!userData) {
+    let userData;
+
+    if (localStorage.getItem('userData') !== null) {
+      userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    } else if (sessionStorage.getItem('userData') !== null) {
+      userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+    } else {
       return;
     }
 
-    const loadedUser = new UserModel(userData._token);
-    if (loadedUser.token) {
-      this.user.next(loadedUser);
-    }
+    this.localUserService.setLoggedIn = true;
+    this.localUserService.localUser = userData;
   }
 
   logout() {
-    this.user.next(null);
-    this.router.navigate(['/login']);
     localStorage.removeItem('userData');
+    sessionStorage.removeItem('userData');
+    this.localUserService.localUser = undefined;
+    this.localUserService.setLoggedIn = false;
+    this.router.navigate(['/login']);
   }
 
-  private handleAuthentication(token: string) {
-    const user = new UserModel(token);
-    this.user.next(user);
-    localStorage.setItem('userData', JSON.stringify(user));
+  private handleAuthentication(response: IAuthResponseData, rememberMe: boolean) {
+    if (!response.token) {
+      return;
+    }
+
+    const localUser = new LocalUser(response.token, response.user);
+
+    if (rememberMe) {
+      localStorage.setItem('userData', JSON.stringify(localUser));
+    } else {
+      sessionStorage.setItem('userData', JSON.stringify(localUser));
+    }
+
+    this.localUserService.setLoggedIn = true;
+    this.localUserService.localUser = localUser;
   }
 }

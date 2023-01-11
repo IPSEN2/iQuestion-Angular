@@ -9,8 +9,11 @@
         <a routerLinkActive="active" routerLink="/questionnaires"
           ><i class="bi bi-list-ol vAlignIcon"></i>&nbsp;&nbsp;Vragenlijsten</a
         >
-        <a routerLinkActive="active" routerLink="/user"
+        <a routerLinkActive="active" routerLink="/user" *ngIf="this.user.user.role == 'SPINE_ADMIN'"
           ><i class="bi bi-people-fill vAlignIcon"></i>&nbsp;&nbsp;Gebruikers</a
+        >
+        <a routerLinkActive="active" routerLink="/entries" *ngIf="this.user.user.role == 'CAREGIVER'"
+          ><i class="bi bi-envelope-paper vAlignIcon"></i>&nbsp;&nbsp;Inzendingen </a
         >
       </div>
     </div>
@@ -32,11 +35,16 @@
     <div
       class="d-flex flex-row align-items-center navbar-nav ms-auto justify-content-md-end mb-2 mb-lg-0 text-white text-decoration-none"
     >
-      <div ngbDropdown class="d-inline-block">
-        <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
-          {{ user.name }}&nbsp;&nbsp;<i
-          class="bi bi-person-fill vAlignIcon"
-        ></i>
+      <div *ngIf="this.user" ngbDropdown class="d-inline-block">
+        <button
+          type="button"
+          class="btn btn-light"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        >
+          {{ this.user.user.name }}&nbsp;&nbsp;<i
+            class="bi bi-person-fill vAlignIcon"
+          ></i>
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <button ngbDropdownItem>Bewerk profiel</button>

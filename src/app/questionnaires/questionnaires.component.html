@@ -37,10 +37,10 @@
           *ngFor="let questionnaire of questionnaires; index as i"
           class="align-middle"
         >
-          <th>{{ i + 1 }}</th>
+          <th>{{ questionnaire.id.substring(questionnaire.id.length - 5) }}</th>
           <td class="align-middle">{{ questionnaire.name }}</td>
           <td>{{ questionnaire.timestamp | date }}</td>
-          <td>{{ questionnaire.author.name }}</td>
+          <td>{{ questionnaire.author.name || "Onbekende auteur" }}</td>
           <td
             class="text-nowrap"
             *ngIf="

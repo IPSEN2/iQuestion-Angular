@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       error: errorMessage => {
         this.toastService.show(
           '❌ - Foutmelding: ' + (ErrorModel.errorMap.get(errorMessage) || errorMessage),
-          {classname: 'bg-danger text-light', delay: 3000}
+          {classname: 'bg-danger text-light', delay: 5000}
         );
         this.loginForm.get('password')?.reset();
       }

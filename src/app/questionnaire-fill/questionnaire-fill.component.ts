@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { delay, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { EntryService } from '../service/api/entry.service';
 import { QuestionnaireService } from '../service/api/questionnaire.service';
 import { EntryFormService } from '../service/entry-form.service';
@@ -11,7 +11,6 @@ import { ToastService } from '../shared/toast/toast-service';
 @Component({
   selector: 'app-questionnaire-fill',
   templateUrl: './questionnaire-fill.component.html',
-  styleUrls: ['./questionnaire-fill.component.scss'],
   providers: [EntryFormService],
 })
 export class QuestionnaireFillComponent {
@@ -43,7 +42,7 @@ export class QuestionnaireFillComponent {
   onSubmit() {
     this.toastService.show('⚙️ - Verwerken...', {
       classname: 'bg-info text-light',
-      delay: 3000,
+      delay: 1000,
     });
 
     let answers = [];
@@ -67,16 +66,11 @@ export class QuestionnaireFillComponent {
     };
 
     this.entryService.create(entry).subscribe((entry) => {
+      this.router.navigate(['/questionnaires']);
       this.toastService.show('✅ - Opgeslagen, u wordt doorverwezen...', {
         classname: 'bg-success text-light',
         delay: 2000,
       });
-      setTimeout(() => {
-        this.router.navigate(['/questionnaires']);
-      }, 2000);
     });
-  }
-  private delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

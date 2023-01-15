@@ -63,7 +63,9 @@
               this.user.user?.role == 'SPINE_ADMIN'
             "
           >
-            {{ questionnaire.timestamp | date }}
+            {{
+              dateToLocale(questionnaire.timestamp)
+            }}
           </td>
           <td
             *ngIf="
@@ -73,8 +75,10 @@
           >
             {{ questionnaire.entryCount }}
           </td>
-          <td >
-            <div *ngIf="questionnaire.lastEntryTimestamp; else noEntries">{{ questionnaire.lastEntryTimestamp | date }}</div>
+          <td>
+            <div *ngIf="questionnaire.lastEntryTimestamp; else noEntries">
+              {{ dateToLocale(questionnaire.lastEntryTimestamp) }}
+            </div>
             <ng-template #noEntries>N.v.t.</ng-template>
           </td>
           <td>{{ questionnaire.author.name }}</td>

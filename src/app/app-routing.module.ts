@@ -9,6 +9,7 @@ import {UserCreateComponent} from "./user/user-create/user-create.component";
 import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
 import { QuestionnaireFillComponent } from './questionnaire-fill/questionnaire-fill.component';
+import {CreateQuestionnaireComponent} from "./questionnaires/create-questionnaire/create-questionnaire.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'questionnaires', pathMatch: 'full'},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'user', component: UserComponent, canActivate: [AuthGuard], data: {roles: ['SPINE_ADMIN', 'SPINE_USER']}},
   {path: 'userOverview', component: UserOverviewComponent, canActivate: [AuthGuard], data: {roles: ['SPINE_ADMIN', 'SPINE_USER']}},
   {path: 'userCreate', component: UserCreateComponent, canActivate: [AuthGuard], data: {roles: ['SPINE_ADMIN']}},
-  {path: 'userEdit/:id', component: UserEditComponent, canActivate: [AuthGuard], data: {roles: ['SPINE_ADMIN']}}
+  {path: 'userEdit/:id', component: UserEditComponent, canActivate: [AuthGuard], data: {roles: ['SPINE_ADMIN']}},
+  {path: 'questionnaires/create', component: CreateQuestionnaireComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

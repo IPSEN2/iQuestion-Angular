@@ -1,0 +1,10 @@
+{
+  "token": "yeJhbGciOadcIUzJLNiIsInR5cCI6IkpXVCJ9eyJzdkIiOiPxMjM3NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF.0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQsswc5",
+  "user": {
+    "email": "caregiver@student.hsleiden.nl",
+    "id": "dc147a7e-5919-45f8-9b47-21e69d4db351",
+    "name": "Caregiver",
+    "organization": "Caregiver",
+    "role": "SPINE_USER"
+  }
+}

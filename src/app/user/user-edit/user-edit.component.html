@@ -1,0 +1,48 @@
+<app-navigation>
+  <app-toasts></app-toasts>
+  <div *ngIf="user$">
+    <div class="table-responsive">
+      <form [formGroup]="updateUserForm" (ngSubmit)="updateUserData()">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Attribuut</th>
+              <th scope="col">Huidige waardes</th>
+              <th scope="col">Nieuwe waardes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th> Naam </th>
+              <td>{{ user$.name }}</td>
+              <td><input type="email" class="form-control" id="updateUserName" formControlName="updateUserName"></td>
+            </tr>
+            <tr>
+              <th> Rol </th>
+              <td>{{ user$.role }}</td>
+              <td><select id="updateUserRole" class="form-select" aria-label="Default select example" formControlName="updateUserRole">
+                <option value="SPINE_USER">Spine gebruiker</option>
+                <option value="SPINE_ADMIN">Spine administrator</option>
+                <option value="CAREGIVER">Zorgverlener</option>
+              </select></td>
+            </tr>
+            <tr>
+              <th> Organisatie </th>
+              <td>{{ user$.organization }}</td>
+              <td><input type="email" class="form-control" id="updateUserOrganization" formControlName="updateUserOrganization"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex flex-row-reverse">
+          <button type="submit" class="m-2 btn btn-primary updateFinalButton">
+            Update gebruiker
+          </button>
+          <button type="submit" class="m-2 btn btn-outline-primary" routerLink="/userOverview">
+            Annuleer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-navigation>
+

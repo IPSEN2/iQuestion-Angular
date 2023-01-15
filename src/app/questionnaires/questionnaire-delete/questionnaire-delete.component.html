@@ -1,0 +1,19 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h4>Questionnaire verwijderen</h4>
+      <button type="button" aria-label="Close button" aria-describedby="modal-title" class="btn-close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <p>Weet u zeker dat u de questionnaire:
+        <span class="text-info"> {{questionnaire?.name}} </span>
+        wilt verwijderen?
+      </p>
+      <p>Alle gekoppelde informatie van deze questionnaire wordt permanent verwijderd
+        <span class="text-danger"> en kan niet hersteld worden.</span>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-primary" type="button" (click)="activeModal.dismiss()">Nee</button>
+      <button class="btn btn-danger deleteButton"  type="button" (click)="delete()">Ja</button>
+    </div>
+</div>

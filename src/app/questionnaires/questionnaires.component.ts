@@ -22,9 +22,10 @@ export class QuestionnairesComponent {
     private toastService: ToastService,
     private localUserService: LocalUserService
   ) {
-    this.questionnaireService
-      .getAll()
-      .subscribe((questionnaires) => (this.questionnaires = questionnaires));
+    this.questionnaireService.getAll().subscribe((questionnaires) => {
+      this.questionnaires = questionnaires;
+      this.questionnaires.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
+    });
   }
 
   exportToCsv(questionnaire: Questionnaire) {
@@ -33,12 +34,13 @@ export class QuestionnairesComponent {
         this.downloadFile(blob, questionnaire.name + '.csv');
       },
       (error) => {
-          this.toastService.show('❌ - Er is iets misgegaan!', {
-            classname: 'bg-danger text-light',
-            delay: 5000,
-          });
-        }
-    )}
+        this.toastService.show('❌ - Er is iets misgegaan!', {
+          classname: 'bg-danger text-light',
+          delay: 5000,
+        });
+      }
+    );
+  }
 
   exportToJson(questionnaire: Questionnaire) {
     this.entryService.exportToJson(questionnaire.id).subscribe(
@@ -63,6 +65,7 @@ export class QuestionnairesComponent {
     a.click();
     URL.revokeObjectURL(objectUrl);
   }
+
   delete(questionnaire: Questionnaire) {
     const modalRef = this.modalService.open(QuestionnaireDeleteComponent);
     modalRef.componentInstance.questionnaire = questionnaire;

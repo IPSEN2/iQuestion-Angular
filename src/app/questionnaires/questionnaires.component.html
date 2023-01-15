@@ -8,6 +8,24 @@
           <th scope="col">#</th>
           <th scope="col">Naam</th>
           <th scope="col">Aangemaakt</th>
+          <th
+            scope="col"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
+            Inzendingen
+          </th>
+          <th
+            scope="col"
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
+            Laatste inzending
+          </th>
           <th scope="col">Auteur</th>
           <th
             scope="col"
@@ -37,9 +55,28 @@
           *ngFor="let questionnaire of questionnaires; index as i"
           class="align-middle"
         >
-          <th>{{ i + 1 }}</th>
+          <th>{{ questionnaire.id.substr(questionnaire.id.length - 5) }}</th>
           <td class="align-middle">{{ questionnaire.name }}</td>
-          <td>{{ questionnaire.timestamp | date }}</td>
+          <td
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
+            {{ questionnaire.timestamp | date }}
+          </td>
+          <td
+            *ngIf="
+              this.user.user?.role == 'SPINE_USER' ||
+              this.user.user?.role == 'SPINE_ADMIN'
+            "
+          >
+            {{ questionnaire.entryCount }}
+          </td>
+          <td >
+            <div *ngIf="questionnaire.lastEntryTimestamp; else noEntries">{{ questionnaire.lastEntryTimestamp | date }}</div>
+            <ng-template #noEntries>N.v.t.</ng-template>
+          </td>
           <td>{{ questionnaire.author.name }}</td>
           <td
             class="text-nowrap"
@@ -48,7 +85,11 @@
               this.user.user?.role == 'SPINE_ADMIN'
             "
           >
-            <div class="btn-group" role="group">
+            <div
+              class="btn-group"
+              role="group"
+              *ngIf="questionnaire.entryCount > 0; else noEntries"
+            >
               <button
                 type="button"
                 [attr.data-questionnaire-name]="questionnaire.name"
@@ -92,6 +133,7 @@
                 </svg>
               </button>
             </div>
+            <ng-template #noEntries>N.v.t.</ng-template>
           </td>
           <td
             *ngIf="
@@ -145,7 +187,7 @@
     "
   >
     <a type="button" class="btn btn-primary" [routerLink]="['view', '1']"
-      >Creëer vragenlijst</a
+      ><i class="bi bi-clipboard2-plus-fill"></i> Creëer vragenlijst</a
     >
   </div>
 </app-navigation>

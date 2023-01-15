@@ -5,7 +5,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">ID</th>
           <th scope="col">Naam</th>
           <th scope="col">Aangemaakt</th>
           <th
@@ -169,7 +169,7 @@
               <a
                 type="button"
                 class="btn btn-outline-primary tableIcon"
-                routerLink="view"
+                [routerLink]="['../questionnaire/fill', questionnaire.id]"
               >
                 Vul vragenlijst in
               </a>

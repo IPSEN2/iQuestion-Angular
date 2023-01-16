@@ -24,6 +24,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
     "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.28",
     "popper.js": "^1.16.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

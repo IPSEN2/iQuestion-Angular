@@ -8,6 +8,8 @@ import { QuestionBase } from '../shared/form/question-base';
 import { Questionnaire } from '../shared/models/questionnaire.model';
 import { ToastService } from '../shared/toast/toast-service';
 import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'
+
 
 
 @Component({
@@ -80,22 +82,25 @@ export class QuestionnaireFillComponent {
   }
 
   caregiverExportToPDF() {
-    const questions: String[] = []
-    const answers: String[] = []
-    for (const control in this.formComponent.form.controls) {
-      answers.push(this.formComponent.form.controls[control].value)
-    }
-    for (let index = 0; index < answers.length; index++) {
-      questions.push(this.questionnaire$.segments[0].questions[index].label)
-    }
+      const questions: any = []
+      const answers: any = []
+      for (const control in this.formComponent.form.controls) {
+        answers.push(this.formComponent.form.controls[control].value)
+      }
+      for (let index = 0; index < answers.length; index++) {
+        questions.push(this.questionnaire$.segments[0].questions[index].label)
+      }
 
-    let qanda = [questions, answers]
+      let pdfDocument = new jsPDF();
+      pdfDocument.text("iQuestion", 10, 10)
+      autoTable(pdfDocument, {
+        head: [['Vraag', 'Antwoord']],
+        body: [
+          [questions, answers]
+        ],
+      })
 
-    let pdfDocument = new jsPDF();
-    pdfDocument.text("iQuestion", 10, 10, {align: 'center'})
-    pdfDocument.table(1,1, qanda, ["Vraag", "Antwoord"], {fontSize: 10})
-
-    pdfDocument.save()
+      pdfDocument.save()
   }
 
   private downloadFile(blob: Blob, filename: string) {

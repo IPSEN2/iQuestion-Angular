@@ -14,9 +14,8 @@ import {UserComponent} from './user/user.component';
 import {UserCreateComponent} from "./user/user-create/user-create.component";
 import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
-import {ChangePasswordComponent} from './change-password/change-password.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
-import {RequestTokenComponent} from './reset-password/request-token/request-token.component';
+import {ChangePasswordComponent} from './reset-password/change-password/change-password.component';
 import {ToastsContainer} from "./shared/toast/toasts-container.component";
 import { QuestionnaireFillComponent } from './questionnaire-fill/questionnaire-fill.component';
 import { EntryFormComponent } from './shared/form/entry/entry-form.component';
@@ -39,9 +38,8 @@ import { FormsModule } from '@angular/forms';
     UserCreateComponent,
     UserOverviewComponent,
     UserEditComponent,
-    ChangePasswordComponent,
     ResetPasswordComponent,
-    RequestTokenComponent,
+    ChangePasswordComponent,
     QuestionnaireFillComponent,
     EntryFormQuestionComponent,
     EntryFormComponent,

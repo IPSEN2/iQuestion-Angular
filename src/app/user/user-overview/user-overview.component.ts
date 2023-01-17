@@ -12,6 +12,7 @@ import {User} from "../../shared/models/user.model";
 })
 export class UserOverviewComponent{
   users: User[] = [];
+  public searchString: any;
 
   constructor(private http: HttpClient,
               public modalService: NgbModal,

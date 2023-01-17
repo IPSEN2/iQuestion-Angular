@@ -6,6 +6,7 @@ import { QuestionnaireService } from '../service/api/questionnaire.service';
 import { Questionnaire } from '../shared/models/questionnaire.model';
 import { LocalUserService } from '../shared/services/localUser.service';
 import { QuestionnaireDeleteComponent } from './questionnaire-delete/questionnaire-delete.component';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-questionnaires',
@@ -14,6 +15,8 @@ import { QuestionnaireDeleteComponent } from './questionnaire-delete/questionnai
 })
 export class QuestionnairesComponent {
   questionnaires: Questionnaire[] = [];
+  public searchString: any;
+
 
   constructor(
     private questionnaireService: QuestionnaireService,
@@ -99,4 +102,10 @@ export class QuestionnairesComponent {
     );
   }
   user = this.localUserService.localUser;
+
+  dateToLocale(date: number) {
+    const jsDate = new Date(date)
+    // Sorry dat ik niet de "options" naar een constant kan doen want om een of andere reden gaat angular dan huilie huilie doen
+    return jsDate.toLocaleString('nl-NL', {year: "numeric", month: "long", day: "2-digit"});
+  }
 }

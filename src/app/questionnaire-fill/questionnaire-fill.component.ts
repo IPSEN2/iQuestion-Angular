@@ -7,6 +7,9 @@ import { EntryFormService } from '../service/entry-form.service';
 import { QuestionBase } from '../shared/form/question-base';
 import { Questionnaire } from '../shared/models/questionnaire.model';
 import { ToastService } from '../shared/toast/toast-service';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-questionnaire-fill',
@@ -45,6 +48,7 @@ export class QuestionnaireFillComponent {
       delay: 1000,
     });
 
+    let questions = [];
     let answers = [];
     // loop over form controls
     for (const control in this.formComponent.form.controls) {
@@ -66,11 +70,37 @@ export class QuestionnaireFillComponent {
     };
 
     this.entryService.create(entry).subscribe((entry) => {
+      this.caregiverExportToPDF();
       this.router.navigate(['/questionnaires']);
       this.toastService.show('✅ - Opgeslagen, u wordt doorverwezen...', {
         classname: 'bg-success text-light',
         delay: 2000,
       });
     });
+  }
+
+  caregiverExportToPDF() {
+    const questions: any = [];
+    const answers: any = [];
+    const body = [];
+    let pdfDocument = new jsPDF();
+
+    for (const control in this.formComponent.form.controls) {
+      answers.push(this.formComponent.form.controls[control].value);
+    }
+    for (let index = 0; index < answers.length; index++) {
+      questions.push(this.questionnaire$.segments[0].questions[index].label);
+    }
+    for (let index = 0; index < answers.length; index++) {
+      body.push([questions[index], answers[index]]);
+    }
+
+    pdfDocument.text('iQuestion', 10, 10);
+    autoTable(pdfDocument, {
+      head: [['Vraag', 'Antwoord']],
+      body: [...body],
+    });
+
+    pdfDocument.save(this.questionnaire$.name + '.pdf');
   }
 }

@@ -1,5 +1,7 @@
-<app-navigation>
+<app-navigation></app-navigation>
+<div class="container container-top-margin">
   <app-toasts></app-toasts>
+  <h1>Gebruiker aanmaken</h1>
   <form [formGroup]="registerForm" (ngSubmit)="createUser()">
     <div class="mb-3">
       <label for="userEmailInput" class="form-label">E-mail addres</label>
@@ -17,7 +19,7 @@
     <select id="userRoleInput" class="form-select" aria-label="Default select example" formControlName="registerRole">
       <option value="SPINE_USER">Spine gebruiker</option>
       <option value="SPINE_ADMIN">Spine administrator</option>
-      <option value="CAREGIVER">Zorgverlener</option>
+      <option value="CAREGIVER">Hulpverlener</option>
     </select>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <button type="button" class="m-2 btn btn-primary" routerLink="/userOverview">Terug</button>
@@ -26,5 +28,4 @@
       </button>
     </div>
   </form>
-</app-navigation>
-
+</div>

@@ -1,5 +1,24 @@
-<app-navigation>
-  <h1>Gebruikers</h1>
+<app-navigation></app-navigation>
+<div class="container container-top-margin">
+  <div class="searchbar__top">
+    <h1>Gebruikers</h1>
+    <form id="searchForm" class="searchForm">
+      <div class="form-group">
+        <div class="input-group" id="filterAll">
+          <div class="input-group-addon searchbar__icon">
+            <i class="bi bi-search"></i>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            name="searchString"
+            placeholder="Zoek gebruiker..."
+            [(ngModel)]="searchString"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
   <div class="table-responsive">
     <table class="table table-striped">
       <thead>
@@ -13,14 +32,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users; index as i">
+        <tr *ngFor="let user of users | filterAll : searchString; index as i">
           <th>{{ user.id.substring(user.id.length - 5) }}</th>
           <td>{{ user.name }}</td>
           <td>{{ userRoleToText(user.role) }}</td>
           <td>{{ user.organization }}</td>
           <td>{{ user.email }}</td>
           <td class="text-nowrap">
-            <button type="button" class="btn btn-outline-primary tableIcon userEditButton" [routerLink]="['../userEdit', user.id]">
+            <button
+              type="button"
+              class="btn btn-outline-primary tableIcon userEditButton"
+              [routerLink]="['../userEdit', user.id]"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -39,7 +62,11 @@
               </svg>
             </button>
             —&nbsp;
-            <button type="button" class="btn btn-outline-primary tableIcon userDeleteButton" (click)="showDeleteModal(user)">
+            <button
+              type="button"
+              class="btn btn-outline-primary tableIcon userDeleteButton"
+              (click)="showDeleteModal(user)"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -63,4 +90,4 @@
       Creëer gebruiker
     </button>
   </div>
-</app-navigation>
+</div>

@@ -1,60 +1,44 @@
-<header class="p-3 text-bg-primary">
-  <div class="row">
-    <div class="col-1 d-flex justify-content-center">
-      <div
-        [ngClass]="{ open: !navOpen, closed: navOpen }"
-        id="sidebar"
-        class="sidenav"
-      >
-        <a routerLinkActive="active" routerLink="/questionnaires"
-          ><i class="bi bi-list-ol vAlignIcon"></i>&nbsp;&nbsp;Vragenlijsten</a
-        >
-        <a routerLinkActive="active" routerLink="/user" *ngIf="this.user.user.role == 'SPINE_ADMIN'"
-          ><i class="bi bi-people-fill vAlignIcon"></i>&nbsp;&nbsp;Gebruikers</a
-        >
-        <a routerLinkActive="active" routerLink="/entries" *ngIf="this.user.user.role == 'CAREGIVER'"
-          ><i class="bi bi-envelope-paper vAlignIcon"></i>&nbsp;&nbsp;Inzendingen </a
-        >
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
-  >
-    <button
-      (click)="navOpen = !navOpen"
-      id="hamburgerButton"
-      class="navbar-toggler hamburger-button bi bi-list"
-      type="button"
-      data-toggle="collapse"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-      style="z-index: 2"
-    ></button>
-    <div
-      class="d-flex flex-row align-items-center navbar-nav ms-auto justify-content-md-end mb-2 mb-lg-0 text-white text-decoration-none"
+<nav class="navigation__nav">
+  <div class="navigation__nav__list">
+    <a
+      routerLinkActive="active"
+      routerLink="/questionnaires"
+      class="navigation__nav__list__item navigation__nav__list__item__link"
+      [ngClass]="{ activeRoute: getRoute() == 'questionnaires' }"
+      ><i class="bi bi-list-ol vAlignIcon"></i>&nbsp;&nbsp;Vragenlijsten</a
     >
-      <div *ngIf="this.user" ngbDropdown class="d-inline-block">
-        <button
-          type="button"
-          class="btn btn-light"
-          id="dropdownBasic1"
-          ngbDropdownToggle
-        >
-          Welkom, {{ this.user.user.name }}&nbsp;&nbsp;<i
-            class="bi bi-person-fill vAlignIcon"
-          ></i>
-        </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem>Bewerk profiel</button>
-          <button (click)="onLogout()" ngbDropdownItem>Uitloggen</button>
-        </div>
+    <a
+      routerLinkActive="active"
+      routerLink="/user"
+      *ngIf="this.user.user.role == 'SPINE_ADMIN'"
+      class="navigation__nav__list__item navigation__nav__list__item__link"
+      [ngClass]="{ activeRoute: getRoute() == 'user' }"
+      ><i class="bi bi-people-fill vAlignIcon"></i>&nbsp;&nbsp;Gebruikers</a
+    >
+    <a
+      routerLinkActive="active"
+      routerLink="/entries"
+      *ngIf="this.user.user.role == 'CAREGIVER'"
+      class="navigation__nav__list__item navigation__nav__list__item__link"
+      [ngClass]="{ activeRoute: getRoute() == 'entries' }"
+      ><i class="bi bi-envelope-paper vAlignIcon"></i>&nbsp;&nbsp;Inzendingen
+    </a>
+
+    <div *ngIf="this.user" ngbDropdown class="navigation__userProfile">
+      <button
+        type="button"
+        class="btn btn-light"
+        id="dropdownBasic1"
+        ngbDropdownToggle
+      >
+        {{ this.user.user.name }}&nbsp;&nbsp;<i
+          class="bi bi-person-fill vAlignIcon"
+        ></i>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem>Bewerk profiel</button>
+        <button (click)="onLogout()" ngbDropdownItem>Uitloggen</button>
       </div>
     </div>
   </div>
-  <div class="container"></div>
-</header>
-<main>
-  <ng-content></ng-content>
-</main>
+</nav>

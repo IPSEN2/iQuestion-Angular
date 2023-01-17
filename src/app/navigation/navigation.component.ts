@@ -24,7 +24,6 @@ export class NavigationComponent implements OnInit {
     // Example: /users => Users
     // If path is empty, return questionnaires
     let path = this.activatedRoute.snapshot.routeConfig?.path;
-    console.log(path, this.activatedRoute.snapshot.routeConfig?.path);
     if (path === '') {
       return 'questionnaires';
     }

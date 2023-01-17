@@ -24,5 +24,14 @@ export class EntryService {
       responseType: 'blob'
     })
   }
+
+  get(entryId: string) {
+    return this.http.get('/entry/' + entryId);
+  }
+
+  getAll() {
+    return this.http.get('/entry/all');
+  }
+
   
 }

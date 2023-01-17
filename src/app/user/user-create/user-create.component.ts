@@ -37,7 +37,6 @@ export class UserCreateComponent implements OnDestroy {
           this.registerForm.reset();
         },
         error: (error) => {
-          console.log(error)
           this.toastService.show(
             '❌ - Foutmelding: ' + (ErrorModel.errorMap.get(error.error.message) || error.error.message),
             {classname: 'bg-danger text-light', delay: 5000}

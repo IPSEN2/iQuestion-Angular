@@ -2,6 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastService} from "../../shared/toast/toast-service";
+import { ErrorModel } from 'src/app/shared/error.model';
 
 
 @Component({
@@ -33,6 +34,14 @@ export class UserCreateComponent implements OnDestroy {
       .subscribe({
         next: () => {
           this.toastService.show('Gebruiker succesvol aangemaakt', {classname: 'bg-success text-light', delay: 3000});
+          this.registerForm.reset();
+        },
+        error: (error) => {
+          console.log(error)
+          this.toastService.show(
+            '❌ - Foutmelding: ' + (ErrorModel.errorMap.get(error.error.message) || error.error.message),
+            {classname: 'bg-danger text-light', delay: 5000}
+          );
         }
       });
   }

@@ -25,6 +25,9 @@ import { EntryFormService } from './service/entry-form.service';
 import { QuestionControlService } from './shared/form/question-controle.service';
 import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
+import { FilterPipe } from './pipe/filter.pipe';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
     EntryFormQuestionComponent,
     EntryFormComponent,
     UserDeleteComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,8 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    ToastsContainer
+    ToastsContainer,
+    FormsModule,
   ],
   providers: [
     {

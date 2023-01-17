@@ -9,10 +9,7 @@ import { Questionnaire } from 'src/app/shared/models/questionnaire.model';
   providedIn: 'root'
 })
 export class QuestionnaireService {
-  httpClient: HttpClient;
-
   constructor(private http: HttpClient) {
-    this.httpClient = http;
   }
 
   getAll(): Observable<Questionnaire[]> {

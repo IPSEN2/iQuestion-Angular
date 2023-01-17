@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { EntryDto } from 'src/app/shared/models/entry-dto';
 import { Entry } from 'src/app/shared/models/entry.model';
 
 @Injectable({
@@ -24,5 +26,12 @@ export class EntryService {
       responseType: 'blob'
     })
   }
-  
+
+  get(entryId: string): Observable<EntryDto> {
+    return this.http.get<EntryDto>('/entry/' + entryId);
+  }
+
+  getAll(): Observable<EntryDto[]> {
+    return this.http.get<EntryDto[]>('/entry/all');
+  }  
 }

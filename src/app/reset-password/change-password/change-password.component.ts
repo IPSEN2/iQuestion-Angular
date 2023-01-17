@@ -23,7 +23,6 @@ export class ChangePasswordComponent implements OnInit {
   passwordToken = this.route.snapshot.paramMap.get('token');
 
   ngOnInit() {
-    console.log(this.passwordToken)
     this.initForm(this.passwordToken ? this.passwordToken : 'TEST');
   }
 
@@ -43,8 +42,7 @@ export class ChangePasswordComponent implements OnInit {
     );
 
     const url = '/auth/change-password';
-
-    this.http.post(url, { token: token, newPassword: newPassword }).subscribe(
+    this.http.post(url, { token: this.passwordToken, newPassword: newPassword }).subscribe(
       (response) => {
         this.toastService.show(
           '✅ - Je wachtwoord is succesvol gewijzigd, je wordt doorgestuurd naar de login pagina',

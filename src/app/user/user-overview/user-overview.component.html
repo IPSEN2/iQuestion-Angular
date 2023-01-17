@@ -42,7 +42,7 @@
             <button
               type="button"
               class="btn btn-outline-primary tableIcon userEditButton"
-              [routerLink]="['../userEdit', user.id]"
+              [routerLink]="['../edit', user.id]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +86,7 @@
     </table>
   </div>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-primary" routerLink="/userCreate">
+    <button type="button" class="btn btn-primary" routerLink="../create">
       Creëer gebruiker
     </button>
   </div>

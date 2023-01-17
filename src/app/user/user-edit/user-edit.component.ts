@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {User} from "../../shared/models/user.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastService} from "../../shared/toast/toast-service";
 import {HttpClient} from "@angular/common/http";
@@ -25,7 +25,8 @@ export class UserEditComponent implements OnDestroy{
     private route: ActivatedRoute,
     private userService: UserService,
     private toastService: ToastService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     const id = this.route.snapshot.paramMap.get('id');
     if (id == null) {
@@ -47,8 +48,16 @@ export class UserEditComponent implements OnDestroy{
       .subscribe({
         next: () => {
           this.toastService.show('Gebruiker succesvol aangepast', {classname: 'bg-success text-light', delay: 3000});
+          this.router.navigate(['/user']);
         }
       });
+  }
+
+  userRoleToText(userRole: string) {
+    if (userRole == "SPINE_ADMIN") return "Spine Administrator"
+    if (userRole == "SPINE_USER") return "Spine Gebruiker"
+    if (userRole == "CAREGIVER") return "Hulpverlener"
+    return "Onbekende Rol"
   }
 
   ngOnDestroy(): void {

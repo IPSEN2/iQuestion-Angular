@@ -1,5 +1,6 @@
-<app-navigation>
-  <app-toasts></app-toasts>
+<app-navigation> </app-navigation>
+<app-toasts></app-toasts>
+<div class="container container-top-margin">
   <h1>Vragenlijsten</h1>
   <div class="table-responsive">
     <table class="table table-striped">
@@ -63,7 +64,9 @@
               this.user.user?.role == 'SPINE_ADMIN'
             "
           >
-            {{ questionnaire.timestamp | date }}
+            {{
+              dateToLocale(questionnaire.timestamp)
+            }}
           </td>
           <td
             *ngIf="
@@ -73,8 +76,10 @@
           >
             {{ questionnaire.entryCount }}
           </td>
-          <td >
-            <div *ngIf="questionnaire.lastEntryTimestamp; else noEntries">{{ questionnaire.lastEntryTimestamp | date }}</div>
+          <td>
+            <div *ngIf="questionnaire.lastEntryTimestamp; else noEntries">
+              {{ dateToLocale(questionnaire.lastEntryTimestamp) }}
+            </div>
             <ng-template #noEntries>N.v.t.</ng-template>
           </td>
           <td>{{ questionnaire.author.name }}</td>
@@ -190,4 +195,4 @@
       ><i class="bi bi-clipboard2-plus-fill"></i> Creëer vragenlijst</a
     >
   </div>
-</app-navigation>
+</div>

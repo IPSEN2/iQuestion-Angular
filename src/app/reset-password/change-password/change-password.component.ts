@@ -29,7 +29,7 @@ export class ChangePasswordComponent implements OnInit {
 
   private initForm(passwordToken: string): void {
     this.changePasswordForm = new FormGroup({
-      resetToken: new FormControl(passwordToken, [Validators.required], ),
+      resetToken: new FormControl({value: passwordToken, disabled: true}, [Validators.required], ),
       newPassword: new FormControl(null, [Validators.required]),
     });
   }

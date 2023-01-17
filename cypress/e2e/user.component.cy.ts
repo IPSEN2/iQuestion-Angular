@@ -14,9 +14,9 @@ describe('UserComponent', () => {
     cy.url().should('include', 'questionnaires');
 
     cy.get('[routerLink="/user"]').click();
-    cy.get('[routerLink="/userCreate"]').click();
+    cy.get('[routerLink="../create"]').click();
 
-    cy.url().should("includes", '/userCreate');
+    cy.url().should("includes", '/user/create');
 
     cy.get('[formControlName="registerEmail"]').type('cypress@student.hsleiden.nl');
     cy.get('[formControlName="registerName"]').type('Cypress');
@@ -30,7 +30,7 @@ describe('UserComponent', () => {
     cy.get('app-toasts').should('contain', 'Gebruiker succesvol aangemaakt');
   });
 
-  it("Should redirect to '/questionnaires' when spine_user tries to go to an admin route '/userCreate", () => {
+  it("Should redirect to '/questionnaires/overview' when spine_user tries to go to an admin route '/userCreate", () => {
     cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginSpineUserSuccess.json'});
     cy.intercept("GET", 'http://localhost:8080/questionnaire/all', {fixture: 'questionnaires.json'});
     cy.intercept("GET", 'http://localhost:8080/user/all', {fixture: 'users.json'});
@@ -43,9 +43,9 @@ describe('UserComponent', () => {
 
     cy.url().should('include', 'questionnaires');
 
-    cy.visit('/userCreate');
+    cy.visit('/user/create');
 
-    cy.url().should("includes", '/questionnaires');
+    cy.url().should("includes", '/questionnaires/overview');
   });
 
 
@@ -62,7 +62,7 @@ describe('UserComponent', () => {
 
     cy.url().should('include', 'questionnaires');
 
-    cy.visit('/userCreate');
+    cy.visit('/user/create');
     cy.visit('/user');
 
     cy.url().should("includes", '/login');

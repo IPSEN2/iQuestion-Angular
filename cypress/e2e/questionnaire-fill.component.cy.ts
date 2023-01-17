@@ -9,7 +9,7 @@ describe('QuestionnaireFillComponent', () => {
         cy.url().should('include', 'questionnaires');
 
         // go to questionnaire fill page
-        cy.visit('/questionnaire/fill/4f83415c-4489-4f4a-be74-4b1110ee5803');
+        cy.visit('/questionnaires/fill/4f83415c-4489-4f4a-be74-4b1110ee5803');
         cy.url().should('include', 'questionnaire');
 
         // create intercept so API request can be checked

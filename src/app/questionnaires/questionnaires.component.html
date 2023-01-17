@@ -1,7 +1,26 @@
 <app-navigation> </app-navigation>
 <app-toasts></app-toasts>
 <div class="container container-top-margin">
-  <h1>Vragenlijsten</h1>
+  <div class="searchbar__top">
+    <h1>Vragenlijsten</h1>
+    <form id="searchForm" class="searchForm">
+      <div class="form-group">
+        <div class="input-group" id="filterAll">
+          <div class="input-group-addon searchbar__icon">
+            <i class="bi bi-search"></i>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            name="searchString"
+            placeholder="Zoek vragenlijst op naam of ID..."
+            [(ngModel)]="searchString"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
   <div class="table-responsive">
     <table class="table table-striped">
       <thead>
@@ -53,7 +72,10 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let questionnaire of questionnaires; index as i"
+          *ngFor="
+            let questionnaire of questionnaires | filterAll : searchString;
+            index as i
+          "
           class="align-middle"
         >
           <th>{{ questionnaire.id.substr(questionnaire.id.length - 5) }}</th>

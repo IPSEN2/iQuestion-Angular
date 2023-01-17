@@ -15,6 +15,8 @@ import { JsonPipe } from '@angular/common';
 })
 export class QuestionnairesComponent {
   questionnaires: Questionnaire[] = [];
+  public searchString: any;
+
 
   constructor(
     private questionnaireService: QuestionnaireService,

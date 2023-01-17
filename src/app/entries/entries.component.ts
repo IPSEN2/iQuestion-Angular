@@ -10,6 +10,7 @@ import { Entry } from '../shared/models/entry.model';
 })
 export class EntriesComponent {
   entries: EntryDto[] = [];
+  searchString: any;
 
   constructor(
     private entryService: EntryService,

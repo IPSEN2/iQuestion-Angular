@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { EntryDto } from 'src/app/shared/models/entry-dto';
 import { Entry } from 'src/app/shared/models/entry.model';
 
 @Injectable({
@@ -25,13 +27,11 @@ export class EntryService {
     })
   }
 
-  get(entryId: string) {
-    return this.http.get('/entry/' + entryId);
+  get(entryId: string): Observable<EntryDto> {
+    return this.http.get<EntryDto>('/entry/' + entryId);
   }
 
-  getAll() {
-    return this.http.get('/entry/all');
-  }
-
-  
+  getAll(): Observable<EntryDto[]> {
+    return this.http.get<EntryDto[]>('/entry/all');
+  }  
 }

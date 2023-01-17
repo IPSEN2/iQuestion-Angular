@@ -25,6 +25,7 @@ import { EntryFormService } from './service/entry-form.service';
 import { QuestionControlService } from './shared/form/question-controle.service';
 import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
+import { EntriesComponent } from './entries/entries.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
     EntryFormQuestionComponent,
     EntryFormComponent,
     UserDeleteComponent,
+    EntriesComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,29 @@
+<app-navigation>
+    <app-toasts></app-toasts>
+    <h1>Vragenlijsten</h1>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Vragenlijst</th>
+            <th scope="col">Aangemaakt</th>
+            <th scope="col">Inzien</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let entry of entries">
+                <th scope="row">{{ entry.id.substr(entry.id.length - 5) }}</th>
+                <td>{{ entry.questionnaireName }}</td>
+                <td>{{ entry.timestamp | date: 'dd-MM-yyyy' }}</td>
+                <td>
+                <a [routerLink]="['view', entry.id]">
+                    <i class="bi bi-eye-fill"></i>
+                </a>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </app-navigation>
+  

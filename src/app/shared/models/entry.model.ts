@@ -16,7 +16,4 @@ export class Entry {
         this.timestamp = timestamp;
     }
 
-    public static fromForm(form: FormGroup) {
-        
-    }
 }

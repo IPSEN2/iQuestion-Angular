@@ -32,6 +32,12 @@
         <th width="150px"><button type="button" (click)="addQuestion()" class="btn btn-success active mt-3 mb-3">Vraag toevoegen</button></th>
       </tr>
 
+      <div class="form-group mb-3" *ngFor="let questionCtrl of questionControls; let i=index" [formGroupName]="i">
+        <label for="questionnaireName">Vraag {{i+1}}</label>
+        <input type="text" class="form-control" formControlName="question" placeholder="Mooie vraag invuller">
+      </div>
+
+
 <!--      <tr *ngFor="let questionCtrl of questionControls; let i=index" [formGroupName]="i" layout-align="center center">-->
 <!--        <td>-->
 <!--          <label class="mt-3"> Vraag {{i+1}} </label>-->

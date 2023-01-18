@@ -30,10 +30,7 @@ export class CreateQuestionnaireComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private toastService: ToastService,
-  )
-  {
-
-  }
+  ) {}
 
 get segmentControls(){
     return (<FormArray>this.questionnaireForm.get('segments')).controls;
@@ -49,10 +46,20 @@ get segmentControls(){
         'questionType': new FormControl(null)
       })
     );
+    if (this.questionnaireSegmentsArray.value.length == 1) {
+      this.toastService.show('U heeft een segment toegevoegd', {classname: 'bg-success text-light', delay: 3000});
+    }
   }
 
   deleteSegment(index: number) {
     (<FormArray>this.questionnaireForm.get('segments')).removeAt(index);
+
+    if (this.questionnaireSegmentsArray.value.length == 0) {
+      this.toastService.show('U heeft alle segmenten verwijderd', {classname: 'bg-danger  text-light', delay: 3000});
+    }
+    if (this.questionnaireSegmentsArray.value.length == 0) {
+      this.questionnaireQuestionsArray.clear();
+    }
   }
 
   get questionControls(){

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
 import {ToastService} from "../../shared/toast/toast-service";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -18,10 +18,10 @@ export class CreateQuestionnaireComponent {
 
 
   questionnaireForm = new FormGroup({
-    questionnaireName: new FormControl(null),
-    questionnaireDescription: new FormControl(null),
-    questionnaireDate: new FormControl(null),
-    userName: new FormControl(null),
+    questionnaireName: new FormControl(null, Validators.required),
+    questionnaireDescription: new FormControl(null, Validators.required),
+    questionnaireDate: new FormControl(null, Validators.required),
+    userName: new FormControl(null, Validators.required),
     segments: this.questionnaireSegmentsArray,
     questions: this.questionnaireQuestionsArray,
   })

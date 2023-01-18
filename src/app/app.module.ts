@@ -28,6 +28,7 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
 import { EntriesComponent } from './entries/entries.component';
 import { FilterPipe } from './pipe/filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { FormsModule } from '@angular/forms';
     UserDeleteComponent,
     EntriesComponent,
     FilterPipe,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

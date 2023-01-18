@@ -16,9 +16,7 @@
 }
 
 .navigation__nav__list__item {
-  list-style: none;
-  margin: 0 1rem;
-  padding: 0 .25rem;
+  padding: 0 .5rem;
   font-size: 1.2rem;
   font-weight: 500;
   color: #fff;
@@ -33,4 +31,11 @@
 
 .activeRoute {
   color: #e76352;
+}
+
+@media screen and (max-width: 567px) {
+  .navigation__nav__list__item {
+    padding: .25rem 0 !important;
+    margin: 0 .75rem !important;
+  }
 }

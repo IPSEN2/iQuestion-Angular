@@ -24,34 +24,29 @@
 
     <div style="margin-top:5px; margin-bottom:5px;" >
     <button class="btn btn-success mb-3" type="button" (click)= addNewSegment()>Segment toevoegen</button>
-    <table [ngStyle]="{'border': '1px solid grey'}" class="table table-striped" formArrayName="questions">
+    <table [ngStyle]="{'border': '1px solid grey'}" class="table table-striped" formArrayName="segments">
 
       <tr *ngFor="let segmentCtrl of segmentControls; let j=index" [formGroupName]="j">
-        <th colspan="2">Segment {{j+1}}:</th>
+        <th colspan="2">Segment {{j+1}}:
+          <input type="text" class="form-control" formControlName="segments" placeholder="Naam segment">
+        </th>
         <th width="200px"><button type="button" (click)="deleteSegment(j)" class="btn btn-danger active mt-3 mb-3">Verwijder segment</button></th>
         <th width="150px"><button type="button" (click)="addQuestion()" class="btn btn-success active mt-3 mb-3">Vraag toevoegen</button></th>
       </tr>
 
-      <div class="form-group mb-3" *ngFor="let questionCtrl of questionControls; let i=index" [formGroupName]="i">
-        <label for="questionnaireName">Vraag {{i+1}}</label>
+      <tr Ngclass="form-group mb-3" *ngFor="let questionCtrl of questionControls; let i=index" [formGroupName]="i">
+        <th class="mt-3" for="questionnaireName">Vraag {{i+1}}</th>
         <input type="text" class="form-control" formControlName="question" placeholder="Mooie vraag invuller">
-      </div>
-
-
-<!--      <tr *ngFor="let questionCtrl of questionControls; let i=index" [formGroupName]="i" layout-align="center center">-->
-<!--        <td>-->
-<!--          <label class="mt-3"> Vraag {{i+1}} </label>-->
-<!--          <input type="text" class="form-control" formControlName="question" placeholder="Mooie vragen">-->
-<!--        </td>-->
-<!--        <td>-->
-<!--          <select id="userRoleInput" class="form-select" aria-label="Default select example" formControlName="questionnaireType">-->
-<!--            <option value="Open">Open</option>-->
-<!--            <option value="Gesloten">Gesloten</option>-->
-<!--          </select>-->
-<!--        <td>-->
-<!--          <button (click)="deleteQuestion(i)" class="btn btn-danger active">Vraag verwijderen</button>-->
-<!--        </td>-->
-<!--      </tr>-->
+        <div>
+          <select id="userRoleInput" class="form-select" aria-label="Default select example" formControlName="questionnaireType">
+            <option value="Open">Open</option>
+            <option value="Gesloten">Gesloten</option>
+          </select>
+        </div>
+        <th>
+          <button type="button" (click)="deleteQuestion(i)" class="btn btn-danger active mt-3 mb-3">Verwijder vraag</button>
+        </th>
+      </tr>
 
     </table>
     </div>
@@ -60,5 +55,7 @@
   </form>
   <br/>
 </div>
+
+  <pre>{{questionnaireSegmentsArray.value | json}}</pre>
 </app-navigation>
 

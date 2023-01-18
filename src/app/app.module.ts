@@ -7,7 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavigationComponent} from './navigation/navigation.component';
 import {QuestionnairesComponent} from './questionnaires/questionnaires.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpInterceptorService} from "./interceptors/http-interceptor.service";
 import {LoginComponent} from './auth/login/login.component';
 import {UserComponent} from './user/user.component';
@@ -46,16 +46,17 @@ import {CreateQuestionnaireComponent} from "./questionnaires/create-questionnair
     UserDeleteComponent,
     CreateQuestionnaireComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbDropdownModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgbModule,
-    ToastsContainer
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbDropdownModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgbModule,
+        ToastsContainer,
+        FormsModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

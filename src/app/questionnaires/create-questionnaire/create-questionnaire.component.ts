@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
+import {ToastService} from "../../shared/toast/toast-service";
+import {ReactiveFormsModule} from "@angular/forms";
+
 
 @Component({
   selector: 'app-create-questionnaire',
@@ -10,36 +13,40 @@ import {HttpClient} from "@angular/common/http";
 
 export class CreateQuestionnaireComponent {
 
-  questionnaireQuestions = new FormArray([]);
-  questionnaireSegments = new FormArray([]);
+  questionnaireQuestionsArray = new FormArray([]);
+  questionnaireSegmentsArray = new FormArray([]);
+
 
   questionnaireForm = new FormGroup({
     questionnaireName: new FormControl(null),
     questionnaireDescription: new FormControl(null),
     questionnaireDate: new FormControl(null),
     userName: new FormControl(null),
-    questions: this.questionnaireQuestions,
-    segments: this.questionnaireSegments
+    segments: this.questionnaireSegmentsArray,
+    questions: this.questionnaireQuestionsArray,
   })
 
-
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private toastService: ToastService,
+  )
+  {
 
   }
 
-  newQuantity(): FormGroup {
-    return this.fb.group({
-      vraag: '',
-    })
-  }
-
-  get segmentControls(){
+get segmentControls(){
     return (<FormArray>this.questionnaireForm.get('segments')).controls;
   }
 
-  addSegment() {
+  addNewSegment() {
     (<FormArray>this.questionnaireForm.get('segments')).push(new FormGroup({
         'segments': new FormControl(null),
+      })
+    );
+    (<FormArray>this.questionnaireForm.get('questions')).push(new FormGroup({
+        'question': new FormControl(null),
+        'questionType': new FormControl(null)
       })
     );
   }
@@ -66,15 +73,17 @@ export class CreateQuestionnaireComponent {
 
   createQuestionnaire() {
     this.http.put('/questionnaire', {
-      name: this.questionnaireForm.value["questionnaireName"],
-      userName: this.questionnaireForm.value.userName,
+      name: this.questionnaireForm.value.questionnaireName,
       description: this.questionnaireForm.value.questionnaireDescription,
+      userName: this.questionnaireForm.value.userName,
       date: this.questionnaireForm.value.questionnaireDate,
-      // questions: this.questionnaireForm.value.questionnaireQuantities,
-      // type: this.questionnaireForm.value.questionType
+      questionnaireSegments: this.questionnaireForm.value.segments,
+      questionnaireQuestions: this.questionnaireForm.value.questions
     })
-      .subscribe((data) => {
-        console.log(data);
+      .subscribe({
+        next: () => {
+        }
       });
   }
 }
+

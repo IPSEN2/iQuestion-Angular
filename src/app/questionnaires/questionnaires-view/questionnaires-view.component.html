@@ -198,7 +198,7 @@
               <a
                 type="button"
                 class="btn btn-outline-primary tableIcon"
-                [routerLink]="['../fill', questionnaire.id]"
+                [routerLink]="['fill', questionnaire.id]"
               >
                 Vul vragenlijst in
               </a>
@@ -215,7 +215,7 @@
       this.user.user?.role == 'SPINE_ADMIN'
     "
   >
-    <a type="button" class="btn btn-primary" [routerLink]="['../create']"
+    <a type="button" class="btn btn-primary" routerLink="new"
       ><i class="bi bi-clipboard2-plus-fill"></i> Creëer vragenlijst</a
     >
   </div>

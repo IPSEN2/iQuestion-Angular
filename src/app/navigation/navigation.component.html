@@ -9,7 +9,7 @@
     >
     <a
       routerLinkActive="active"
-      routerLink="/user"
+      routerLink="/users"
       *ngIf="this.user.user.role == 'SPINE_ADMIN'"
       class="navigation__nav__list__item navigation__nav__list__item__link"
       [ngClass]="{ activeRoute: getRoute() == 'user' }"

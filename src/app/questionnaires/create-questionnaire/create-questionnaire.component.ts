@@ -72,6 +72,8 @@ get segmentControls(){
   }
 
   createQuestionnaire() {
+    this.toastService.show('We zijn om een vragenlijst aan te maken!', {classname: 'bg-info text-light', delay: 3000});
+
     this.http.put('/questionnaire', {
       name: this.questionnaireForm.value.questionnaireName,
       description: this.questionnaireForm.value.questionnaireDescription,
@@ -82,6 +84,7 @@ get segmentControls(){
     })
       .subscribe({
         next: () => {
+          this.toastService.show('Vragenlijst is aangemaakt', {classname: 'bg-info text-light', delay: 3000});
         }
       });
   }

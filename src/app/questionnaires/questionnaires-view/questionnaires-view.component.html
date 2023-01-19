@@ -199,8 +199,11 @@
                 type="button"
                 class="btn btn-outline-primary tableIcon"
                 [routerLink]="['fill', questionnaire.id]"
+                placement="top" 
+                ngbTooltip="Vragenlijst invullen"
+                container="body"
               >
-                Vul vragenlijst in
+              <i class="bi bi-pen"></i>
               </a>
             </div>
           </td>

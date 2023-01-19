@@ -2,35 +2,22 @@
   background: #20285a;
 }
 
-.navigation__nav__list {
-  display: flex !important;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 1rem;
+.navbar-toggler {
+  background-color: revert;
 }
 
-.navigation__userProfile {
-  flex-grow: 1; 
-  text-align: end;
+.navbar-toggler:hover {
+  color: #000;
+  background-color: #d3d4d5;
+  border-color: #c6c7c8;
 }
 
-.navigation__nav__list__item {
-  list-style: none;
-  margin: 0 1rem;
-  padding: 0 .25rem;
+.nav-link {
   font-size: 1.2rem;
   font-weight: 500;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
+  color: white;
 }
 
-.navigation__nav__list__item__link {
-  text-decoration: none;
-  color: #fff;
-}
-
-.activeRoute {
+.active > a {
   color: #e76352;
 }

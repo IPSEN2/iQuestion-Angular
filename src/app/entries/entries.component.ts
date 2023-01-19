@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { EntryService } from '../service/api/entry.service';
-import { EntryDto } from '../shared/models/entry-dto';
-import { Entry } from '../shared/models/entry.model';
+import {Component} from '@angular/core';
+import {EntryService} from '../service/api/entry.service';
+import {EntryDto} from '../shared/models/entry-dto';
 
 @Component({
   selector: 'app-entries',

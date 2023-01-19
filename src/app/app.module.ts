@@ -30,6 +30,7 @@ import { FormsModule } from '@angular/forms';
 import { QuestionnairesViewComponent } from './questionnaires/questionnaires-view/questionnaires-view.component';
 import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-create/questionnaires-create.component';
 import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
+import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component
     LoginComponent,
     NavigationComponent,
     QuestionnairesComponent,
+    QuestionnaireDeleteComponent,
     UserComponent,
     UserCreateComponent,
     UserOverviewComponent,

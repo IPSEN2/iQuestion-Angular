@@ -28,7 +28,7 @@
             </tr>
             <tr>
               <th>Rol</th>
-              <td>{{ userRoleToText(user$.role) }}</td>
+              <td>{{ transformText.userRoleToText(user$.role) }}</td>
               <td>
                 <select
                   id="updateUserRole"
@@ -52,6 +52,21 @@
                   id="updateUserOrganization"
                   formControlName="updateUserOrganization"
                 />
+              </td>
+            </tr>
+            <tr>
+              <th>Gebruiks status</th>
+              <td>{{ transformText.userStatusToText(user$.enabled!) }}</td>
+              <td>
+                <select
+                  id="updateUserStatus"
+                  class="form-select"
+                  aria-label="Default select example"
+                  formControlName="updateUserRole"
+                >
+                  <option value="Enabled">Actief</option>
+                  <option value="Disabled">Inactief</option>
+                </select>
               </td>
             </tr>
           </tbody>

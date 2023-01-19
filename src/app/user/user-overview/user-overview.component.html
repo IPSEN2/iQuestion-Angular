@@ -28,6 +28,7 @@
           <th scope="col">Rol</th>
           <th scope="col">Organisatie</th>
           <th scope="col">E-mail</th>
+          <th scope="col">Status</th>
           <th scope="col">Acties</th>
         </tr>
       </thead>
@@ -35,9 +36,10 @@
         <tr *ngFor="let user of users | filterAll : searchString; index as i">
           <th>{{ user.id.substring(user.id.length - 5) }}</th>
           <td>{{ user.name }}</td>
-          <td>{{ userRoleToText(user.role) }}</td>
+          <td>{{ transformText.userRoleToText(user.role) }}</td>
           <td>{{ user.organization }}</td>
           <td>{{ user.email }}</td>
+          <td>{{ transformText.userStatusToText(user.enabled) }}</td>
           <td class="text-nowrap">
             <button
               type="button"

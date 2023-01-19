@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastService} from "../../shared/toast/toast-service";
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "../../service/api/user.service";
+import {TransformText} from "../../utility/transform.text";
 
 
 @Component({
@@ -26,7 +27,8 @@ export class UserEditComponent implements OnDestroy{
     private userService: UserService,
     private toastService: ToastService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    public transformText: TransformText
   ) {
     const id = this.route.snapshot.paramMap.get('id');
     if (id == null) {
@@ -35,6 +37,7 @@ export class UserEditComponent implements OnDestroy{
 
     this.userService.get(id).subscribe((user) => {
       this.user$ = user;
+      console.log(this.user$)
     });
   }
 

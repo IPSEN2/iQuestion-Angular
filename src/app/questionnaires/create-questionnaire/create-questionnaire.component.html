@@ -23,8 +23,12 @@
     </div>
 
     <div style="margin-top:5px; margin-bottom:5px;" >
-    <button class="btn btn-success mb-3" type="button" (click)= addNewSegment()>Segment toevoegen</button>
-    <table [ngStyle]="{'border': '1px solid grey'}" class="table table-striped" formArrayName="segments">
+      <div class="d-grid gap-3 d-md-flex justify-content-md-begin">
+        <button class="btn btn-success mb-3" type="button" (click)= addNewSegment()>Segment toevoegen</button>
+        <button class="btn btn-outline-danger mb-3 right-button" type="button" (click)= clearForm()>Vragenlijst formulier legen</button>
+      </div>
+
+      <table [ngStyle]="{'border': '1px solid grey'}" class="table table-striped" formArrayName="segments">
 
       <tr *ngFor="let segmentCtrl of segmentControls; let j=index" [formGroupName]="j">
         <th colspan="2">Segment {{j+1}}:

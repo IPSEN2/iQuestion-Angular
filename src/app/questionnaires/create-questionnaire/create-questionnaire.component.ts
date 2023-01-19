@@ -38,6 +38,7 @@ export class CreateQuestionnaireComponent {
       'questions': new FormArray([])
     });
     (<FormArray>this.questionnaireForm.get('segments')).push(newSegment);
+    this.toastService.show('Segment is toegevoegd', {classname: 'bg-success text-light', delay: 3000});
   }
 
   addQuestion() {
@@ -70,6 +71,15 @@ export class CreateQuestionnaireComponent {
 
   get questionControls(){
     return (<FormArray>this.questionnaireForm.get('questions')).controls;
+  }
+
+  clearForm() {
+
+    this.questionnaireForm.reset();
+    this.questionnaireQuestionsArray.clear();
+    this.questionnaireSegmentsArray.clear();
+
+    this.toastService.show('Het formulier is leeggemaakt', {classname: 'bg-info text-light', delay: 3000});
   }
 
   get segmentControls(){

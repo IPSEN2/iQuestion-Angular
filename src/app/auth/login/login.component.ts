@@ -30,11 +30,25 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // Make the wave at the bottom of the page with id "wave" move from left to right continuously
+  ngAfterViewInit() {
+    const wave = document.getElementById('wave');
+    if (wave) {
+      let x = 0;
+      setInterval(() => {
+        x -= 1;
+        wave.style.backgroundPosition = x + 'px 0';
+      }, 10);
+    }
+  }
+
+
   onLogin() {
     this.toastService.show(
       '⚙️ - Bezig het inloggen...',
       {classname: 'bg-info text-light', delay: 3000}
     );
+
     const email = this.loginForm.value['email'];
     const password = this.loginForm.value['password'];
     const rememberMe: boolean = this.loginForm.value['rememberMe'];

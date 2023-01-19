@@ -124,8 +124,7 @@ describe('UserComponent', () => {
     cy.get(".updateFinalButton").click();
 
     cy.wait("@userEdit").then(({request}) => {
-          expect(request.body).to.have.property('role', 'SPINE_USER');
-        });
-
+      expect(request.body).to.have.property('role', 'SPINE_USER');
+    });
   });
 });

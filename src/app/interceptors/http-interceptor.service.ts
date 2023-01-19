@@ -3,6 +3,7 @@ import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from 
 import {Observable} from "rxjs";
 import {AuthService} from "../auth/auth.service";
 import {LocalUserService} from "../shared/services/localUser.service";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
@@ -11,7 +12,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const urlReq = req.clone({
-      url: 'http://localhost:8080' + req.url
+      url: environment.apiBaseUrl + req.url
     });
 
     if (!this.localUserService.isLoggedIn) {

@@ -8,6 +8,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: 1rem;
+  width: 100%;
 }
 
 .navigation__userProfile {
@@ -33,9 +34,19 @@
   color: #e76352;
 }
 
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 575px) {
   .navigation__nav__list__item {
     padding: .25rem 0 !important;
     margin: 0 .75rem !important;
+  }
+
+  .navigation__nav__list {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .navigation__hamburger_list {
+    flex-direction: row;
   }
 }

@@ -1,5 +1,5 @@
 <nav class="navigation__nav navbar navbar-expand-sm">
-  <div class="navigation__nav__list container-fluid">
+  <div class="navigation__nav__list navigation__nav__list">
     <button
       (click)="collapsed = !collapsed"
       class="navbar-toggler"
@@ -21,7 +21,7 @@
       (window:resize)="collapsed = true"
       id="navbarLinks"
     >
-      <ul class="navbar-nav">
+      <ul class="navbar-nav navigation__hamburger_list">
         <li class="nav-item navigation__nav__list__item">
           <a
             routerLinkActive="active"

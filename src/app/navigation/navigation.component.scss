@@ -2,51 +2,22 @@
   background: #20285a;
 }
 
-.navigation__nav__list {
-  display: flex !important;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 1rem;
-  width: 100%;
+.navbar-toggler {
+  background-color: revert;
 }
 
-.navigation__userProfile {
-  flex-grow: 1; 
-  text-align: end;
+.navbar-toggler:hover {
+  color: #000;
+  background-color: #d3d4d5;
+  border-color: #c6c7c8;
 }
 
-.navigation__nav__list__item {
-  padding: 0 .5rem;
+.nav-link {
   font-size: 1.2rem;
   font-weight: 500;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
+  color: white;
 }
 
-.navigation__nav__list__item__link {
-  text-decoration: none;
-  color: #fff;
-}
-
-.activeRoute {
+.active > a {
   color: #e76352;
-}
-
-@media screen and (max-width: 575px) {
-  .navigation__nav__list__item {
-    padding: .25rem 0 !important;
-    margin: 0 .75rem !important;
-  }
-
-  .navigation__nav__list {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .navigation__hamburger_list {
-    flex-direction: row;
-  }
 }

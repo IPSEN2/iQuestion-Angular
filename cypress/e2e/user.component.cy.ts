@@ -13,10 +13,10 @@ describe('UserComponent', () => {
 
     cy.url().should('include', 'questionnaires');
 
-    cy.get('[routerLink="/user"]').click();
-    cy.get('[routerLink="../create"]').click();
+    cy.get('[routerLink="/users"]').click();
+    cy.get('[routerLink="new"]').click();
 
-    cy.url().should("includes", '/user/create');
+    cy.url().should("includes", '/users/new');
 
     cy.get('[formControlName="registerEmail"]').type('cypress@student.hsleiden.nl');
     cy.get('[formControlName="registerName"]').type('Cypress');
@@ -30,7 +30,7 @@ describe('UserComponent', () => {
     cy.get('app-toasts').should('contain', 'Gebruiker succesvol aangemaakt');
   });
 
-  it("Should redirect to '/questionnaires/overview' when spine_user tries to go to an admin route '/userCreate", () => {
+  it("Should redirect to '/questionnaires' when spine_user tries to go to an admin route '/users/new", () => {
     cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginSpineUserSuccess.json'});
     cy.intercept("GET", 'http://localhost:8080/questionnaire/all', {fixture: 'questionnaires.json'});
     cy.intercept("GET", 'http://localhost:8080/user/all', {fixture: 'users.json'});
@@ -43,9 +43,9 @@ describe('UserComponent', () => {
 
     cy.url().should('include', 'questionnaires');
 
-    cy.visit('/user/create');
+    cy.visit('/users/new');
 
-    cy.url().should("includes", '/questionnaires/overview');
+    cy.url().should("includes", '/questionnaires');
   });
 
 
@@ -62,8 +62,8 @@ describe('UserComponent', () => {
 
     cy.url().should('include', 'questionnaires');
 
-    cy.visit('/user/create');
-    cy.visit('/user');
+    cy.visit('/users/new');
+    cy.visit('/users');
 
     cy.url().should("includes", '/login');
   });
@@ -81,7 +81,7 @@ describe('UserComponent', () => {
     cy.get('button').click();
 
     cy.url().should('include', 'questionnaires');
-    cy.get('[routerLink="/user"]').click();
+    cy.get('[routerLink="/users"]').click();
 
     cy.intercept({
       method: "DELETE",
@@ -110,7 +110,7 @@ describe('UserComponent', () => {
     cy.get('button').click();
 
     cy.url().should('include', 'questionnaires');
-    cy.get('[routerLink="/user"]').click();
+    cy.get('[routerLink="/users"]').click();
 
     cy.intercept("GET", 'http://localhost:8080/user/1b45cfb8-5d67-440b-adf1-191d69fb6ccb', {fixture: 'editUserBefore.json'});
     cy.get('.userEditButton').first().click();

@@ -8,7 +8,7 @@ import { Questionnaire } from '../shared/models/questionnaire.model';
 @Injectable()
 export class EntryFormService {
 
-  
+
   getQuestions(questionnaire: Questionnaire) {
     let questions: QuestionBase<string>[] = [];
 
@@ -16,7 +16,7 @@ export class EntryFormService {
       // foreach question
       segment.questions.forEach((question) => {
         // create question
-        var q = new TextboxQuestion({
+        const q = new TextboxQuestion({
           key: question.id,
           label: question.label,
           value: "",

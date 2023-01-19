@@ -43,22 +43,24 @@ export class ChangePasswordComponent implements OnInit {
 
     const url = '/auth/change-password';
     this.http.post(url, { token: this.passwordToken, newPassword: newPassword }).subscribe(
-      (response) => {
-        this.toastService.show(
-          '✅ - Je wachtwoord is succesvol gewijzigd, je wordt doorgestuurd naar de login pagina',
-          { classname: 'bg-success text-light', delay: 3000 }
-        );
-        setTimeout(() => {
-          window.location.href = '/login';
-        }, 2500);
-      },
-      (error) => {
-        let errorMessage = error.error.message;
-        this.toastService.show(
-          '❌ - Foutmelding ' +
+      {
+        next: () => {
+          this.toastService.show(
+            '✅ - Je wachtwoord is succesvol gewijzigd, je wordt doorgestuurd naar de login pagina',
+            { classname: 'bg-success text-light', delay: 3000 }
+          );
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 2500);
+        },
+        error: error => {
+          let errorMessage = error.error.message;
+          this.toastService.show(
+            '❌ - Foutmelding ' +
             (ErrorModel.errorMap.get(errorMessage) || errorMessage),
-          { classname: 'bg-danger text-light', delay: 5000 }
-        );
+            { classname: 'bg-danger text-light', delay: 5000 }
+          );
+        }
       }
     );
   }

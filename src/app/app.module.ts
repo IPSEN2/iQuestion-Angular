@@ -17,7 +17,7 @@ import {UserEditComponent} from "./user/user-edit/user-edit.component";
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {ChangePasswordComponent} from './reset-password/change-password/change-password.component';
 import {ToastsContainer} from "./shared/toast/toasts-container.component";
-import { QuestionnaireFillComponent } from './questionnaire-fill/questionnaire-fill.component';
+import { QuestionnaireFillComponent } from './questionnaires/questionnaire-fill/questionnaire-fill.component';
 import { EntryFormComponent } from './shared/form/entry/entry-form.component';
 import { EntryFormQuestionComponent } from './shared/form/entry/entry-form-question.component';
 import { EntryFormService } from './service/entry-form.service';
@@ -27,6 +27,11 @@ import { UserDeleteComponent } from './user/user-delete/user-delete.component';
 import { EntriesComponent } from './entries/entries.component';
 import { FilterPipe } from './pipe/filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { QuestionnairesViewComponent } from './questionnaires/questionnaires-view/questionnaires-view.component';
+import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-create/questionnaires-create.component';
+import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
+import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
+
 
 @NgModule({
   declarations: [
@@ -34,6 +39,7 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     NavigationComponent,
     QuestionnairesComponent,
+    QuestionnaireDeleteComponent,
     UserComponent,
     UserCreateComponent,
     UserOverviewComponent,
@@ -46,6 +52,9 @@ import { FormsModule } from '@angular/forms';
     UserDeleteComponent,
     EntriesComponent,
     FilterPipe,
+    QuestionnairesViewComponent,
+    QuestionnairesCreateComponent,
+    IdComponent,
   ],
   imports: [
     BrowserModule,

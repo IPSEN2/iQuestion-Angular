@@ -23,7 +23,13 @@ export class ChangePasswordComponent implements OnInit {
   passwordToken = this.route.snapshot.paramMap.get('token');
 
   ngOnInit() {
-    this.initForm(this.passwordToken ? this.passwordToken : 'TEST');
+    this.initForm(this.passwordToken ? this.passwordToken : '');
+    if (this.passwordToken == null || this.passwordToken == '' || this.passwordToken == undefined) {
+      this.toastService.show(
+        '❌ - Foutmelding: Geen geldige token gevonden, probeer de link uit de email opnieuw in te voeren of neem contact op met de beheerder.',
+        { classname: 'bg-danger text-light', delay: 10000 }
+      );
+    }
   }
 
   private initForm(passwordToken: string): void {

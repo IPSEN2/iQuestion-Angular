@@ -19,7 +19,8 @@ const routes: Routes = [
   {path: '', redirectTo: 'questionnaires', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {
-    path: 'change-password', component: ResetPasswordComponent, children: [
+    path: 'change-password', children: [
+      {path: '', component: ResetPasswordComponent},
       {path: ':token', component: ChangePasswordComponent}
     ]
   },

@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastService } from '../../shared/toast/toast-service';
-import { EntryService } from '../../service/api/entry.service';
-import { QuestionnaireService } from '../../service/api/questionnaire.service';
-import { Questionnaire } from '../../shared/models/questionnaire.model';
-import { LocalUserService } from '../../shared/services/localUser.service';
-import { QuestionnaireDeleteComponent } from '../questionnaire-delete/questionnaire-delete.component';
-import { JsonPipe } from '@angular/common';
+import {Component} from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../../shared/toast/toast-service';
+import {EntryService} from '../../service/api/entry.service';
+import {QuestionnaireService} from '../../service/api/questionnaire.service';
+import {Questionnaire} from '../../shared/models/questionnaire.model';
+import {LocalUserService} from '../../shared/services/localUser.service';
+import {QuestionnaireDeleteComponent} from '../questionnaire-delete/questionnaire-delete.component';
 
 @Component({
   selector: 'app-questionnaires-view',
@@ -33,28 +32,31 @@ export class QuestionnairesViewComponent {
 
   exportToCsv(questionnaire: Questionnaire) {
     this.entryService.exportToCsv(questionnaire.id).subscribe(
-      (blob) => {
-        this.downloadFile(blob, questionnaire.name + '.csv');
-      },
-      (error) => {
-        this.toastService.show('❌ - Er is iets misgegaan!', {
-          classname: 'bg-danger text-light',
-          delay: 5000,
-        });
+      {
+        next: (blob) => {
+          this.downloadFile(blob, questionnaire.name + '.csv');
+        },
+        error: () => {
+          this.toastService.show('❌ - Er is iets misgegaan!', {
+            classname: 'bg-danger text-light',
+            delay: 5000,
+          });
+        }
       }
     );
   }
 
   exportToJson(questionnaire: Questionnaire) {
-    this.entryService.exportToJson(questionnaire.id).subscribe(
-      (blob) => {
-        this.downloadFile(blob, questionnaire.name + '.json');
-      },
-      (error) => {
-        this.toastService.show('❌ - Er is iets misgegaan!', {
-          classname: 'bg-danger text-light',
-          delay: 5000,
-        });
+    this.entryService.exportToJson(questionnaire.id).subscribe({
+        next: (blob) => {
+          this.downloadFile(blob, questionnaire.name + '.json');
+        },
+        error: () => {
+          this.toastService.show('❌ - Er is iets misgegaan!', {
+            classname: 'bg-danger text-light',
+            delay: 5000,
+          });
+        }
       }
     );
   }
@@ -79,28 +81,30 @@ export class QuestionnairesViewComponent {
             classname: 'bg-info text-light',
             delay: 3000,
           });
-          this.questionnaireService.delete(questionnaire.id).subscribe(
-            (response) => {
-              // remove from overview
-              this.questionnaires = this.questionnaires.filter(
-                (q) => q.id !== questionnaire.id
-              );
-              this.toastService.show('✅ - Successvol verwijderd!', {
-                classname: 'bg-success text-light',
-                delay: 5000,
-              });
-            },
-            (error) => {
-              this.toastService.show(
-                '❌ - Er ging iets mis: ' + error.error.message,
-                { classname: 'bg-danger text-light', delay: 5000 }
-              );
+          this.questionnaireService.delete(questionnaire.id).subscribe({
+              next: () => {
+                this.questionnaires = this.questionnaires.filter(
+                  (q) => q.id !== questionnaire.id
+                );
+                this.toastService.show('✅ - Successvol verwijderd!', {
+                    classname: 'bg-success text-light',
+                    delay: 5000
+                  }
+                );
+              },
+              error: (error) => {
+                this.toastService.show(
+                  '❌ - Er ging iets mis: ' + error.error.message,
+                  {classname: 'bg-danger text-light', delay: 5000}
+                );
+              }
             }
           );
         }
       }
     );
   }
+
   user = this.localUserService.localUser;
 
   dateToLocale(date: number) {

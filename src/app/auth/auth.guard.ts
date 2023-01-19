@@ -10,7 +10,10 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.localUserService.isLoggedIn) {
-      if (route.data["roles"] && route.data["roles"].indexOf(this.localUserService.localUser.user?.role) === -1) {
+      const localUserRole: string | undefined = this.localUserService.localUser.user?.role;
+
+      if ((route.data["roles"] && route.data["roles"].indexOf(localUserRole) === -1)
+        || (route.firstChild?.data["roles"] && route.firstChild?.data["roles"].indexOf(localUserRole) === -1)) {
         return this.router.createUrlTree(['/']);
       }
 

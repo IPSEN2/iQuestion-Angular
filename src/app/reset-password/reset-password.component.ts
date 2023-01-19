@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastService } from '../shared/toast/toast-service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ToastService} from '../shared/toast/toast-service';
 import {HttpClient} from '@angular/common/http';
-import { ErrorModel } from 'src/app/shared/error.model';
+import {ErrorModel} from 'src/app/shared/error.model';
 
 
 @Component({
@@ -16,8 +16,9 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private toastService: ToastService,
-  ) { }
-  
+  ) {
+  }
+
   ngOnInit() {
     this.initForm();
   }
@@ -37,21 +38,21 @@ export class ResetPasswordComponent implements OnInit {
     );
 
     this.http.post(url, {email: email})
-    .subscribe(
-      next => {
-        this.toastService.show(
-          '✅ - We hebben een e-mail gestuurd met je verficatie token!',
-          {classname: 'bg-success text-light', delay: 5000}
-        );
-        
-      },
-      error => {
-        let errorMessage = error.error.message;
-        this.toastService.show(
-          '❌ - Foutmelding ' + (ErrorModel.errorMap.get(errorMessage) || errorMessage),
-          {classname: 'bg-danger text-light', delay: 5000}
-        );
-      }
-    );
+      .subscribe({
+          next: () => {
+            this.toastService.show(
+              '✅ - We hebben een e-mail gestuurd met je verficatie token!',
+              {classname: 'bg-success text-light', delay: 5000}
+            );
+          },
+          error: (error) => {
+            let errorMessage = error.error.message;
+            this.toastService.show(
+              '❌ - Foutmelding ' + (ErrorModel.errorMap.get(errorMessage) || errorMessage),
+              {classname: 'bg-danger text-light', delay: 5000}
+            );
+          }
+        }
+      );
   }
 }

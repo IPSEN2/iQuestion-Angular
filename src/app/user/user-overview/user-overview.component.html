@@ -43,6 +43,9 @@
               type="button"
               class="btn btn-outline-primary tableIcon userEditButton"
               [routerLink]="['edit', user.id]"
+              placement="top" 
+              ngbTooltip="Gebruiker bewerken"
+              container="body"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -66,6 +69,9 @@
               type="button"
               class="btn btn-outline-primary tableIcon userDeleteButton"
               (click)="showDeleteModal(user)"
+              placement="top" 
+              ngbTooltip="Verwijder gebruiker"
+              container="body"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

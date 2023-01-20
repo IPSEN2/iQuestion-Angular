@@ -30,7 +30,7 @@ describe('UserComponent', () => {
     cy.get('app-toasts').should('contain', 'Gebruiker succesvol aangemaakt');
   });
 
-  it("Should redirect to '/questionnaires/overview' when spine_user tries to go to an admin route '/userCreate", () => {
+  it("Should redirect to '/questionnaires' when spine_user tries to go to an admin route '/users/new", () => {
     cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginSpineUserSuccess.json'});
     cy.intercept("GET", 'http://localhost:8080/questionnaire/all', {fixture: 'questionnaires.json'});
     cy.intercept("GET", 'http://localhost:8080/user/all', {fixture: 'users.json'});
@@ -43,7 +43,7 @@ describe('UserComponent', () => {
 
     cy.url().should('include', 'questionnaires');
 
-    cy.visit('/user/new');
+    cy.visit('/users/new');
 
     cy.url().should("includes", '/questionnaires');
   });

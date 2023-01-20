@@ -39,7 +39,9 @@ export class QuestionnairesCreateComponent {
     });
     (<FormArray>this.questionnaireForm.get('segments')).push(newSegment);
     if (this.questionnaireSegmentsArray.value.length == 1) {
-      this.toastService.show('Segment is toegevoegd', {classname: 'bg-success text-light', delay: 3000});
+      this.toastService.show('Segment is toegevoegd',
+        {classname: 'bg-success text-light',
+          delay: 3000});
     }
   }
 
@@ -56,7 +58,9 @@ export class QuestionnairesCreateComponent {
     (<FormArray>this.questionnaireForm.get('segments')).removeAt(index);
 
     if (this.questionnaireSegmentsArray.value.length == 0) {
-      this.toastService.show('U heeft alle segmenten verwijderd', {classname: 'bg-danger  text-light', delay: 3000});
+      this.toastService.show('U heeft alle segmenten verwijderd',
+        {classname: 'bg-danger  text-light',
+          delay: 3000});
     }
     if (this.questionnaireSegmentsArray.value.length == 0) {
       this.questionnaireQuestionsArray.clear();
@@ -67,7 +71,9 @@ export class QuestionnairesCreateComponent {
     (<FormArray>this.questionnaireForm.get('questions')).removeAt(index);
 
     if (this.questionnaireQuestionsArray.value.length == 0) {
-      this.toastService.show('U heeft alle vragen verwijderd', {classname: 'bg-danger  text-light', delay: 3000});
+      this.toastService.show('U heeft alle vragen verwijderd',
+        {classname: 'bg-danger  text-light',
+          delay: 3000});
     }
   }
 
@@ -76,16 +82,35 @@ export class QuestionnairesCreateComponent {
   }
 
   clearForm() {
-
     if (this.questionnaireForm.valid){
       this.questionnaireForm.reset();
       this.questionnaireQuestionsArray.clear();
       this.questionnaireSegmentsArray.clear();
 
-      this.toastService.show('Het formulier is leeggemaakt', {classname: 'bg-info text-light', delay: 3000});
+      this.toastService.show('Het formulier is leeggemaakt',
+        {classname: 'bg-info text-light',
+          delay: 3000});
     } else {
-      this.toastService.show('U heeft niet alle velden ingevuld', {classname: 'bg-danger text-light', delay: 3000});
+      this.toastService.show('U heeft niet alle velden ingevuld',
+        {classname: 'bg-danger text-light',
+          delay: 3000});
     }
+  }
+
+  clearAlleSegmenten() {
+    if (this.questionnaireSegmentsArray.value.length != 0) {
+      this.toastService.show('U heeft alle segmenten verwijderd',
+        {
+          classname: 'bg-info  text-light',
+          delay: 3000
+        });
+      this.questionnaireSegmentsArray.clear();
+    } else {
+      this.toastService.show('U heeft geen segmenten om te verwijderen',
+        {classname: 'bg-danger text-light',
+          delay: 3000});
+    }
+
   }
 
   get segmentControls(){
@@ -93,7 +118,9 @@ export class QuestionnairesCreateComponent {
   }
 
   createQuestionnaire() {
-    this.toastService.show('We zijn om een vragenlijst aan te maken!', {classname: 'bg-info text-light', delay: 3000});
+    this.toastService.show('We zijn om een vragenlijst aan te maken!',
+      {classname: 'bg-info text-light',
+        delay: 3000});
 
     this.http.put('/questionnaire', {
       name: this.questionnaireForm.value.questionnaireName,
@@ -106,7 +133,9 @@ export class QuestionnairesCreateComponent {
     })
       .subscribe({
         next: () => {
-          this.toastService.show('Vragenlijst is aangemaakt', {classname: 'bg-info text-light', delay: 3000});
+          this.toastService.show('Vragenlijst is aangemaakt',
+            {classname: 'bg-info text-light',
+              delay: 3000});
         }
       });
   }

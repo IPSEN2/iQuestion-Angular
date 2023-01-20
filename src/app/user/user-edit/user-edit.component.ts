@@ -12,7 +12,7 @@ import {UserService} from "../../service/api/user.service";
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss']
 })
-export class UserEditComponent implements OnDestroy{
+export class UserEditComponent implements OnDestroy {
   user$!: User;
   updateUserForm = new FormGroup({
     updateUserName: new FormControl(null, Validators.required),
@@ -33,12 +33,22 @@ export class UserEditComponent implements OnDestroy{
       throw new Error('No id found');
     }
 
-    this.userService.get(id).subscribe((user) => {
-      this.user$ = user;
-    });
+    this.userService.get(id).subscribe(
+      {
+        next: user => {
+          this.user$ = user;
+        },
+        error: errorMessage => {
+          this.toastService.show(
+            '❌ - ' + errorMessage,
+            {classname: 'bg-danger text-light', delay: 5000}
+          );
+        }
+      }
+    );
   }
 
-  updateUserData(){
+  updateUserData() {
     this.toastService.show('Gebruiker wordt aangepast!', {classname: 'bg-info text-light', delay: 3000});
     this.http.post('/user/' + this.user$.id, {
       name: this.updateUserForm.value.updateUserName,
@@ -46,11 +56,12 @@ export class UserEditComponent implements OnDestroy{
       role: this.updateUserForm.value.updateUserRole,
     })
       .subscribe({
-        next: () => {
-          this.toastService.show('Gebruiker succesvol aangepast', {classname: 'bg-success text-light', delay: 3000});
-          this.router.navigate(['/user']);
+          next: () => {
+            this.toastService.show('Gebruiker succesvol aangepast', {classname: 'bg-success text-light', delay: 3000});
+            this.router.navigate(['/users']);
+          }
         }
-      });
+      );
   }
 
   userRoleToText(userRole: string) {
@@ -63,7 +74,6 @@ export class UserEditComponent implements OnDestroy{
   ngOnDestroy(): void {
     this.toastService.clear();
   }
-
 
 
 }

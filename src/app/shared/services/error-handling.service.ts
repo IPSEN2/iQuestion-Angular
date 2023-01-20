@@ -6,7 +6,7 @@ import {Injectable} from "@angular/core";
 @Injectable({providedIn: "root"})
 export class ErrorHandlingService{
   public handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
+    let errorMessage = 'Er is iets misgegaan!';
     if (!errorRes.error || !errorRes.error.message) {
       return throwError(() => errorMessage);
     }

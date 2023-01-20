@@ -1,26 +1,20 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
-import { LocalUserService } from '../../shared/services/localUser.service';
-import { ToastService } from 'src/app/shared/toast/toast-service';
-import { ErrorModel } from 'src/app/shared/error.model';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../auth.service";
+import {Router} from "@angular/router";
+import {LocalUserService} from "../../shared/services/localUser.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   loginForm!: FormGroup;
   error: string | undefined;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private localUserService: LocalUserService,
-    private toastService: ToastService
-  ) {}
+  constructor(private authService: AuthService, private router: Router, private localUserService: LocalUserService) {
+  }
 
   ngOnInit() {
     this.initForm();
@@ -61,11 +55,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   onLogin() {
-    this.toastService.show('⚙️ - Bezig het inloggen...', {
-      classname: 'bg-info text-light',
-      delay: 3000,
-    });
-
     const email = this.loginForm.value['email'];
     const password = this.loginForm.value['password'];
     const rememberMe: boolean = this.loginForm.value['rememberMe'];
@@ -75,21 +64,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (this.localUserService.isLoggedIn) {
           this.router.navigate(['']);
           this.loginForm.reset();
-
-          this.toastService.show(
-            '✅ - Succesvol ingelogd, u word doorverwezen!',
-            { classname: 'bg-success text-light', delay: 3000 }
-          );
         }
       },
-      error: (errorMessage) => {
-        this.toastService.show(
-          '❌ - Foutmelding: ' +
-            (ErrorModel.errorMap.get(errorMessage) || errorMessage),
-          { classname: 'bg-danger text-light', delay: 5000 }
-        );
+      error: errorMessage => {
+        this.error = errorMessage;
         this.loginForm.get('password')?.reset();
-      },
+      }
     });
   }
 }

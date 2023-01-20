@@ -1,7 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {User} from "../../shared/models/user.model";
-import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-user-delete',
@@ -10,14 +9,13 @@ import {HttpClient} from "@angular/common/http";
 })
 export class UserDeleteComponent {
   @Input() public user: User | undefined;
+  @Output() deleteConfirmed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private http: HttpClient, public activeModal: NgbActiveModal) {
+  constructor(public activeModal: NgbActiveModal) {
   }
 
-  deleteUser(){
-    this.http.delete("/user/" + String(this.user?.id))
-      .subscribe();
+  deleteUser() {
+    this.deleteConfirmed.emit(true);
     this.activeModal.dismiss();
   }
-
 }

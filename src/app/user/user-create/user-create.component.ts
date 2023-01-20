@@ -2,7 +2,8 @@ import {Component, OnDestroy} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastService} from "../../shared/toast/toast-service";
-import { ErrorModel } from 'src/app/shared/error.model';
+import {ErrorModel} from 'src/app/shared/error.model';
+import {UserService} from "../../service/api/user.service";
 
 
 @Component({
@@ -20,11 +21,16 @@ export class UserCreateComponent implements OnDestroy {
   })
 
 
-  constructor(private http: HttpClient, private toastService: ToastService) {
+  constructor(private http: HttpClient,
+              private userService: UserService,
+              private toastService: ToastService) {
   }
 
   createUser() {
-    this.toastService.show('We zijn bezig om een account aan te maken!', {classname: 'bg-info text-light', delay: 3000});
+    this.toastService.show('We zijn bezig om een account aan te maken!', {
+      classname: 'bg-info text-light', delay: 3000
+    });
+
     this.http.post('/auth/register/', {
       name: this.registerForm.value.registerName,
       email: this.registerForm.value.registerEmail,
@@ -32,17 +38,18 @@ export class UserCreateComponent implements OnDestroy {
       role: this.registerForm.value.registerRole,
     })
       .subscribe({
-        next: () => {
-          this.toastService.show('Gebruiker succesvol aangemaakt', {classname: 'bg-success text-light', delay: 3000});
-          this.registerForm.reset();
-        },
-        error: (error) => {
-          this.toastService.show(
-            '❌ - Foutmelding: ' + (ErrorModel.errorMap.get(error.error.message) || error.error.message),
-            {classname: 'bg-danger text-light', delay: 5000}
-          );
+          next: () => {
+            this.toastService.show('Gebruiker succesvol aangemaakt', {classname: 'bg-success text-light', delay: 3000});
+            this.registerForm.reset();
+          },
+          error: (error) => {
+            this.toastService.show(
+              '❌ - Foutmelding: ' + (ErrorModel.errorMap.get(error.error.message) || error.error.message),
+              {classname: 'bg-danger text-light', delay: 5000}
+            );
+          }
         }
-      });
+      );
   }
 
   ngOnDestroy(): void {

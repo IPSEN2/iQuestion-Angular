@@ -35,9 +35,17 @@ export class IdComponent {
     }
 
     // get questionnaire from api then create questions
-    this.questionnaireService.get(id).subscribe((questionnaire) => {
-      this.questions$ = service.getQuestions(questionnaire);
-      this.questionnaire$ = questionnaire;
+    this.questionnaireService.get(id).subscribe({
+      next: (questionnaire) => {
+        this.questions$ = service.getQuestions(questionnaire);
+        this.questionnaire$ = questionnaire;
+      },
+      error: errorMessage => {
+        this.toastService.show('❌ - ' + errorMessage, {
+          classname: 'bg-danger text-light',
+          delay: 2000,
+        });
+      }
     });
   }
 
@@ -68,13 +76,21 @@ export class IdComponent {
       timestamp: undefined,
     };
 
-    this.entryService.create(entry).subscribe((entry) => {
-      this.caregiverExportToPDF();
-      this.router.navigate(['/questionnaires']);
-      this.toastService.show('✅ - Opgeslagen, u wordt doorverwezen...', {
-        classname: 'bg-success text-light',
-        delay: 2000,
-      });
+    this.entryService.create(entry).subscribe({
+      next: () => {
+        this.caregiverExportToPDF();
+        this.router.navigate(['/questionnaires']);
+        this.toastService.show('✅ - Opgeslagen, u wordt doorverwezen...', {
+          classname: 'bg-success text-light',
+          delay: 2000,
+        });
+      },
+      error: errorMessage => {
+        this.toastService.show('❌ - ' + errorMessage, {
+          classname: 'bg-danger text-light',
+          delay: 2000,
+        });
+      }
     });
   }
 

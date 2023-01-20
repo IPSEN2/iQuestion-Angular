@@ -18,9 +18,9 @@ export class UserEditComponent implements OnDestroy{
   updateUserForm = new FormGroup({
     updateUserName: new FormControl(null, Validators.required),
     updateUserOrganization: new FormControl(null, Validators.required),
-    updateUserRole: new FormControl(null, Validators.required)
+    updateUserRole: new FormControl(null, Validators.required),
+    updateUserEnabled: new FormControl(null, Validators.required)
   })
-
 
   constructor(
     private route: ActivatedRoute,
@@ -37,7 +37,6 @@ export class UserEditComponent implements OnDestroy{
 
     this.userService.get(id).subscribe((user) => {
       this.user$ = user;
-      console.log(this.user$)
     });
   }
 
@@ -47,6 +46,7 @@ export class UserEditComponent implements OnDestroy{
       name: this.updateUserForm.value.updateUserName,
       organization: this.updateUserForm.value.updateUserOrganization,
       role: this.updateUserForm.value.updateUserRole,
+      enabled: this.updateUserForm.value.updateUserEnabled
     })
       .subscribe({
         next: () => {
@@ -54,13 +54,6 @@ export class UserEditComponent implements OnDestroy{
           this.router.navigate(['/user']);
         }
       });
-  }
-
-  userRoleToText(userRole: string) {
-    if (userRole == "SPINE_ADMIN") return "Spine Administrator"
-    if (userRole == "SPINE_USER") return "Spine Gebruiker"
-    if (userRole == "CAREGIVER") return "Hulpverlener"
-    return "Onbekende Rol"
   }
 
   ngOnDestroy(): void {

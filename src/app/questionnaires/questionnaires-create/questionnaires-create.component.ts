@@ -4,12 +4,12 @@ import {HttpClient} from "@angular/common/http";
 import {ToastService} from "../../shared/toast/toast-service";
 
 @Component({
-  selector: 'app-create-questionnaire',
-  templateUrl: './create-questionnaire.component.html',
-  styleUrls: ['./create-questionnaire.component.scss']
+  selector: 'app-questionnaires-create',
+  templateUrl: './questionnaires-create.component.html',
+  styleUrls: ['./questionnaires-create.component.scss']
 })
 
-export class CreateQuestionnaireComponent {
+export class QuestionnairesCreateComponent {
 
   questionnaireQuestionsArray = new FormArray([]);
   questionnaireSegmentsArray = new FormArray([]);
@@ -75,11 +75,15 @@ export class CreateQuestionnaireComponent {
 
   clearForm() {
 
-    this.questionnaireForm.reset();
-    this.questionnaireQuestionsArray.clear();
-    this.questionnaireSegmentsArray.clear();
+    if (this.questionnaireForm.valid){
+      this.questionnaireForm.reset();
+      this.questionnaireQuestionsArray.clear();
+      this.questionnaireSegmentsArray.clear();
 
-    this.toastService.show('Het formulier is leeggemaakt', {classname: 'bg-info text-light', delay: 3000});
+      this.toastService.show('Het formulier is leeggemaakt', {classname: 'bg-info text-light', delay: 3000});
+    } else {
+      this.toastService.show('U heeft niet alle velden ingevuld', {classname: 'bg-danger text-light', delay: 3000});
+    }
   }
 
   get segmentControls(){

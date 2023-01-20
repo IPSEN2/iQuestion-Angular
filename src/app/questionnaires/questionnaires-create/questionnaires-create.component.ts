@@ -38,7 +38,9 @@ export class QuestionnairesCreateComponent {
       'questions': new FormArray([])
     });
     (<FormArray>this.questionnaireForm.get('segments')).push(newSegment);
-    this.toastService.show('Segment is toegevoegd', {classname: 'bg-success text-light', delay: 3000});
+    if (this.questionnaireSegmentsArray.value.length == 1) {
+      this.toastService.show('Segment is toegevoegd', {classname: 'bg-success text-light', delay: 3000});
+    }
   }
 
   addQuestion() {

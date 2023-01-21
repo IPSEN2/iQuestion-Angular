@@ -19,12 +19,26 @@ export class UserOverviewComponent{
               public modalService: NgbModal,
               public userService: UserService,
               public transformText: TransformText) {
-    this.userService.getAll().subscribe((users) => (this.users = users));
+    this.userService.getAll().subscribe((users) => (
+      this.fillUserArray(users)));
   }
 
   showDeleteModal(clickedUser: User){
     const modalRef = this.modalService.open(UserDeleteComponent);
     modalRef.componentInstance.user = clickedUser;
+  }
+
+  fillUserArray(users: User[]) {
+    for (const user of users) {
+      if (user.enabled) {
+        this.users.push(user)
+      }
+    }
+    for (const user of users) {
+      if (!user.enabled){
+        this.users.push(user)
+      }
+    }
   }
 
 }

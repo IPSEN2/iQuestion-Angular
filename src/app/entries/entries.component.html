@@ -37,7 +37,13 @@
           <td>{{ entry.questionnaireName }}</td>
           <td>{{ entry.timestamp | date : "dd-MM-yyyy" }}</td>
           <td>
-            <a [routerLink]="['view', entry.id]">
+            <a [routerLink]="['view', entry.id]"
+            type="button"
+            class="btn btn-outline-primary tableIcon"
+            placement="top" 
+            ngbTooltip="Inzending bekijken"
+            container="body"
+            >
               <i class="bi bi-eye-fill"></i>
             </a>
           </td>

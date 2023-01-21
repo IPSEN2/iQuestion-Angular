@@ -33,7 +33,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let entry of entries | filterAll : searchString">
-          <th scope="row">{{ entry.id.substr(entry.id.length - 5) }}</th>
+          <th scope="row">{{ entry.id.substring(entry.id.length - 5) }}</th>
           <td>{{ entry.questionnaireName }}</td>
           <td>{{ entry.timestamp | date : "dd-MM-yyyy" }}</td>
           <td>

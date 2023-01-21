@@ -45,14 +45,14 @@ export class QuestionnairesCreateComponent {
     }
   }
 
-  addQuestion() {
-    const selectedSegment = (<FormArray>this.questionnaireForm.get('segments')).controls[this.selectedSegmentIndex];
-    const questions = <FormArray>selectedSegment.get('questions');
-    questions.push(new FormGroup({
-      'question': new FormControl(null),
-      'questionnaireType': new FormControl(null)
-    }));
-  }
+  // addQuestion() {
+  //   const selectedSegment = (<FormArray>this.questionnaireForm.get('segments')).controls[this.selectedSegmentIndex];
+  //   const questions = <FormArray>selectedSegment.get('questions');
+  //   questions.push(new FormGroup({
+  //     'question': new FormControl(null),
+  //     'questionnaireType': new FormControl(null)
+  //   }));
+  // }
 
   deleteSegment(index: number) {
     (<FormArray>this.questionnaireForm.get('segments')).removeAt(index);
@@ -140,22 +140,12 @@ export class QuestionnairesCreateComponent {
       });
   }
 
-    // addQuestion() {
-    //   (<FormArray>this.questionnaireForm.get('questions')).push(new FormGroup({
-    //       'question': new FormControl(null),
-    //       'questionnaireType': new FormControl(null)
-    //     })
-    //   );
-    // }
+    addQuestion() {
+      (<FormArray>this.questionnaireForm.get('questions')).push(new FormGroup({
+          'question': new FormControl(null),
+          'questionnaireType': new FormControl(null)
+        })
+      );
+    }
 
-    // (<FormArray>this.questionnaireForm.get('segments')).push(new FormGroup({
-    //     'segments': new FormControl(null),
-    //   })
-    // );
-    // (<FormArray>this.questionnaireForm.get('questions')).push(new FormGroup({
-    //     'question': new FormControl(null),
-    //     'questionnaireType': new FormControl(null)
-    //   })
-    // );
-  question: any;
 }

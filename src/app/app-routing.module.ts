@@ -9,7 +9,6 @@ import {UserComponent} from './user/user.component';
 import {UserCreateComponent} from "./user/user-create/user-create.component";
 import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
-import {QuestionnairesCreateComponent} from "./questionnaires/questionnaires-create/questionnaires-create.component";
 import {QuestionnaireFillComponent} from './questionnaires/questionnaire-fill/questionnaire-fill.component';
 import {IdComponent} from './questionnaires/questionnaire-fill/id/id.component';
 import {EntriesComponent} from './entries/entries.component';

@@ -26,11 +26,9 @@ import {ErrorInterceptorService} from "./interceptors/error-interceptor.service"
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
 import {QuestionnairesCreateComponent} from "./questionnaires/questionnaires-create/questionnaires-create.component";
 import { EntriesComponent } from './entries/entries.component';
-import { FilterPipe } from './pipe/filter.pipe';
-import { FormsModule } from '@angular/forms';
+import { FilterPipe } from './pipe/filter.pipe'; 
 import { FooterComponent } from './footer/footer.component';
 import { QuestionnairesViewComponent } from './questionnaires/questionnaires-view/questionnaires-view.component';
-import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-create/questionnaires-create.component';
 import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
 import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
 import { SelfEditComponent } from './user/self-edit/self-edit.component';

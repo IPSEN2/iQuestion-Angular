@@ -1,0 +1,70 @@
+<app-navigation></app-navigation>
+<app-toasts></app-toasts>
+
+<div class="container">
+  <!-- Show the form with all the user info -->
+  <h1>{{ this.user.user?.name }} aanpassen</h1>
+  <div class="form">
+    <form [formGroup]="editSelfForm" (ngSubmit)="onSubmit()">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="userNameInput"
+          formControlName="name"
+        />
+        <label for="floatingInput">Naam</label>
+      </div>
+
+      <fieldset disabled>
+        <div
+          class="form-floating mb-3"
+          placement="top"
+          ngbTooltip="Vanwege veiligheidsredenen kan dit niet worden aangepast."
+          container="body"
+        >
+          <input
+            type="text"
+            class="form-control"
+            id="userEmailInput"
+            formControlName="email"
+          />
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div
+          class="form-floating mb-3"
+          placement="top"
+          ngbTooltip="Vraag een spine beheerder om dit te veranderen voor u."
+          container="body"
+        >
+          <input
+            type="text"
+            class="form-control"
+            id="userOrganizationInput"
+            formControlName="organization"
+          />
+          <label for="floatingInput">Organisatie</label>
+        </div>
+      </fieldset>
+
+      <input class="btn-check" id="passwordResetButton" />
+      <label
+        class="btn btn-primary mb-3"
+        for="passwordResetButton"
+        (click)="onChangePassword()"
+        >Verander wachtwoord</label
+      ><br />
+
+      <div class="d-flex justify-content-between mt-2">
+        <button type="button" class="btn btn-secondary" routerLink="">
+          Annuleren
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Opslaan
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-footer></app-footer>

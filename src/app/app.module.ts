@@ -7,7 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavigationComponent} from './navigation/navigation.component';
 import {QuestionnairesComponent} from './questionnaires/questionnaires.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpInterceptorService} from "./interceptors/http-interceptor.service";
 import {LoginComponent} from './auth/login/login.component';
 import {UserComponent} from './user/user.component';
@@ -24,6 +24,7 @@ import { EntryFormService } from './service/entry-form.service';
 import { QuestionControlService } from './shared/form/question-controle.service';
 import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
+import {QuestionnairesCreateComponent} from "./questionnaires/questionnaires-create/questionnaires-create.component";
 import { EntriesComponent } from './entries/entries.component';
 import { FilterPipe } from './pipe/filter.pipe';
 import { FormsModule } from '@angular/forms';
@@ -33,7 +34,6 @@ import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-c
 import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
 import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
 import { SelfEditComponent } from './user/self-edit/self-edit.component';
-
 
 @NgModule({
   declarations: [

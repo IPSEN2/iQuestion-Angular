@@ -14,6 +14,7 @@ import {IdComponent} from './questionnaires/questionnaire-fill/id/id.component';
 import {EntriesComponent} from './entries/entries.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {ChangePasswordComponent} from './reset-password/change-password/change-password.component';
+import { SelfEditComponent } from './user/self-edit/self-edit.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'questionnaires', pathMatch: 'full'},
@@ -44,6 +45,7 @@ const routes: Routes = [
     ]
   },
   {path: 'entries', component: EntriesComponent, canActivate: [AuthGuard], data: {roles: ['CAREGIVER']}},
+  {path: 'me', component: SelfEditComponent, canActivate: [AuthGuard], data: {roles: ['CAREGIVER', 'SPINE_ADMIN', 'SPINE_USER']}},
   {path: '**', redirectTo: '/questionnaires'}
 ];
 

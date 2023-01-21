@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ErrorModel } from 'src/app/shared/error.model';
+import { User } from 'src/app/shared/models/user.model';
 import { LocalUserService } from 'src/app/shared/services/localUser.service';
 import { ToastService } from 'src/app/shared/toast/toast-service';
 
@@ -31,20 +32,38 @@ export class SelfEditComponent {
     // Get all the items from the form
     const name = this.editSelfForm.value['name'];
 
+    const userModel = {
+      "id": this.user.user?.id,
+      "name": name,
+      "email": this.user.user?.email,
+      "organization": this.user.user?.organization,
+      "enabled": this.user.user?.enabled,
+      "role": this.user.user?.role,
+  }
+
     // Request the API to update the user
-    const url = '/auth/user/' + this.user.user?.id;
+    const url = '/user/' + this.user.user?.id;
 
     this.toastService.show(
       '⚙️ - Bezig met het bijwerken van je gegevens...',
       { classname: 'bg-info text-light', delay: 3000 }
     );
 
-    this.http.post(url, { name: name }).subscribe({
-      next: () => {
+    this.http.post(url, userModel).subscribe({
+      next: (result: any) => {
         this.toastService.show('✅ - Je gegevens zijn succesvol bijgewerkt!', {
           classname: 'bg-success text-light',
           delay: 5000,
         });
+
+        this.localUserService.localUser.user = new User(
+          result['id'],
+          result['name'],
+          result['email'],
+          result['organization'],
+          result['enabled'],
+          result['role']
+        );
       },
       error: (error) => {
         let errorMessage = error.error.message;

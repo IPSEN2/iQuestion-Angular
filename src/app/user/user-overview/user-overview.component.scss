@@ -1,0 +1,28 @@
+.container-top-margin {
+  margin-top: 1rem;
+}
+
+.searchbar__top {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.searchForm {
+  flex-grow: 0.5;
+  align-self: center;
+}
+
+.searchForm__items {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchbar__icon {
+  display: grid;
+  place-items: center;
+  padding-right: 0.5rem;
+}

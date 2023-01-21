@@ -8,8 +8,8 @@ import {LocalUserService} from "../shared/services/localUser.service";
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
-  navOpen: boolean = false;
   user: any;
+  collapsed: boolean = true;
 
   constructor(private authService: AuthService, private localUserService: LocalUserService) {
   }

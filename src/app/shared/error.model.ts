@@ -13,7 +13,9 @@ export class ErrorModel {
       ['EMAIL_NOT_FOUND', 'Het e-mail adres is niet gevonden'],
       ['TOKEN_NOT_FOUND', 'De token is niet gevonden'],
       ['QUESTIONNAIRE_NOT_FOUND', 'De vragenlijst is niet gevonden'],
-      ['NO_ENTRIES_FOR_QUESTIONAIRE', 'Er zijn geen entries gevonden voor deze vragenlijst']
+      ['NO_ENTRIES_FOR_QUESTIONAIRE', 'Er zijn geen entries gevonden voor deze vragenlijst'],
+      ['An unknown error occurred!', 'Er heeft zich een onbekende fout opgetreden'],
+      ['INVALID_EMAIL', 'Het e-mail domein is niet geldig'],
     ]
   )
 }

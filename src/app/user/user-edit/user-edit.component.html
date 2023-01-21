@@ -1,7 +1,10 @@
-<app-navigation>
+<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+<div class="container container-top-margin">
   <app-toasts></app-toasts>
   <div *ngIf="user$">
     <div class="table-responsive">
+      <h1>Gebruiker {{this.user$.name}} aanpassen</h1>
       <form [formGroup]="updateUserForm" (ngSubmit)="updateUserData()">
         <table class="table table-striped">
           <thead>
@@ -13,36 +16,60 @@
           </thead>
           <tbody>
             <tr>
-              <th> Naam </th>
+              <th>Naam</th>
               <td>{{ user$.name }}</td>
-              <td><input type="email" class="form-control" id="updateUserName" formControlName="updateUserName"></td>
+              <td>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="updateUserName"
+                  formControlName="updateUserName"
+                />
+              </td>
             </tr>
             <tr>
-              <th> Rol </th>
-              <td>{{ user$.role }}</td>
-              <td><select id="updateUserRole" class="form-select" aria-label="Default select example" formControlName="updateUserRole">
-                <option value="SPINE_USER">Spine gebruiker</option>
-                <option value="SPINE_ADMIN">Spine administrator</option>
-                <option value="CAREGIVER">Zorgverlener</option>
-              </select></td>
+              <th>Rol</th>
+              <td>{{ userRoleToText(user$.role) }}</td>
+              <td>
+                <select
+                  id="updateUserRole"
+                  class="form-select"
+                  aria-label="Default select example"
+                  formControlName="updateUserRole"
+                >
+                  <option value="SPINE_USER">Spine gebruiker</option>
+                  <option value="SPINE_ADMIN">Spine administrator</option>
+                  <option value="CAREGIVER">Hulpverlener</option>
+                </select>
+              </td>
             </tr>
             <tr>
-              <th> Organisatie </th>
+              <th>Organisatie</th>
               <td>{{ user$.organization }}</td>
-              <td><input type="email" class="form-control" id="updateUserOrganization" formControlName="updateUserOrganization"></td>
+              <td>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="updateUserOrganization"
+                  formControlName="updateUserOrganization"
+                />
+              </td>
             </tr>
           </tbody>
         </table>
         <div class="d-flex flex-row-reverse">
           <button type="submit" class="m-2 btn btn-primary updateFinalButton">
-            Update gebruiker
+            Update {{this.user$.name}}'s profiel
           </button>
-          <button type="submit" class="m-2 btn btn-outline-primary" routerLink="/userOverview">
+          <button
+            type="submit"
+            class="m-2 btn btn-outline-primary"
+            routerLink="/users"
+          >
             Annuleer
           </button>
         </div>
       </form>
     </div>
   </div>
-</app-navigation>
-
+</div>

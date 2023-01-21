@@ -14,11 +14,10 @@ import {UserComponent} from './user/user.component';
 import {UserCreateComponent} from "./user/user-create/user-create.component";
 import {UserOverviewComponent} from "./user/user-overview/user-overview.component";
 import {UserEditComponent} from "./user/user-edit/user-edit.component";
-import {ChangePasswordComponent} from './change-password/change-password.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
-import {RequestTokenComponent} from './reset-password/request-token/request-token.component';
+import {ChangePasswordComponent} from './reset-password/change-password/change-password.component';
 import {ToastsContainer} from "./shared/toast/toasts-container.component";
-import { QuestionnaireFillComponent } from './questionnaire-fill/questionnaire-fill.component';
+import { QuestionnaireFillComponent } from './questionnaires/questionnaire-fill/questionnaire-fill.component';
 import { EntryFormComponent } from './shared/form/entry/entry-form.component';
 import { EntryFormQuestionComponent } from './shared/form/entry/entry-form-question.component';
 import { EntryFormService } from './service/entry-form.service';
@@ -26,6 +25,15 @@ import { QuestionControlService } from './shared/form/question-controle.service'
 import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
 import { UserDeleteComponent } from './user/user-delete/user-delete.component';
 import {QuestionnairesCreateComponent} from "./questionnaires/questionnaires-create/questionnaires-create.component";
+import { EntriesComponent } from './entries/entries.component';
+import { FilterPipe } from './pipe/filter.pipe';
+import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
+import { QuestionnairesViewComponent } from './questionnaires/questionnaires-view/questionnaires-view.component';
+import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-create/questionnaires-create.component';
+import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
+import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
+import { SelfEditComponent } from './user/self-edit/self-edit.component';
 
 @NgModule({
   declarations: [
@@ -33,30 +41,36 @@ import {QuestionnairesCreateComponent} from "./questionnaires/questionnaires-cre
     LoginComponent,
     NavigationComponent,
     QuestionnairesComponent,
+    QuestionnaireDeleteComponent,
     UserComponent,
     UserCreateComponent,
     UserOverviewComponent,
     UserEditComponent,
-    ChangePasswordComponent,
     ResetPasswordComponent,
-    RequestTokenComponent,
+    ChangePasswordComponent,
     QuestionnaireFillComponent,
     EntryFormQuestionComponent,
     EntryFormComponent,
     UserDeleteComponent,
-    QuestionnairesCreateComponent
+    EntriesComponent,
+    FilterPipe,
+    FooterComponent,
+    QuestionnairesViewComponent,
+    QuestionnairesCreateComponent,
+    IdComponent,
+    SelfEditComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgbDropdownModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NgbModule,
-        ToastsContainer,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbDropdownModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbModule,
+    ToastsContainer,
+    FormsModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

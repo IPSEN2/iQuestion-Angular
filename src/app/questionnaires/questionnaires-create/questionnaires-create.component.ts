@@ -159,4 +159,3 @@ export class QuestionnairesCreateComponent {
     // );
   question: any;
 }
-

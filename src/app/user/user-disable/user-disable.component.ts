@@ -28,7 +28,8 @@ export class UserDisableComponent {
       .subscribe({
         next: () => {
           this.toastService.show('Gebruiker succesvol aangepast', {classname: 'bg-success text-light', delay: 3000});
-          this.router.navigate(['/user']);
+          this.router.navigate(['/users']);
+          // window.location.reload();
         }
       });
     this.activeModal.dismiss();

@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {UserDisableComponent} from "../user-disable/user-disable.component";
 import {UserService} from "../../service/api/user.service";
@@ -15,8 +14,7 @@ export class UserOverviewComponent{
   users: User[] = [];
   public searchString: any;
 
-  constructor(private http: HttpClient,
-              public modalService: NgbModal,
+  constructor(public modalService: NgbModal,
               public userService: UserService,
               public transformText: TransformText) {
     this.userService.getAll().subscribe((users) => (

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {UserDeleteComponent} from "../user-delete/user-delete.component";
+import {UserDisableComponent} from "../user-disable/user-disable.component";
 import {UserService} from "../../service/api/user.service";
 import {User} from "../../shared/models/user.model";
 import {TransformText} from "../../utility/transform.text";
@@ -23,8 +23,8 @@ export class UserOverviewComponent{
       this.fillUserArray(users)));
   }
 
-  showDeleteModal(clickedUser: User){
-    const modalRef = this.modalService.open(UserDeleteComponent);
+  showDisableModal(clickedUser: User){
+    const modalRef = this.modalService.open(UserDisableComponent);
     modalRef.componentInstance.user = clickedUser;
   }
 

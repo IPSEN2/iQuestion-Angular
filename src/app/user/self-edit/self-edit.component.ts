@@ -33,21 +33,21 @@ export class SelfEditComponent {
     const name = this.editSelfForm.value['name'];
 
     const userModel = {
-      "id": this.user.user?.id,
-      "name": name,
-      "email": this.user.user?.email,
-      "organization": this.user.user?.organization,
-      "enabled": this.user.user?.enabled,
-      "role": this.user.user?.role,
-  }
+      id: this.user.user?.id,
+      name: name,
+      email: this.user.user?.email,
+      organization: this.user.user?.organization,
+      enabled: this.user.user?.enabled,
+      role: this.user.user?.role,
+    };
 
     // Request the API to update the user
     const url = '/user/' + this.user.user?.id;
 
-    this.toastService.show(
-      '⚙️ - Bezig met het bijwerken van je gegevens...',
-      { classname: 'bg-info text-light', delay: 3000 }
-    );
+    this.toastService.show('⚙️ - Bezig met het bijwerken van je gegevens...', {
+      classname: 'bg-info text-light',
+      delay: 3000,
+    });
 
     this.http.post(url, userModel).subscribe({
       next: (result: any) => {
@@ -56,14 +56,21 @@ export class SelfEditComponent {
           delay: 5000,
         });
 
-        this.localUserService.localUser.user = new User(
-          result['id'],
-          result['name'],
-          result['email'],
-          result['organization'],
-          result['enabled'],
-          result['role']
-        );
+        // Update the local user
+        this.localUserService.localUser.user = result;
+        let userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        userData.user = result;
+
+        if (localStorage.getItem('userData') !== null) {
+          localStorage.setItem('userData', JSON.stringify(userData));
+        } else if (sessionStorage.getItem('userData') !== null) {
+          sessionStorage.setItem('userData', JSON.stringify(userData));
+        } else {
+          this.toastService.show('❌ - Er is een fout opgetreden!', {
+            classname: 'bg-danger text-light',
+            delay: 5000,
+          });
+        }
       },
       error: (error) => {
         let errorMessage = error.error.message;

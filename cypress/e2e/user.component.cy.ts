@@ -85,7 +85,7 @@ describe('UserComponent', () => {
 
     cy.intercept("GET", 'http://localhost:8080/user/1b45cfb8-5d67-440b-adf1-191d69fb6ccb', {fixture: 'editUserBefore.json'});
     cy.get('.userEditButton').first().click();
-    cy.get('select').select('SPINE_USER');
+    cy.get('select').first().select('SPINE_USER');
 
     cy.intercept({
       method: "POST",

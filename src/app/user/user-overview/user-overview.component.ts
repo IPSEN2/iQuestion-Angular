@@ -10,7 +10,7 @@ import {TransformText} from "../../utility/transform.text";
   templateUrl: './user-overview.component.html',
   styleUrls: ['./user-overview.component.scss']
 })
-export class UserOverviewComponent{
+export class UserOverviewComponent {
   users: User[] = [];
   public searchString: any;
 

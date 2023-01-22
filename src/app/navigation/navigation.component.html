@@ -1,44 +1,42 @@
-<nav class="navigation__nav">
-  <div class="navigation__nav__list">
-    <a
-      routerLinkActive="active"
-      routerLink="/questionnaires"
-      class="navigation__nav__list__item navigation__nav__list__item__link"
-      [ngClass]="{ activeRoute: getRoute() == 'questionnaires' }"
-      ><i class="bi bi-list-ol vAlignIcon"></i>&nbsp;&nbsp;Vragenlijsten</a
-    >
-    <a
-      routerLinkActive="active"
-      routerLink="/user"
-      *ngIf="this.user.user.role == 'SPINE_ADMIN'"
-      class="navigation__nav__list__item navigation__nav__list__item__link"
-      [ngClass]="{ activeRoute: getRoute() == 'user' }"
-      ><i class="bi bi-people-fill vAlignIcon"></i>&nbsp;&nbsp;Gebruikers</a
-    >
-    <a
-      routerLinkActive="active"
-      routerLink="/entries"
-      *ngIf="this.user.user.role == 'CAREGIVER'"
-      class="navigation__nav__list__item navigation__nav__list__item__link"
-      [ngClass]="{ activeRoute: getRoute() == 'entries' }"
-      ><i class="bi bi-envelope-paper vAlignIcon"></i>&nbsp;&nbsp;Inzendingen
-    </a>
-
-    <div *ngIf="this.user" ngbDropdown class="navigation__userProfile">
-      <button
-        type="button"
-        class="btn btn-light"
-        id="dropdownBasic1"
-        ngbDropdownToggle
-      >
-        {{ this.user.user.name }}&nbsp;&nbsp;<i
-          class="bi bi-person-fill vAlignIcon"
-        ></i>
-      </button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button ngbDropdownItem>Bewerk profiel</button>
-        <button (click)="onLogout()" ngbDropdownItem>Uitloggen</button>
-      </div>
+<nav class="navigation__nav navbar navbar-expand-sm">
+  <div class="container-fluid">
+    <a routerLink="" class="navbar-brand text-light m-0 me-sm-3"><img src="assets/img/LOGO-SPINE-DARK-BG.png" width="24"
+                                                                      height="30" alt="i.Question"></a>
+    <button type="button" class="navbar-toggler" (click)="collapsed = !collapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed=true">
+      <ul class="navbar-nav nav me-auto mb-2 mb-sm-0">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/questionnaires">
+            <i class="bi bi-list-ol vAlignIcon pe-2"></i>Vragenlijsten
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="this.user.user.role =='SPINE_ADMIN'">
+          <a class="nav-link" routerLink="/users">
+            <i class="bi bi-people-fill vAlignIcon pe-2"></i>Gebruikers
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="this.user.user.role == 'CAREGIVER'">
+          <a class="nav-link" routerLink="/entries">
+            <i class="bi bi-envelope-paper vAlignIcon pe-2"></i>Inzendingen
+          </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf="this.user">
+        <div class="nav-item dropdown" ngbDropdown>
+          <a class="btn btn-light dropdown-toggle d-block d-sm-none d-md-block" ngbDropdownToggle role="button">{{this.user.user.name}}<i
+            class="bi bi-person-fill vAlignIcon ms-2"></i></a>
+          <a class="btn btn-light dropdown-toggle d-none d-sm-block d-md-none" ngbDropdownToggle role="button"><i
+            class="bi bi-person-fill vAlignIcon ms-2"></i></a>
+          <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+            <div>
+              <li><a ngbDropdownItem role="button" class="dropdown-item">Bewerk profiel</a></li>
+              <li><a ngbDropdownItem role="button" class="dropdown-item" (click)="onLogout()">Uitloggen</a></li>
+            </div>
+          </div>
+        </div>
+      </ul>
     </div>
   </div>
 </nav>

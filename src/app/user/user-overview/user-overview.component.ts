@@ -17,13 +17,25 @@ export class UserOverviewComponent {
   constructor(public modalService: NgbModal,
               public userService: UserService,
               public transformText: TransformText) {
-    this.userService.getAll().subscribe((users) => (
-      this.fillUserArray(users)));
+    this.createUserTable()
   }
 
   showDisableModal(clickedUser: User){
     const modalRef = this.modalService.open(UserDisableComponent);
     modalRef.componentInstance.user = clickedUser;
+    modalRef.componentInstance.disableConfirmed.subscribe(
+      (disableConfirmed: boolean) => {
+        if(disableConfirmed){
+            this.createUserTable();
+        }
+      }
+    )
+  }
+
+  createUserTable(){
+    this.users = [];
+    this.userService.getAll().subscribe((users) => (
+      this.fillUserArray(users)));
   }
 
   fillUserArray(users: User[]) {

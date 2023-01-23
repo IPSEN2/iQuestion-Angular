@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {User} from "../../shared/models/user.model";
 import {HttpClient} from "@angular/common/http";
@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 })
 export class UserDisableComponent {
   @Input() public user: User | undefined;
+  @Output() disableConfirmed: EventEmitter<boolean> = new EventEmitter()
 
   constructor(private http: HttpClient,
               public activeModal: NgbActiveModal,
@@ -24,15 +25,15 @@ export class UserDisableComponent {
     this.toastService.show('Gebruiker wordt aangepast!', {classname: 'bg-info text-light', delay: 3000});
     this.http.post('/user/' + this.user?.id, {
       enabled: 'false'
-    })
-      .subscribe({
+    }).subscribe({
         next: () => {
           this.toastService.show('Gebruiker succesvol aangepast', {classname: 'bg-success text-light', delay: 3000});
           this.router.navigate(['/users']);
-          // window.location.reload();
+          this.disableConfirmed.emit(true);
+          this.activeModal.dismiss();
         }
       });
-    this.activeModal.dismiss();
+
   }
 
 }

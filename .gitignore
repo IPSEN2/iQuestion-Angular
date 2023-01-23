@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 /.vscode/
 cypress/downloads/
-cypress/videos/*.mp4
+cypress/videos/

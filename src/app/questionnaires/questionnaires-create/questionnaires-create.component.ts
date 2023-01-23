@@ -15,7 +15,6 @@ import { ToastService } from '../../shared/toast/toast-service';
   styleUrls: ['./questionnaires-create.component.scss'],
 })
 export class QuestionnairesCreateComponent {
-  selectedSegmentIndex = 0;
 
   questionnaireForm = new FormGroup({
     name: new FormControl(null, Validators.required),
@@ -105,12 +104,16 @@ export class QuestionnairesCreateComponent {
     }
   }
 
-  get segmentControls() {
-    return (<FormArray>this.questionnaireForm.get('segments')).controls;
+  getControlsFromSegment(segmentIndex: number) {
+    const segment = (this.questionnaireForm.get('segments') as FormArray).at(
+      segmentIndex
+    ) as FormGroup;
+    const questions = segment.get('questions') as FormArray;
+    return questions;
   }
 
   createQuestionnaire() {
-    this.toastService.show('We zijn om een vragenlijst aan te maken!', {
+    this.toastService.show('We zijn bezig om een vragenlijst aan te maken', {
       classname: 'bg-info text-light',
       delay: 3000,
     });
@@ -120,19 +123,11 @@ export class QuestionnairesCreateComponent {
       .post('/questionnaire', this.questionnaireForm.value)
       .subscribe({
         next: () => {
-          this.toastService.show('Vragenlijst is aangemaakt', {
+          this.toastService.show('Vragenlijst is aangemaakt!', {
             classname: 'bg-info text-light',
             delay: 3000,
           });
         },
       });
-  }
-
-  getControlsFromSegment(segmentIndex: number) {
-    const segment = (this.questionnaireForm.get('segments') as FormArray).at(
-      segmentIndex
-    ) as FormGroup;
-    const questions = segment.get('questions') as FormArray;
-    return questions;
   }
 }

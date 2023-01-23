@@ -19,11 +19,7 @@
       >
         Verwijder alle segmenten
       </button>
-      <button
-        class="btn btn-success m-2"
-        type="button"
-        (click)="addNewSegment()"
-      >
+      <button class="btn btn-success m-2" type="button" (click)="addSegment()">
         Segment toevoegen
       </button>
     </div>
@@ -38,55 +34,23 @@
       <input
         type="text"
         class="form-control"
-        formControlName="questionnaireName"
+        formControlName="name"
         placeholder="Naam vragenlijst"
       />
-      <label for="questionnaireName">Naam vragenlijst</label>
+      <label for="name">Naam vragenlijst</label>
     </div>
 
     <div class="form-floating mb-3">
       <textarea
         type="text"
         class="form-control"
-        id="questionnaireDescription"
-        formControlName="questionnaireDescription"
+        id="description"
+        formControlName="description"
         placeholder="Beschrijving vragenlijst"
       ></textarea>
-      <label for="questionnaireName">Beschrijving vragenlijst</label>
+      <label for="description">Beschrijving vragenlijst</label>
     </div>
 
-    <fieldset disabled>
-      <div
-        class="form-floating mb-3"
-        ngbTooltip="Dit is de datum van vandaag, deze kan niet worden aangepast."
-        container="body"
-        placement="top"
-      >
-        <input
-          type="date"
-          class="form-control"
-          id="questionnaireDate"
-          formControlName="questionnaireDate"
-          placeholder="Datum van aanmaken"
-        />
-        <label for="questionnaireName">Datum van aanmaken</label>
-      </div>
-
-      <div
-        class="form-floating mb-3"
-        ngbTooltip="Deze vraag word door de hulpverlener ingevuld."
-        container="body"
-        placement="top"
-      >
-        <input
-          type="text"
-          class="form-control"
-          formControlName="questionnaireDate"
-          placeholder="Naam patiënt"
-        />
-        <label for="questionnaireName">Naam patiënt</label>
-      </div>
-    </fieldset>
     <div class="create__segments">
       <!--
           For loop met segmenten
@@ -97,80 +61,128 @@
               input voor type vraag
               Button om vraag te verwijderen
       -->
-      <div
-        class="create__singular_segment card mb-3"
-        *ngFor="
-          let segment of questionnaireSegmentsArray.controls;
-          let index = index
-        "
-        [formGroupName]="index"
-      >
-        <div class="card-header">
-          <div class="d-flex justify-content-between align-content-center">
-            <div class="form-floating">
-              <input
-                type="text"
-                class="form-control"
-                id="segments"
-                formControlName="segments"
-                placeholder="Naam segment"
-                required
-              />
-              <label for="segments">Naam segment</label>
-            </div>
-            <div id="buttons" class="align-self-center h-100">
-              <button class="btn btn-success m-2" (click)="addQuestion()">
-                <i class="bi bi-plus-circle"></i>
-                Vraag toevoegen
-              </button>
+      <ng-container formArrayName="segments">
+        <div
+          class="create__singular_segment card mb-3"
+          *ngFor="
+            let segment of questionnaireForm.controls.segments.controls;
+            let segmentIndex = index
+          "
+        >
+          <div [formGroupName]="segmentIndex">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-content-center">
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="title-{{ segmentIndex }}"
+                      formControlName="title"
+                      placeholder="Naam segment"
+                      required
+                    />
+                    <label for="title-{{ segmentIndex }}">Naam segment</label>
+                  </div>
+                </div>
+                &emsp;
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="description-{{ segmentIndex }}"
+                      formControlName="description"
+                      placeholder="Naam segment"
+                      required
+                    />
+                    <label for="description-{{ segmentIndex }}"
+                      >Beschrijving</label
+                    >
+                  </div>
+                </div>
+                <div id="buttons" class="align-self-center h-100">
+                  <button
+                    type="button"
+                    class="btn btn-success m-2"
+                    (click)="addQuestion(segmentIndex)"
+                  >
+                    <i class="bi bi-plus-circle"></i>
+                    Vraag toevoegen
+                  </button>
 
-              <button
-                class="btn btn-danger m-2"
-                type="button"
-                (click)="deleteSegment(index)"
-              >
-                <i class="bi bi-trash"></i>
-              </button>
+                  <button
+                    class="btn btn-danger m-2"
+                    type="button"
+                    (click)="deleteSegment(segmentIndex)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
             </div>
+            <ng-container formArrayName="questions">
+              <div
+                class="card-body create__singular_question"
+                *ngFor="
+                  let questions of getControlsFromSegment(segmentIndex)
+                    .controls;
+                  let questionIndex = index
+                "
+              >
+                <div
+                  [formGroupName]="questionIndex"
+                  class="d-flex justify-content-between align-content-center"
+                >
+                  <div class="form-floating m-2" style="width: 100%">
+                    <div class="form-group">
+                      <label
+                        for="label-{{ segmentIndex }}-{{ questionIndex }}"
+                        >Vraag</label
+                      >
+                      <textarea
+                        class="form-control"
+                        formControlName="label"
+                        id="label-{{ segmentIndex }}-{{ questionIndex }}"
+                        placeholder="Schrijf hier je vraag op. Als je geen mogelijke opties opgeeft, dan wordt het een open vraag."
+                        rows="4"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="form-floating m-2">
+                    <div class="form-group">
+                      <label
+                        for="choices-{{ segmentIndex }}-{{ questionIndex }}"
+                        >Opties</label
+                      >
+                      <textarea
+                        class="form-control"
+                        formControlName="options"
+                        id="choices-{{ segmentIndex }}-{{ questionIndex }}"
+                        rows="4"
+                        placeholder="Optie a
+Optie b
+Optie c
+Optie d"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <button
+                    class="btn btn-danger m-2"
+                    type="button"
+                    (click)="
+                      deleteQuestionFromSegment(segmentIndex, questionIndex)
+                    "
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
-        <div class="card-body create__singular_question"
-             *ngFor="let questions of questionControls; let questionIndex = index"
-             [formGroupName]="questionIndex">
-          <div class="d-flex justify-content-between align-content-center">
-            <div class="form-floating m-2" style="width: 100%;">
-              <input
-                type="text"
-                class="form-control"
-                formControlName="question"
-                placeholder="Vraag"
-                required
-              />
-              <label for="questionnaireName">Vraag</label>
-            </div>
-            <div class="form-floating m-2">
-              <select
-                type="text"
-                class="form-control"
-                id="questionnaireName"
-                formControlName="questionnaireType"
-                placeholder="Type vraag"
-              >
-                <option value="OPEN">Open vraag</option>
-                <option value="CLOSED">Gesloten vraag</option>
-              </select>
-              <label for="questionnaireName">Type vraag</label>
-            </div>
-            <button
-              class="btn btn-danger m-2"
-              type="button"
-              (click)="deleteQuestion(questionIndex)"
-            >
-              <i class="bi bi-trash"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+      </ng-container>
     </div>
     <div class="d-flex justify-content-between">
       <button
@@ -185,8 +197,6 @@
       <button
         type="submit"
         class="btn btn-primary mt-3"
-        routerLink="/questionnaires"
-        [disabled]="!questionnaireForm.valid"
       >
         <i class="bi bi-cloud-arrow-up-fill"></i>
         Creëer
@@ -195,6 +205,6 @@
   </form>
   <br />
 
-  <pre>{{ questionnaireSegmentsArray.value | json }}</pre>
+  <pre>{{ questionnaireForm.value | json }}</pre>
 </div>
 <app-footer></app-footer>

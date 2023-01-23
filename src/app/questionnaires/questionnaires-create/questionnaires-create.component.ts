@@ -1,151 +1,138 @@
-import {Component} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from "@angular/common/http";
-import {ToastService} from "../../shared/toast/toast-service";
+import { Component } from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ToastService } from '../../shared/toast/toast-service';
 
 @Component({
   selector: 'app-questionnaires-create',
   templateUrl: './questionnaires-create.component.html',
-  styleUrls: ['./questionnaires-create.component.scss']
+  styleUrls: ['./questionnaires-create.component.scss'],
 })
-
 export class QuestionnairesCreateComponent {
-
-  questionnaireQuestionsArray = new FormArray([]);
-  questionnaireSegmentsArray = new FormArray([]);
   selectedSegmentIndex = 0;
 
   questionnaireForm = new FormGroup({
-    questionnaireName: new FormControl(null, Validators.required),
-    questionnaireDescription: new FormControl(null, Validators.required),
-    questionnaireDate: new FormControl(null, Validators.required),
-    userName: new FormControl(null, Validators.required),
-    segments: this.questionnaireSegmentsArray,
-    questions: this.questionnaireQuestionsArray,
-    questionnaireType: new FormControl(null)
-  })
+    name: new FormControl(null, Validators.required),
+    description: new FormControl(null, Validators.required),
+    segments: new FormArray([]),
+  });
 
   constructor(
-    private fb: FormBuilder,
     private http: HttpClient,
     private toastService: ToastService,
-  ) {
-  }
+    private formBuilder: FormBuilder
+  ) {}
 
-  addNewSegment() {
-    const newSegment = new FormGroup({
-      'segments': new FormControl(null),
-      'questions': new FormArray([])
+  addSegment() {
+    const segments = this.questionnaireForm.get('segments') as FormArray;
+    const newSegment = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      questions: this.formBuilder.array([]),
     });
-    (<FormArray>this.questionnaireForm.get('segments')).push(newSegment);
-    if (this.questionnaireSegmentsArray.value.length == 1) {
-      this.toastService.show('Segment is toegevoegd',
-        {classname: 'bg-success text-light',
-          delay: 3000});
-    }
+    segments.push(newSegment);
+
+    this.toastService.show('Segment is toegevoegd', {
+      classname: 'bg-success text-light',
+      delay: 3000,
+    });
   }
 
-  // addQuestion() {
-  //   const selectedSegment = (<FormArray>this.questionnaireForm.get('segments')).controls[this.selectedSegmentIndex];
-  //   const questions = <FormArray>selectedSegment.get('questions');
-  //   questions.push(new FormGroup({
-  //     'question': new FormControl(null),
-  //     'questionnaireType': new FormControl(null)
-  //   }));
-  // }
+  addQuestion(segmentIndex: number) {
+    const questions = this.getControlsFromSegment(segmentIndex);
+    const newQuestion = this.formBuilder.group({
+      label: ['', Validators.required],
+      options: ['', Validators.required],
+    });
+    questions.push(newQuestion);
+  }
 
   deleteSegment(index: number) {
     (<FormArray>this.questionnaireForm.get('segments')).removeAt(index);
 
-    if (this.questionnaireSegmentsArray.value.length == 0) {
-      this.toastService.show('U heeft alle segmenten verwijderd',
-        {classname: 'bg-danger  text-light',
-          delay: 3000});
-    }
-    if (this.questionnaireSegmentsArray.value.length == 0) {
-      this.questionnaireQuestionsArray.clear();
-    }
+    this.toastService.show('Segment ' + index + ' is verwijderd!', {
+      classname: 'bg-danger  text-light',
+      delay: 3000,
+    });
   }
 
-  deleteQuestion(index: number) {
-    (<FormArray>this.questionnaireForm.get('questions')).removeAt(index);
+  deleteQuestionFromSegment(segmentIndex: number, questionIndex: number) {
+    const selectedSegment = (<FormArray>this.questionnaireForm.get('segments'))
+      .controls[segmentIndex];
+    const questions = <FormArray>selectedSegment.get('questions');
+    questions.removeAt(questionIndex);
 
-    if (this.questionnaireQuestionsArray.value.length == 0) {
-      this.toastService.show('U heeft alle vragen verwijderd',
-        {classname: 'bg-danger  text-light',
-          delay: 3000});
-    }
-  }
-
-  get questionControls(){
-    return (<FormArray>this.questionnaireForm.get('questions')).controls;
+    this.toastService.show('De vraag is succesvol verwijderd', {
+      classname: 'bg-danger  text-light',
+      delay: 3000,
+    });
   }
 
   clearForm() {
-    if (this.questionnaireForm.valid){
+    if (this.questionnaireForm.valid) {
       this.questionnaireForm.reset();
-      this.questionnaireQuestionsArray.clear();
-      this.questionnaireSegmentsArray.clear();
 
-      this.toastService.show('Het formulier is leeggemaakt',
-        {classname: 'bg-info text-light',
-          delay: 3000});
+      this.toastService.show('Het formulier is leeggemaakt', {
+        classname: 'bg-info text-light',
+        delay: 3000,
+      });
     } else {
-      this.toastService.show('U heeft niet alle velden ingevuld',
-        {classname: 'bg-danger text-light',
-          delay: 3000});
+      this.toastService.show('U heeft niet alle velden ingevuld', {
+        classname: 'bg-danger text-light',
+        delay: 3000,
+      });
     }
   }
 
   clearAlleSegmenten() {
-    if (this.questionnaireSegmentsArray.value.length != 0) {
-      this.toastService.show('U heeft alle segmenten verwijderd',
-        {
-          classname: 'bg-info  text-light',
-          delay: 3000
-        });
-      this.questionnaireSegmentsArray.clear();
+    if (this.questionnaireForm.get('segments') != null) {
+      (<FormArray>this.questionnaireForm.get('segments')).clear();
+      this.toastService.show('U heeft alle segmenten verwijderd', {
+        classname: 'bg-info  text-light',
+        delay: 3000,
+      });
     } else {
-      this.toastService.show('U heeft geen segmenten om te verwijderen',
-        {classname: 'bg-danger text-light',
-          delay: 3000});
+      this.toastService.show('U heeft geen segmenten om te verwijderen', {
+        classname: 'bg-danger text-light',
+        delay: 3000,
+      });
     }
-
   }
 
-  get segmentControls(){
+  get segmentControls() {
     return (<FormArray>this.questionnaireForm.get('segments')).controls;
   }
 
   createQuestionnaire() {
-    this.toastService.show('We zijn om een vragenlijst aan te maken!',
-      {classname: 'bg-info text-light',
-        delay: 3000});
+    this.toastService.show('We zijn om een vragenlijst aan te maken!', {
+      classname: 'bg-info text-light',
+      delay: 3000,
+    });
 
-    this.http.put('/questionnaire', {
-      name: this.questionnaireForm.value.questionnaireName,
-      description: this.questionnaireForm.value.questionnaireDescription,
-      userName: this.questionnaireForm.value.userName,
-      date: this.questionnaireForm.value.questionnaireDate,
-      questionnaireSegments: this.questionnaireForm.value.segments,
-      questionnaireQuestions: this.questionnaireForm.value.questions,
-      type: this.questionnaireForm.value.questionnaireType
-    })
+    // Post to API
+    this.http
+      .post('/questionnaire', this.questionnaireForm.value)
       .subscribe({
         next: () => {
-          this.toastService.show('Vragenlijst is aangemaakt',
-            {classname: 'bg-info text-light',
-              delay: 3000});
-        }
+          this.toastService.show('Vragenlijst is aangemaakt', {
+            classname: 'bg-info text-light',
+            delay: 3000,
+          });
+        },
       });
   }
 
-    addQuestion() {
-      (<FormArray>this.questionnaireForm.get('questions')).push(new FormGroup({
-          'question': new FormControl(null),
-          'questionnaireType': new FormControl(null)
-        })
-      );
-    }
-
+  getControlsFromSegment(segmentIndex: number) {
+    const segment = (this.questionnaireForm.get('segments') as FormArray).at(
+      segmentIndex
+    ) as FormGroup;
+    const questions = segment.get('questions') as FormArray;
+    return questions;
+  }
 }

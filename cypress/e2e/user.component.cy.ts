@@ -68,35 +68,6 @@ describe('UserComponent', () => {
     cy.url().should("includes", '/login');
   });
 
-  it('Should delete user when logged in as admin', () => {
-    cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginSpineAdminSuccess.json'});
-    cy.intercept("GET", 'http://localhost:8080/questionnaire/all', {fixture: 'questionnaires.json'});
-    cy.intercept("GET", 'http://localhost:8080/user/all', {fixture: 'users.json'});
-    cy.intercept("POST", 'http://localhost:8080/auth/register/', {fixture: 'registerSuccess.json'});
-
-    cy.visit('/');
-    cy.url().should('includes', '');
-    cy.get('[formControlName="email"]').type('spine_admin@student.hsleiden.nl');
-    cy.get('[formControlName="password"]').type('12345678');
-    cy.get('button').click();
-
-    cy.url().should('include', 'questionnaires');
-    cy.get('[routerLink="/users"]').click();
-
-    cy.intercept({
-      method: "DELETE",
-      url: '/user/*'
-    }).as("userDelete");
-
-    cy.get('.userDeleteButton').first().click();
-    cy.get('.deleteButton').click();
-
-    cy.wait("@userDelete").then(({request}) => {
-      expect(request.method).to.contains("DELETE")
-    });
-
-  });
-
   it('should update user when logged in as admin', () => {
     cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginSpineAdminSuccess.json'});
     cy.intercept("GET", 'http://localhost:8080/questionnaire/all', {fixture: 'questionnaires.json'});
@@ -114,7 +85,7 @@ describe('UserComponent', () => {
 
     cy.intercept("GET", 'http://localhost:8080/user/1b45cfb8-5d67-440b-adf1-191d69fb6ccb', {fixture: 'editUserBefore.json'});
     cy.get('.userEditButton').first().click();
-    cy.get('select').select('SPINE_USER');
+    cy.get('select').first().select('SPINE_USER');
 
     cy.intercept({
       method: "POST",

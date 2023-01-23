@@ -31,25 +31,25 @@ export class UserCreateComponent implements OnDestroy {
       classname: 'bg-info text-light', delay: 3000
     });
 
-    this.http.post('/auth/register/', {
-      name: this.registerForm.value.registerName,
-      email: this.registerForm.value.registerEmail,
-      organization: this.registerForm.value.registerOrganization,
-      role: this.registerForm.value.registerRole,
-    })
-      .subscribe({
-          next: () => {
-            this.toastService.show('Gebruiker succesvol aangemaakt', {classname: 'bg-success text-light', delay: 3000});
-            this.registerForm.reset();
-          },
-          error: (error) => {
-            this.toastService.show(
-              '❌ - Foutmelding: ' + (ErrorModel.errorMap.get(error.error.message) || error.error.message),
-              {classname: 'bg-danger text-light', delay: 5000}
-            );
-          }
+    this.userService.createUser(
+      this.registerForm.value["registerName"],
+      this.registerForm.value["registerEmail"],
+      this.registerForm.value["registerOrganization"],
+      this.registerForm.value["registerRole"],
+    ).subscribe({
+        next: () => {
+          this.toastService.show('Gebruiker succesvol aangemaakt', {classname: 'bg-success text-light', delay: 3000});
+          this.registerForm.reset();
+        },
+        error: (error) => {
+          this.toastService.show(
+            '❌ - Foutmelding: ' + (ErrorModel.errorMap.get(error.error.message) || error.error.message),
+            {classname: 'bg-danger text-light', delay: 5000}
+          );
         }
-      );
+      }
+    );
+
   }
 
   ngOnDestroy(): void {

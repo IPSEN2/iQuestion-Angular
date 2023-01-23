@@ -38,4 +38,22 @@ export class UserService {
     return this.http.post('/auth/request-password-reset', {email: email})
       .pipe(catchError(this.errorHandlingService.handleError));
   }
+
+  createUser(name: null | undefined, email: null | undefined, organization: null | undefined, role: null | undefined){
+    return this.http.post('/auth/register/', {
+      name: name,
+      email: email,
+      organization: organization,
+      role: role
+    })};
+
+  updateUser(user: User, name: null | undefined, organization: null | undefined, role: null | undefined){
+    return this.http.post('/user/' + user.id, {
+      name: name,
+      organization: organization,
+      role: role
+    })
+
+  }
+
 }

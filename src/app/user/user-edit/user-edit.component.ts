@@ -50,12 +50,12 @@ export class UserEditComponent implements OnDestroy {
 
   updateUserData() {
     this.toastService.show('Gebruiker wordt aangepast!', {classname: 'bg-info text-light', delay: 3000});
-    this.http.post('/user/' + this.user$.id, {
-      name: this.updateUserForm.value.updateUserName,
-      organization: this.updateUserForm.value.updateUserOrganization,
-      role: this.updateUserForm.value.updateUserRole,
-    })
-      .subscribe({
+    this.userService.updateUser(
+      this.user$,
+      this.updateUserForm.value["updateUserName"],
+      this.updateUserForm.value["updateUserOrganization"],
+      this.updateUserForm.value["updateUserRole"],
+    ).subscribe({
           next: () => {
             this.toastService.show('Gebruiker succesvol aangepast', {classname: 'bg-success text-light', delay: 3000});
             this.router.navigate(['/users']);

@@ -1,10 +1,34 @@
-<div [formGroup]="form">
-  <label [attr.for]="question.key">{{ question.label }}</label>
+<div [formGroup]="form" class="form-question col-md-8">
+  <label [attr.for]="question.key" class="form-label">{{
+    question.label
+  }}</label>
+  <div [ngSwitch]="question.controlType">
+    <input
+      class="form-control"
+      *ngSwitchCase="'textbox'"
+      [formControlName]="question.key"
+      [id]="question.key"
+      [type]="question.type"
+    />
+    <small *ngSwitchCase="'textbox'" class="form-text text-muted">Deze informatie wordt nooit opgestuurd.</small>
 
-  <input
-    class="form-control"
-    [formControlName]="question.key"
-    [id]="question.key"
-    [type]="question.type"
-  />
+    <textarea
+      class="form-control"
+      *ngSwitchCase="'textarea'"
+      [formControlName]="question.key"
+      [id]="question.key"
+    ></textarea>
+
+    <select
+      class="form-select"
+      [id]="question.key"
+      *ngSwitchCase="'dropdown'"
+      [formControlName]="question.key"
+    >
+      <option value="" disabled selected>Selecteer een optie</option>
+      <option *ngFor="let opt of question.options" [value]="opt.key">
+        {{ opt.value }}
+      </option>
+    </select>
+  </div>
 </div>

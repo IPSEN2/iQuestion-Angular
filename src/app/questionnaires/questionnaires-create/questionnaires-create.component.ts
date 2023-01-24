@@ -127,6 +127,7 @@ export class QuestionnairesCreateComponent {
             classname: 'bg-success text-light',
             delay: 3000,
           });
+          this.questionnaireForm.reset();
         },
         error: (error) => {
           this.toastService.show('Er is iets mis gegaan', {

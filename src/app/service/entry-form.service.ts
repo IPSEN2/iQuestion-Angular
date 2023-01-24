@@ -27,6 +27,6 @@ export class EntryFormService {
       });
     });
 
-    return of(questions);
+    return questions;
   }
 }

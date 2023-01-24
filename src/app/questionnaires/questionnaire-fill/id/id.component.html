@@ -12,7 +12,7 @@
     Auteur: {{ questionnaire$.author.name }} -
     {{ questionnaire$.author.organization }}
   </p>
-  <app-entry-form #form [questions]="questions$ | async"></app-entry-form>
+  <app-entry-form #form [questions]="questions$"></app-entry-form>
   <button
     id="submitBtn"
     [disabled]="submitBtnDisabled"

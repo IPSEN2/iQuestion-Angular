@@ -120,14 +120,20 @@ export class QuestionnairesCreateComponent {
 
     // Post to API
     this.http
-      .post('/questionnaire', this.questionnaireForm.value)
+      .put('/questionnaire/', this.questionnaireForm.value)
       .subscribe({
         next: () => {
           this.toastService.show('Vragenlijst is aangemaakt!', {
-            classname: 'bg-info text-light',
+            classname: 'bg-success text-light',
             delay: 3000,
           });
         },
+        error: (error) => {
+          this.toastService.show('Er is iets mis gegaan', {
+            classname: 'bg-danger text-light',
+            delay: 3000,
+          });
+        }
       });
   }
 }

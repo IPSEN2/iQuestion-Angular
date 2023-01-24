@@ -32,6 +32,8 @@ import { QuestionnairesViewComponent } from './questionnaires/questionnaires-vie
 import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-create/questionnaires-create.component';
 import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
 import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
+import { EntriesViewComponent } from './entries/entries-view/entries-view.component';
+import { EntriesOverviewComponent } from './entries/entries-overview/entries-overview.component';
 
 
 @NgModule({
@@ -57,6 +59,8 @@ import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delet
     QuestionnairesViewComponent,
     QuestionnairesCreateComponent,
     IdComponent,
+    EntriesViewComponent,
+    EntriesOverviewComponent,
   ],
   imports: [
     BrowserModule,

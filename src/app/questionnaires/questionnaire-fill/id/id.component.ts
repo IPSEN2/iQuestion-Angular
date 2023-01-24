@@ -94,7 +94,6 @@ export class IdComponent {
     
     // loop over form controls
     for (const control in this.formComponent.form.controls) {
-      console.log(this.formComponent.form.controls[control]);
         if (control != null) {
             let answeredQuestion = {
                 question: control,

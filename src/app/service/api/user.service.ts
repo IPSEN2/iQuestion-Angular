@@ -27,7 +27,7 @@ export class UserService {
   disableUser(id: string | undefined) {
     return this.http.post('/user/' + id, {
       enabled: 'false'
-    });
+    }).pipe(catchError(this.errorHandlingService.handleError));
   }
 
   changePassword(token: string, newPassword: string) {
@@ -46,7 +46,7 @@ export class UserService {
       email: email,
       organization: organization,
       role: role
-    })
+    }).pipe(catchError(this.errorHandlingService.handleError));
   };
 
   updateUser(user: User, name: null | undefined, organization: null | undefined, role: null | undefined, enabled: null | undefined) {
@@ -55,8 +55,6 @@ export class UserService {
       organization: organization,
       role: role,
       enabled: enabled
-    })
-
+    }).pipe(catchError(this.errorHandlingService.handleError));
   }
-
 }

@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ToastService } from '../../shared/toast/toast-service';
+import { ErrorModel } from 'src/app/shared/error.model';
 
 @Component({
   selector: 'app-questionnaires-create',
@@ -15,7 +16,6 @@ import { ToastService } from '../../shared/toast/toast-service';
   styleUrls: ['./questionnaires-create.component.scss'],
 })
 export class QuestionnairesCreateComponent {
-
   questionnaireForm = new FormGroup({
     name: new FormControl(null, Validators.required),
     description: new FormControl(null, Validators.required),
@@ -118,22 +118,31 @@ export class QuestionnairesCreateComponent {
       delay: 3000,
     });
 
-    // Post to API
-    this.http
-      .put('/questionnaire/', this.questionnaireForm.value)
-      .subscribe({
-        next: () => {
-          this.toastService.show('Vragenlijst is aangemaakt!', {
-            classname: 'bg-success text-light',
-            delay: 3000,
-          });
-        },
-        error: (error) => {
-          this.toastService.show('Er is iets mis gegaan', {
-            classname: 'bg-danger text-light',
-            delay: 3000,
-          });
-        }
+    this.questionnaireForm.value.segments?.forEach((segment: any) => {
+      segment.questions.forEach((question: any) => {
+        question.options = question.options.split('\n');
       });
+    });
+
+    console.log(this.questionnaireForm.value)
+
+
+    // Post to API
+    this.http.put('/questionnaire/', this.questionnaireForm.value).subscribe({
+      next: () => {
+        this.toastService.show('✅ - Vragenlijst is aangemaakt!', {
+          classname: 'bg-success text-light',
+          delay: 3000,
+        });
+
+        this.questionnaireForm.reset();
+      },
+      error: (error) => {
+        this.toastService.show('❌ - ' + ErrorModel.errorMap.get(error), {
+          classname: 'bg-danger text-light',
+          delay: 3000,
+        });
+      },
+    });
   }
 }

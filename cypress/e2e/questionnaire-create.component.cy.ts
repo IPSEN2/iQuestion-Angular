@@ -10,40 +10,38 @@ describe('QuestionnairesCreateComponent', () => {
 
     // should go to create questionnaire page
     cy.visit('/questionnaires/new');
-    cy.url().should('include', 'questionnaires/create');
+    cy.url().should('include', 'questionnaires/new');
 
     // should add a segment at the create questionnaire page and fill the forms in
-    cy.get('#addSegmentBtn').click();
+    cy.get('#segmentToevoegen').click();
 
     // fill in segment form
-    cy.get('#segmentName').type('test');
-    cy.get('#segmentDescription').type('test');
+    cy.get('#naamSegment').type('test');
+    cy.get('#beschrijving').type('test');
   })
 
   it('Should add a question in the questionnaire form', () => {
     // log in
     cy.visit('/');
     cy.url().should('includes', '');
-    cy.get('[formControlName="email"]').type('spineadmind@test.com');
+    cy.get('[formControlName="email"]').type('spineadmin@test.com');
     cy.get('[formControlName="password"]').type('12345678');
     cy.get('button').click();
+    cy.url().should('include', 'questionnaires');
 
     // should go to create questionnaire page
     cy.visit('/questionnaires/new');
-    cy.url().should('include', 'questionnaires/create');
+    cy.url().should('include', 'questionnaires/new');
 
     // should add a segment in order to add a question
-    cy.get('#addSegmentBtn').click();
+    cy.get('#segmentToevoegen').click();
 
     // should add a question in the questionnaire create page and fill the forms in
-    cy.get('#addQuestionBtn').click();
+    cy.get('#vraagToevoegen').click();
 
     // fill in question form
-    cy.get('#questionName').type('test');
-    cy.get('#questionType').type('Optie a');
-    cy.get('#questionType').type('Optie b');
-    cy.get('#questionType').type('Optie c');
-    cy.get('#questionType').type('Optie d');
+    cy.get('#vraagNaam').type('test', {force: true});
+    cy.get('#vraagOpties').type('Optie a \n Optie b \n Optie c \n Optie d', {force: true});
   })
 
   it('Should delete a segment in the questionnaire form', () => {
@@ -53,13 +51,17 @@ describe('QuestionnairesCreateComponent', () => {
     cy.get('[formControlName="email"]').type('spineadmin@test.com');
     cy.get('[formControlName="password"]').type('12345678');
     cy.get('button').click();
+    cy.url().should('include', 'questionnaires');
 
     // should go to create questionnaire page
     cy.visit('/questionnaires/new');
-    cy.url().should('include', 'questionnaires/create');
+    cy.url().should('include', 'questionnaires/new');
+
+    // should add a segment in order to delete a segment
+    cy.get('#segmentToevoegen').click();
 
     //Should delete a segment in the questionnaire form
-    cy.get('#deleteSegmentBtn').click();
+    cy.get('#segmentVerwijderen').click();
   })
 
   it('Should delete a question in the questionnaire form', () => {
@@ -69,15 +71,19 @@ describe('QuestionnairesCreateComponent', () => {
     cy.get('[formControlName="email"]').type('spineadmin@test.com');
     cy.get('[formControlName="password"]').type('12345678');
     cy.get('button').click();
+    cy.url().should('include', 'questionnaires');
 
     // should go to create questionnaire page
     cy.visit('/questionnaires/new');
-    cy.url().should('include', 'questionnaires/create');
+    cy.url().should('include', 'questionnaires/new');
 
     // should add a segment in order to add a question
-    cy.get('#addSegmentBtn').click();
+    cy.get('#segmentToevoegen').click();
+
+    // should add a question in order to delete a question
+    cy.get('#vraagToevoegen').click();
 
     //Should delete a question in the questionnaire form
-    cy.get('#deleteQuestionBtn').click();
+    cy.get('#vraagVerwijderen').click({force: true});
   })
 });

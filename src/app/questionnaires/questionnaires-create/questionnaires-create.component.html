@@ -19,7 +19,7 @@
       >
         Verwijder alle segmenten
       </button>
-      <button class="btn btn-success m-2" type="button" (click)="addSegment()">
+      <button class="btn btn-success m-2" type="button" id="segmentToevoegen" (click)="addSegment()">
         Segment toevoegen
       </button>
     </div>
@@ -78,7 +78,7 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="title-{{ segmentIndex }}"
+                      id="naamSegment"
                       formControlName="title"
                       placeholder="Naam segment"
                       required
@@ -92,7 +92,7 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="description-{{ segmentIndex }}"
+                      id="beschrijving"
                       formControlName="description"
                       placeholder="Naam segment"
                       required
@@ -104,6 +104,7 @@
                 </div>
                 <div id="buttons" class="align-self-center h-100">
                   <button
+                    id="vraagToevoegen"
                     type="button"
                     class="btn btn-success m-2"
                     (click)="addQuestion(segmentIndex)"
@@ -115,6 +116,7 @@
                   <button
                     class="btn btn-danger m-2"
                     type="button"
+                    id="segmentVerwijderen"
                     (click)="deleteSegment(segmentIndex)"
                   >
                     <i class="bi bi-trash"></i>
@@ -144,7 +146,7 @@
                       <textarea
                         class="form-control"
                         formControlName="label"
-                        id="label-{{ segmentIndex }}-{{ questionIndex }}"
+                        id="vraagNaam"
                         placeholder="Schrijf hier je vraag op. Als je geen mogelijke opties opgeeft, dan wordt het een open vraag."
                         rows="4"
                         required
@@ -160,7 +162,7 @@
                       <textarea
                         class="form-control"
                         formControlName="options"
-                        id="choices-{{ segmentIndex }}-{{ questionIndex }}"
+                        id="vraagOpties"
                         rows="4"
                         placeholder="Optie a
 Optie b
@@ -170,13 +172,14 @@ Optie d"
                     </div>
                   </div>
                   <button
-                    class="btn btn-danger m-2"
+                    id="vraagVerwijderen"
+                    class="btn btn-danger m-2 vraagVerwijderen"
                     type="button"
                     (click)="
                       deleteQuestionFromSegment(segmentIndex, questionIndex)
                     "
                   >
-                    <i class="bi bi-trash"></i>
+                    <i for="vraagVerwijderen" class="bi bi-trash"></i>
                   </button>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import {User} from "../../shared/models/user.model";
 import {HttpClient} from "@angular/common/http";
 import {ToastService} from "../../shared/toast/toast-service";
 import {Router} from "@angular/router";
+import {UserService} from "../../service/api/user.service";
 
 @Component({
   selector: 'app-user-disable',
@@ -17,23 +18,27 @@ export class UserDisableComponent {
   constructor(private http: HttpClient,
               public activeModal: NgbActiveModal,
               private toastService: ToastService,
-              private router: Router) {
+              private router: Router,
+              private userService: UserService) {
   }
 
 
-  disableUser(){
+  disableUser() {
     this.toastService.show('Gebruiker wordt aangepast!', {classname: 'bg-info text-light', delay: 3000});
-    this.http.post('/user/' + this.user?.id, {
-      enabled: 'false'
-    }).subscribe({
+    this.userService.disableUser(this.user?.id).subscribe({
         next: () => {
-          this.toastService.show('Gebruiker succesvol aangepast', {classname: 'bg-success text-light', delay: 3000});
+          this.toastService.show('Gebruiker succesvol gedeactiveerd!', {classname: 'bg-success text-light', delay: 3000});
           this.router.navigate(['/users']);
           this.disableConfirmed.emit(true);
           this.activeModal.dismiss();
+        },
+        error: errorMessage => {
+          this.toastService.show(
+            '❌ - ' + errorMessage,
+            {classname: 'bg-danger text-light', delay: 5000}
+          );
         }
-      });
-
+      }
+    );
   }
-
 }

@@ -24,9 +24,10 @@ export class UserService {
       .pipe(catchError(this.errorHandlingService.handleError));
   }
 
-  delete(id: string | undefined) {
-    return this.http.delete("/user/" + String(id))
-      .pipe(catchError(this.errorHandlingService.handleError));
+  disableUser(id: string | undefined) {
+    return this.http.post('/user/' + id, {
+      enabled: 'false'
+    });
   }
 
   changePassword(token: string, newPassword: string) {
@@ -39,19 +40,21 @@ export class UserService {
       .pipe(catchError(this.errorHandlingService.handleError));
   }
 
-  createUser(name: null | undefined, email: null | undefined, organization: null | undefined, role: null | undefined){
+  createUser(name: null | undefined, email: null | undefined, organization: null | undefined, role: null | undefined) {
     return this.http.post('/auth/register/', {
       name: name,
       email: email,
       organization: organization,
       role: role
-    })};
+    })
+  };
 
-  updateUser(user: User, name: null | undefined, organization: null | undefined, role: null | undefined){
+  updateUser(user: User, name: null | undefined, organization: null | undefined, role: null | undefined, enabled: null | undefined) {
     return this.http.post('/user/' + user.id, {
       name: name,
       organization: organization,
-      role: role
+      role: role,
+      enabled: enabled
     })
 
   }

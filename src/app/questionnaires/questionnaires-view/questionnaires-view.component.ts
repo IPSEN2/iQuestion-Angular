@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastService} from '../../shared/toast/toast-service';
 import {EntryService} from '../../service/api/entry.service';
@@ -12,7 +12,7 @@ import {QuestionnaireDeleteComponent} from '../questionnaire-delete/questionnair
   templateUrl: './questionnaires-view.component.html',
   styleUrls: ['./questionnaires-view.component.scss']
 })
-export class QuestionnairesViewComponent {
+export class QuestionnairesViewComponent implements OnDestroy{
   questionnaires: Questionnaire[] = [];
   public searchString: any;
 
@@ -119,5 +119,9 @@ export class QuestionnairesViewComponent {
     const jsDate = new Date(date)
     // Sorry dat ik niet de "options" naar een constant kan doen want om een of andere reden gaat angular dan huilie huilie doen
     return jsDate.toLocaleString('nl-NL', {year: "numeric", month: "long", day: "2-digit"});
+  }
+
+  ngOnDestroy() {
+    this.toastService.clear();
   }
 }

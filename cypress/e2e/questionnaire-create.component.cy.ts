@@ -20,7 +20,7 @@ describe('QuestionnairesCreateComponent', () => {
     cy.get('#beschrijving').type('test');
   })
 
-  it('Should add a question in the questionnaire form', () => {
+  it('Should add a question in the questionnaire form and fill in the question forms', () => {
     // log in
     cy.visit('/');
     cy.url().should('includes', '');

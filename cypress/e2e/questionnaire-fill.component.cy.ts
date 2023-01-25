@@ -19,7 +19,7 @@ describe('QuestionnaireFillComponent', () => {
         }).as('entryCreate');
 
         // fill in questionnaire
-        cy.get('#20ed63a4-b160-4b9b-8665-422938').select('Optie a')
+        cy.get('#20ed63a4-b160-4b9b-8665-422938938088').select('Optie a')
         cy.get('#submitBtn').click();
 
         // check if API request was successful

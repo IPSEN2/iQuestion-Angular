@@ -33,6 +33,15 @@ export class SelfEditComponent {
     const name = this.editSelfForm.value['name'];
 
     const userModel = {
+<<<<<<< feat/create-questionnaire
+      "id": this.user.user?.id,
+      "name": name,
+      "email": this.user.user?.email,
+      "organization": this.user.user?.organization,
+      "enabled": this.user.user?.enabled,
+      "role": this.user.user?.role,
+  }
+=======
       id: this.user.user?.id,
       name: name,
       email: this.user.user?.email,
@@ -40,14 +49,22 @@ export class SelfEditComponent {
       enabled: this.user.user?.enabled,
       role: this.user.user?.role,
     };
+>>>>>>> dev
 
     // Request the API to update the user
     const url = '/user/' + this.user.user?.id;
 
+<<<<<<< feat/create-questionnaire
+    this.toastService.show(
+      '⚙️ - Bezig met het bijwerken van je gegevens...',
+      { classname: 'bg-info text-light', delay: 3000 }
+    );
+=======
     this.toastService.show('⚙️ - Bezig met het bijwerken van je gegevens...', {
       classname: 'bg-info text-light',
       delay: 3000,
     });
+>>>>>>> dev
 
     this.http.post(url, userModel).subscribe({
       next: (result: any) => {
@@ -56,6 +73,16 @@ export class SelfEditComponent {
           delay: 5000,
         });
 
+<<<<<<< feat/create-questionnaire
+        this.localUserService.localUser.user = new User(
+          result['id'],
+          result['name'],
+          result['email'],
+          result['organization'],
+          result['enabled'],
+          result['role']
+        );
+=======
         // Update the local user
         this.localUserService.localUser.user = result;
         let userData = JSON.parse(localStorage.getItem('userData') || '{}');
@@ -71,6 +98,7 @@ export class SelfEditComponent {
             delay: 5000,
           });
         }
+>>>>>>> dev
       },
       error: (error) => {
         let errorMessage = error.error.message;

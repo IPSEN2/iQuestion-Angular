@@ -1,1 +1,241 @@
-<p>questionnaires-create works!</p>
+<app-navigation></app-navigation>
+<app-toasts></app-toasts>
+<nav class="navbar sticky-top" style="background-color: #131a4d">
+  <div class="container d-flex justify-content-between">
+    <div id="align-buttons-left">
+      <button
+        class="btn btn-outline-danger m-2"
+        type="button"
+        (click)="clearForm()"
+      >
+        Vragenlijst formulier legen
+      </button>
+    </div>
+    <div id="align-buttons-right">
+      <button
+        class="btn btn-danger m-2"
+        type="button"
+        (click)="clearAlleSegmenten()"
+      >
+        Verwijder alle segmenten
+      </button>
+      <button class="btn btn-success m-2" type="button" id="segmentToevoegen" (click)="addSegment()">
+        Segment toevoegen
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="container mt-3">
+  <div class="d-flex justify-content-between align-content-center">
+    <h1>Creeer een vragenlijst</h1>
+  </div>
+  <form [formGroup]="questionnaireForm" (ngSubmit)="createQuestionnaire()">
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="name"
+        placeholder="Naam vragenlijst"
+        id="name"
+      />
+      <label for="name">Naam vragenlijst</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <textarea
+        type="text"
+        class="form-control"
+        id="description"
+        formControlName="description"
+        placeholder="Beschrijving vragenlijst"
+      ></textarea>
+      <label for="description">Beschrijving vragenlijst</label>
+    </div>
+
+    <div class="create__segments">
+      <!--
+          For loop met segmenten
+            Button om segment te verwijderen
+            Button om vraag toe te voegen
+              For loop met vragen
+              Input voor vraag
+              input voor type vraag
+              Button om vraag te verwijderen
+      -->
+      <ng-container formArrayName="segments">
+        <div
+          class="create__singular_segment card mb-3"
+          *ngFor="
+            let segment of questionnaireForm.controls.segments.controls;
+            let segmentIndex = index
+          "
+        >
+          <div [formGroupName]="segmentIndex">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-content-center">
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="naamSegment"
+                      formControlName="title"
+                      placeholder="Naam segment"
+                      required
+                    />
+                    <label for="title-{{ segmentIndex }}">Naam segment</label>
+                  </div>
+                </div>
+                &emsp;
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="beschrijving"
+                      formControlName="description"
+                      placeholder="Naam segment"
+                      required
+                    />
+                    <label for="description-{{ segmentIndex }}"
+                      >Beschrijving</label
+                    >
+                  </div>
+                </div>
+                <div id="buttons" class="align-self-center h-100">
+                  <button
+                    id="vraagToevoegen"
+                    type="button"
+                    class="btn btn-success m-2"
+                    (click)="addQuestion(segmentIndex)"
+                  >
+                    <i class="bi bi-plus-circle"></i>
+                    Vraag toevoegen
+                  </button>
+
+                  <button
+                    class="btn btn-danger m-2"
+                    type="button"
+                    id="segmentVerwijderen"
+                    (click)="deleteSegment(segmentIndex)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="getControlsFromSegment(segmentIndex).length === 0">
+              <div class="card-body">
+                <div class="alert alert-info d-flex align-items-center" role="alert">
+                  <i class="bi bi-info-circle-fill"></i>
+                  <div>
+                    Er zijn nog geen vragen toegevoegd aan dit segment. Voeg een vraag toe door op de knop "Vraag toevoegen" te klikken.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="getControlsFromSegment(segmentIndex).length >= 1">
+              <div class="card-body">
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+                  <div>
+                    Bij het opgeven van opties word de vraag automatisch een meerkeuzevraag. Houd dit vak leeg als je een open vraag wilt.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-container formArrayName="questions">
+              <div
+                class="card-body create__singular_question"
+                *ngFor="
+                  let questions of getControlsFromSegment(segmentIndex)
+                    .controls;
+                  let questionIndex = index
+                "
+              >
+                <div
+                  [formGroupName]="questionIndex"
+                  class="d-flex justify-content-between align-content-center"
+                >
+                  <div class="form-floating m-2" style="width: 100%">
+                    <div class="form-group">
+                      <label
+                        for="label-{{ segmentIndex }}-{{ questionIndex }}"
+                        >Vraag</label
+                      >
+                      <textarea
+                        class="form-control"
+                        formControlName="label"
+                        id="vraagNaam"
+                        placeholder="Schrijf hier je vraag op."
+                        rows="4"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="form-floating m-2">
+                    <div class="form-group">
+                      <label
+                        for="choices-{{ segmentIndex }}-{{ questionIndex }}"
+                        >Opties</label
+                      >
+                      <textarea
+                        class="form-control"
+                        formControlName="options"
+                        id="vraagOpties"
+                        rows="4"
+                        placeholder="Optie a
+Optie b
+Optie c
+Optie d"
+                        ngbTooltip="Alle opties voor de meerkeuze vraag moeten worden opgesplitst met een enter."
+                        placement="top"
+                        container="body"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <button
+                    id="vraagVerwijderen"
+                    class="btn btn-danger m-2 vraagVerwijderen"
+                    type="button"
+                    (click)="
+                      deleteQuestionFromSegment(segmentIndex, questionIndex)
+                    "
+                  >
+                    <i for="vraagVerwijderen" class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="d-flex justify-content-between">
+      <button
+        class="btn btn-outline-primary mb-3"
+        type="button"
+        routerLink="/questionnaires"
+      >
+        <i class="bi bi-arrow-left"></i>
+        Terug
+      </button>
+
+      <button
+        id="submit"
+        type="submit"
+        class="btn btn-primary mt-3"
+        [disabled]="!questionnaireForm.valid"
+      >
+      <span *ngIf="loading" class="btn btn-primary" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      </span>
+      <div *ngIf="!loading">
+        <i class="bi bi-cloud-arrow-up-fill"></i>
+        Creëer
+      </div>
+      </button>
+    </div>
+  </form>
+</div>
+<app-footer></app-footer>

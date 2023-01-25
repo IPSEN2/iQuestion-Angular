@@ -1,0 +1,25 @@
+<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+<div *ngIf="entry$">
+  <div class="container container-top-margin">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="vraagNummer">Vraagnummer</th>
+            <th scope="col">Vraag</th>
+            <th scope="col" class="col-8">Antwoord</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let answer of entry$.answers; index as i">
+            <th>{{i + 1}}</th>
+            <td>{{answer.question.label}}</td>
+            <td class="text-break">{{answer.result}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

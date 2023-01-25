@@ -202,14 +202,17 @@ Optie d"
         id="submit"
         type="submit"
         class="btn btn-primary mt-3"
+        [disabled]="!questionnaireForm.valid"
       >
+      <span *ngIf="loading" class="btn btn-primary" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      </span>
+      <div *ngIf="!loading">
         <i class="bi bi-cloud-arrow-up-fill"></i>
         Creëer
+      </div>
       </button>
     </div>
   </form>
-  <br />
-
-  <pre>{{ questionnaireForm.value | json }}</pre>
 </div>
 <app-footer></app-footer>

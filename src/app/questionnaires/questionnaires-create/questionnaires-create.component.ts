@@ -22,6 +22,8 @@ export class QuestionnairesCreateComponent {
     segments: new FormArray([]),
   });
 
+  loading = false;
+
   constructor(
     private http: HttpClient,
     private toastService: ToastService,
@@ -118,6 +120,8 @@ export class QuestionnairesCreateComponent {
       delay: 3000,
     });
 
+    this.loading = true;
+
     this.questionnaireForm.value.segments?.forEach((segment: any) => {
       segment.questions.forEach((question: any) => {
         question.options = question.options.split('\n');
@@ -131,13 +135,16 @@ export class QuestionnairesCreateComponent {
           delay: 3000,
         });
 
+        this.loading = false;
         this.questionnaireForm.reset();
       },
       error: (error) => {
-        this.toastService.show('❌ - ' + ErrorModel.errorMap.get(error), {
+        this.toastService.show('❌ - ' + ErrorModel.errorMap.get(error) || "Onbekende fout opgetreden, probeer het later opnieuw", {
           classname: 'bg-danger text-light',
           delay: 3000,
         });
+
+        this.loading = false;
       },
     });
   }

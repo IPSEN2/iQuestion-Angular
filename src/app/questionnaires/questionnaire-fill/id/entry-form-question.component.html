@@ -10,7 +10,9 @@
       [id]="question.key"
       [type]="question.type"
     />
-    <small *ngSwitchCase="'textbox'" class="form-text text-muted">Deze informatie wordt nooit opgestuurd.</small>
+    <small *ngSwitchCase="'textbox'" class="form-text text-muted"
+      >Deze informatie wordt nooit opgestuurd.</small
+    >
 
     <textarea
       class="form-control"
@@ -19,16 +21,25 @@
       [id]="question.key"
     ></textarea>
 
-    <select
-      class="form-select"
-      [id]="question.key"
-      *ngSwitchCase="'dropdown'"
+    <div *ngSwitchCase="'dropdown'">
+      <select
+        class="form-select"
+        [id]="question.key"
+        [formControlName]="question.key"
+        *ngIf="question.options && question.options.length > 1"
+      >
+        <option value="" disabled selected>Selecteer een optie</option>
+        <option *ngFor="let opt of question.options" [value]="opt.key">
+          {{ opt.value }}
+        </option>
+      </select>
+
+      <input 
+      class="form-control"
       [formControlName]="question.key"
-    >
-      <option value="" disabled selected>Selecteer een optie</option>
-      <option *ngFor="let opt of question.options" [value]="opt.key">
-        {{ opt.value }}
-      </option>
-    </select>
+      [id]="question.key"
+      [type]="question.type"
+      *ngIf="question.options && question.options.length == 1" />
+    </div>
   </div>
 </div>

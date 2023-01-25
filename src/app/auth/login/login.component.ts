@@ -1,10 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
-import { LocalUserService } from '../../shared/services/localUser.service';
-import { ErrorModel } from 'src/app/shared/error.model';
-import { ToastService } from 'src/app/shared/toast/toast-service';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../auth.service';
+import {Router} from '@angular/router';
+import {LocalUserService} from '../../shared/services/localUser.service';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +17,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private localUserService: LocalUserService,
-    private toastService: ToastService
-  ) {}
+    private localUserService: LocalUserService
+  ) {
+  }
 
   ngOnInit() {
     this.initForm();
@@ -62,10 +60,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   onLogin() {
-    this.toastService.show('⚙️ - Bezig het inloggen...', {
-      classname: 'bg-info text-light',
-      delay: 3000,
-    });
     this.loading = true;
 
     const email = this.loginForm.value['email'];
@@ -77,23 +71,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (this.localUserService.isLoggedIn) {
           this.router.navigate(['']);
           this.loginForm.reset();
-
-          this.toastService.show(
-            '✅ - Succesvol ingelogd, u word doorverwezen!',
-            { classname: 'bg-success text-light', delay: 3000 }
-          );
           this.loading = false;
         }
       },
-      error: (errorMessage) => {
-        this.toastService.show(
-          '❌ - Foutmelding: ' +
-            (ErrorModel.errorMap.get(errorMessage) || errorMessage),
-          { classname: 'bg-danger text-light', delay: 5000 }
-        );
+      error: errorMessage => {
+        this.error = errorMessage;
         this.loading = false;
         this.loginForm.get('password')?.reset();
-      },
+      }
     });
   }
 }

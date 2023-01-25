@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ErrorModel } from 'src/app/shared/error.model';
-import { User } from 'src/app/shared/models/user.model';
-import { LocalUserService } from 'src/app/shared/services/localUser.service';
-import { ToastService } from 'src/app/shared/toast/toast-service';
+import {HttpClient} from '@angular/common/http';
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {LocalUserService} from 'src/app/shared/services/localUser.service';
+import {ToastService} from 'src/app/shared/toast/toast-service';
+import {catchError} from "rxjs";
+import {ErrorHandlingService} from "../../shared/services/error-handling.service";
 
 @Component({
   selector: 'app-self-edit',
@@ -15,8 +15,10 @@ export class SelfEditComponent {
   constructor(
     private localUserService: LocalUserService,
     private toastService: ToastService,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private errorHandlingService: ErrorHandlingService
+  ) {
+  }
 
   user = this.localUserService.localUser;
 
@@ -51,44 +53,43 @@ export class SelfEditComponent {
       delay: 3000,
     });
 
-      this.loading = true;
+    this.loading = true;
 
-    this.http.post(url, userModel)
-    .subscribe({
-      next: (result: any) => {
-        this.toastService.show('✅ - Je gegevens zijn succesvol bijgewerkt!', {
-          classname: 'bg-success text-light',
-          delay: 5000,
-        });
-
-        // Update the local user
-        this.localUserService.localUser.user = result;
-        let userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
-        userData = {'token': userData.token, 'user': result}
-
-        if (localStorage.getItem('userData') !== null) {
-          localStorage.setItem('userData', JSON.stringify(userData));
-        } else if (sessionStorage.getItem('userData') !== null) {
-          sessionStorage.setItem('userData', JSON.stringify(userData));
-        } else {
-          this.toastService.show('❌ - Er is een fout opgetreden!', {
-            classname: 'bg-danger text-light',
+    this.http.post(url, userModel).pipe(catchError(this.errorHandlingService.handleError))
+      .subscribe({
+        next: (result: any) => {
+          this.toastService.show('✅ - Je gegevens zijn succesvol bijgewerkt!', {
+            classname: 'bg-success text-light',
             delay: 5000,
           });
-        }
-        this.loading = false;
-      },
-      error: (error) => {
-        let errorMessage = error.error.message;
-        this.toastService.show(
-          '❌ - Foutmelding ' +
-            (ErrorModel.errorMap.get(errorMessage) || errorMessage),
-          { classname: 'bg-danger text-light', delay: 5000 }
-        );
 
-        this.loading = false;
-      },
-    });
+          // Update the local user
+          this.localUserService.localUser.user = result;
+          let userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
+          userData = {'token': userData.token, 'user': result}
+
+          if (localStorage.getItem('userData') !== null) {
+            localStorage.setItem('userData', JSON.stringify(userData));
+          } else if (sessionStorage.getItem('userData') !== null) {
+            sessionStorage.setItem('userData', JSON.stringify(userData));
+          } else {
+            this.toastService.show('❌ - Er is een fout opgetreden!', {
+              classname: 'bg-danger text-light',
+              delay: 5000,
+            });
+          }
+          this.loading = false;
+        },
+        error: (error) => {
+          let errorMessage = error.error.message;
+          this.toastService.show(
+            '❌ - ' + errorMessage,
+            {classname: 'bg-danger text-light', delay: 5000}
+          );
+
+          this.loading = false;
+        },
+      });
   }
 
   onChangePassword() {
@@ -96,16 +97,16 @@ export class SelfEditComponent {
     const email = this.editSelfForm.value['email'];
     this.toastService.show(
       '⚙️ - Bezig met het aanvragen van een nieuw wachtwoord...',
-      { classname: 'bg-info text-light', delay: 3000 }
+      {classname: 'bg-info text-light', delay: 3000}
     );
 
     this.loading = true;
 
-    this.http.post(url, { email: email }).subscribe({
+    this.http.post(url, {email: email}).pipe(catchError(this.errorHandlingService.handleError)).subscribe({
       next: () => {
         this.toastService.show(
           '✅ - We hebben een e-mail gestuurd met je verficatie token!',
-          { classname: 'bg-success text-light', delay: 5000 }
+          {classname: 'bg-success text-light', delay: 5000}
         );
 
         this.loading = false;
@@ -113,9 +114,8 @@ export class SelfEditComponent {
       error: (error) => {
         let errorMessage = error.error.message;
         this.toastService.show(
-          '❌ - Foutmelding ' +
-            (ErrorModel.errorMap.get(errorMessage) || errorMessage),
-          { classname: 'bg-danger text-light', delay: 5000 }
+          '❌ - ' + errorMessage,
+          {classname: 'bg-danger text-light', delay: 5000}
         );
 
         this.loading = false;

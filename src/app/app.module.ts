@@ -32,6 +32,7 @@ import { QuestionnairesViewComponent } from './questionnaires/questionnaires-vie
 import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-create/questionnaires-create.component';
 import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
 import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
+import { SelfEditComponent } from './user/self-edit/self-edit.component';
 import { EntriesViewComponent } from './entries/entries-view/entries-view.component';
 import { EntriesOverviewComponent } from './entries/entries-overview/entries-overview.component';
 
@@ -60,6 +61,7 @@ import { SelfEditComponent } from './user/self-edit/self-edit.component';
     QuestionnairesViewComponent,
     QuestionnairesCreateComponent,
     IdComponent,
+    SelfEditComponent,
     EntriesViewComponent,
     EntriesOverviewComponent,
     SelfEditComponent,

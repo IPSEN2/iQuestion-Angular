@@ -2,6 +2,7 @@
   <!-- This should display a blob svg -->
   <div class="blob"></div>
 </nav>
+<app-toasts></app-toasts>
 <div class="vh-100 bg-secondary d-flex centrerenIsMoeielijkHeVince">
   <div class="container container-top-margin" style="z-index: 10">
     <div class="row justify-content-center">
@@ -50,8 +51,11 @@
                       type="submit"
                       [disabled]="!loginForm.valid"
                     >
-                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span *ngIf="loading" class="spinner-grow" role="status"></span>
+                    <div *ngIf="!loading">
+                      <i class="bi bi-box-arrow-in-right"></i>
                       Login
+                    </div>
                     </button>
                   </form>
                   <div class="text-center">

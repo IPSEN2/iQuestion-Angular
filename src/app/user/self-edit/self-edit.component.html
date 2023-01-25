@@ -51,7 +51,13 @@
         class="btn btn-primary mb-3"
         (click)="onChangePassword()"
         id="passwordResetButton"
-        >Verander wachtwoord</a
+        >
+        <span *ngIf="loading" class="spinner-grow" role="status"></span>
+        <div *ngIf="!loading">
+          <i class="bi bi-box-arrow-in-right"></i>
+          Verander wachtwoord
+        </div>
+        </a
       ><br />
 
       <div class="d-flex justify-content-between mt-2">
@@ -59,7 +65,11 @@
           Annuleren
         </button>
         <button type="submit" class="btn btn-primary">
-          Opslaan
+          <span *ngIf="loading" class="spinner-grow" role="status"></span>
+          <div *ngIf="!loading">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Opslaan
+          </div>
         </button>
       </div>
     </form>

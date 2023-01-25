@@ -20,6 +20,8 @@ export class SelfEditComponent {
 
   user = this.localUserService.localUser;
 
+  loading = false;
+
   editSelfForm: FormGroup = new FormGroup({
     name: new FormControl(this.user.user?.name, Validators.required),
     email: new FormControl(this.user.user?.email, Validators.required),
@@ -49,7 +51,10 @@ export class SelfEditComponent {
       delay: 3000,
     });
 
-    this.http.post(url, userModel).subscribe({
+      this.loading = true;
+
+    this.http.post(url, userModel)
+    .subscribe({
       next: (result: any) => {
         this.toastService.show('✅ - Je gegevens zijn succesvol bijgewerkt!', {
           classname: 'bg-success text-light',
@@ -58,8 +63,8 @@ export class SelfEditComponent {
 
         // Update the local user
         this.localUserService.localUser.user = result;
-        let userData = JSON.parse(localStorage.getItem('userData') || '{}');
-        userData.user = result;
+        let userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
+        userData = {'token': userData.token, 'user': result}
 
         if (localStorage.getItem('userData') !== null) {
           localStorage.setItem('userData', JSON.stringify(userData));
@@ -71,6 +76,7 @@ export class SelfEditComponent {
             delay: 5000,
           });
         }
+        this.loading = false;
       },
       error: (error) => {
         let errorMessage = error.error.message;
@@ -79,6 +85,8 @@ export class SelfEditComponent {
             (ErrorModel.errorMap.get(errorMessage) || errorMessage),
           { classname: 'bg-danger text-light', delay: 5000 }
         );
+
+        this.loading = false;
       },
     });
   }
@@ -91,12 +99,16 @@ export class SelfEditComponent {
       { classname: 'bg-info text-light', delay: 3000 }
     );
 
+    this.loading = true;
+
     this.http.post(url, { email: email }).subscribe({
       next: () => {
         this.toastService.show(
           '✅ - We hebben een e-mail gestuurd met je verficatie token!',
           { classname: 'bg-success text-light', delay: 5000 }
         );
+
+        this.loading = false;
       },
       error: (error) => {
         let errorMessage = error.error.message;
@@ -105,6 +117,8 @@ export class SelfEditComponent {
             (ErrorModel.errorMap.get(errorMessage) || errorMessage),
           { classname: 'bg-danger text-light', delay: 5000 }
         );
+
+        this.loading = false;
       },
     });
   }

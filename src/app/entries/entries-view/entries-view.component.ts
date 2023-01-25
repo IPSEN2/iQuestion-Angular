@@ -27,7 +27,6 @@ export class EntriesViewComponent {
     this.entryService.get(id).subscribe( {
       next: (entry) => {
         this.entry$ = entry;
-        console.log(this.entry$)
       },
       error: errorMessage => {
         this.toastService.show(

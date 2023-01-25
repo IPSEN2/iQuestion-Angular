@@ -20,6 +20,7 @@ export class IdComponent {
   questionnaire$!: Questionnaire;
   @ViewChild('form') formComponent: any;
   submitBtnDisabled: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -95,10 +96,9 @@ export class IdComponent {
 
   onSubmit() {
     this.showProcessingToast();
-
+    this.loading = true;
     let answeredQuestions = [];
     let nonPrivateAnsweredQuestions = [];
-
     // loop over form controls
     for (const control in this.formComponent.form.controls) {
         if (control != null) {
@@ -136,12 +136,20 @@ export class IdComponent {
       next: () => {
         this.showSuccessToast();
         this.router.navigate(['/questionnaires']);
+        this.toastService.show('✅ - Opgeslagen, u wordt doorverwezen...', {
+          classname: 'bg-success text-light',
+          delay: 2000,
+        });
+
+        this.loading = false;
       },
       error: errorMessage => {
         this.toastService.show('❌ - ' + errorMessage, {
           classname: 'bg-danger text-light',
           delay: 2000,
         });
+
+        this.loading = false;
       }
     });
   }

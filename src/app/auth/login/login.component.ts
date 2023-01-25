@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { LocalUserService } from '../../shared/services/localUser.service';
-import { ToastService } from 'src/app/shared/toast/toast-service';
 import { ErrorModel } from 'src/app/shared/error.model';
+import { ToastService } from 'src/app/shared/toast/toast-service';
 
 @Component({
   selector: 'app-login',

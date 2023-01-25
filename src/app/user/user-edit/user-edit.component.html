@@ -1,7 +1,7 @@
 <router-outlet></router-outlet>
 <app-navigation></app-navigation>
+<app-toasts></app-toasts>
 <div class="container container-top-margin">
-  <app-toasts></app-toasts>
   <div *ngIf="user$">
     <div class="table-responsive">
       <h1>Gebruiker {{this.user$.name}} aanpassen</h1>
@@ -29,11 +29,11 @@
             </tr>
             <tr>
               <th>Rol</th>
-              <td>{{ userRoleToText(user$.role) }}</td>
+              <td>{{ transformText.userRoleToText(user$.role) }}</td>
               <td>
                 <select
                   id="updateUserRole"
-                  class="form-select"
+                  class="form-select updateUserRole"
                   aria-label="Default select example"
                   formControlName="updateUserRole"
                 >
@@ -53,6 +53,21 @@
                   id="updateUserOrganization"
                   formControlName="updateUserOrganization"
                 />
+              </td>
+            </tr>
+            <tr>
+              <th>Gebruiks status</th>
+              <td>{{ transformText.userStatusToText(user$.enabled!) }}</td>
+              <td>
+                <select
+                  id="updateUserStatus"
+                  class="form-select"
+                  aria-label="Default select example"
+                  formControlName="updateUserEnabled"
+                >
+                  <option value="true">Actief</option>
+                  <option value="false">Inactief</option>
+                </select>
               </td>
             </tr>
           </tbody>

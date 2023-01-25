@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastService} from '../../shared/toast/toast-service';
 import {EntryService} from '../../service/api/entry.service';
@@ -12,7 +12,7 @@ import {QuestionnaireDeleteComponent} from '../questionnaire-delete/questionnair
   templateUrl: './questionnaires-view.component.html',
   styleUrls: ['./questionnaires-view.component.scss']
 })
-export class QuestionnairesViewComponent {
+export class QuestionnairesViewComponent implements OnDestroy{
   questionnaires: Questionnaire[] = [];
   public searchString: any;
 
@@ -24,9 +24,17 @@ export class QuestionnairesViewComponent {
     private toastService: ToastService,
     private localUserService: LocalUserService
   ) {
-    this.questionnaireService.getAll().subscribe((questionnaires) => {
-      this.questionnaires = questionnaires;
-      this.questionnaires.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
+    this.questionnaireService.getAll().subscribe({
+      next: (questionnaires) => {
+        this.questionnaires = questionnaires;
+        this.questionnaires.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
+      },
+      error: errorMessage => {
+        this.toastService.show(
+          '❌ - ' + errorMessage,
+          {classname: 'bg-danger text-light', delay: 5000}
+        );
+      }
     });
   }
 
@@ -36,8 +44,8 @@ export class QuestionnairesViewComponent {
         next: (blob) => {
           this.downloadFile(blob, questionnaire.name + '.csv');
         },
-        error: () => {
-          this.toastService.show('❌ - Er is iets misgegaan!', {
+        error: errorMessage => {
+          this.toastService.show('❌ - ' + errorMessage, {
             classname: 'bg-danger text-light',
             delay: 5000,
           });
@@ -51,8 +59,8 @@ export class QuestionnairesViewComponent {
         next: (blob) => {
           this.downloadFile(blob, questionnaire.name + '.json');
         },
-        error: () => {
-          this.toastService.show('❌ - Er is iets misgegaan!', {
+        error: errorMessage => {
+          this.toastService.show('❌ - ' + errorMessage, {
             classname: 'bg-danger text-light',
             delay: 5000,
           });
@@ -62,7 +70,7 @@ export class QuestionnairesViewComponent {
   }
 
   private downloadFile(blob: Blob, filename: string) {
-    // A temportary link html-element is used to download the blob
+    // A temporary link html-element is used to download the blob
     const a = document.createElement('a');
     const objectUrl = URL.createObjectURL(blob);
     a.href = objectUrl;
@@ -92,9 +100,9 @@ export class QuestionnairesViewComponent {
                   }
                 );
               },
-              error: (error) => {
+              error: errorMessage => {
                 this.toastService.show(
-                  '❌ - Er ging iets mis: ' + error.error.message,
+                  '❌ - ' + errorMessage,
                   {classname: 'bg-danger text-light', delay: 5000}
                 );
               }
@@ -111,5 +119,9 @@ export class QuestionnairesViewComponent {
     const jsDate = new Date(date)
     // Sorry dat ik niet de "options" naar een constant kan doen want om een of andere reden gaat angular dan huilie huilie doen
     return jsDate.toLocaleString('nl-NL', {year: "numeric", month: "long", day: "2-digit"});
+  }
+
+  ngOnDestroy() {
+    this.toastService.clear();
   }
 }

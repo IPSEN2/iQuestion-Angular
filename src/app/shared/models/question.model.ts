@@ -1,11 +1,11 @@
 export class Question {
     id: string;
     label: string;
-    type: string;
+    options: string[];
 
-    constructor(id: string, label: string, type: string) {
+    constructor(id: string, label: string, options: string[]) {
         this.id = id;
         this.label = label;
-        this.type = type;
+        this.options = options;
     }
 }

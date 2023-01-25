@@ -9,10 +9,11 @@
   <hr/>
   <h3>{{ questionnaire$.name }}</h3>
   <p>
-    Auteur: {{ questionnaire$.author.name }} -
-    {{ questionnaire$.author.organization }}
+    <b>Auteur: </b>{{ questionnaire$.author.name }}<br>
+    <b>Organisatie: </b>{{ questionnaire$.author.organization }}
   </p>
-  <app-entry-form #form [questions]="questions$ | async"></app-entry-form>
+  <app-entry-form #form [questions]="questions$"></app-entry-form>
+  <br>
   <button
     id="submitBtn"
     [disabled]="submitBtnDisabled"
@@ -29,3 +30,4 @@
 
   </button>
 </div>
+<app-footer></app-footer>

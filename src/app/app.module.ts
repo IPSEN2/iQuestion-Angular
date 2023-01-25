@@ -36,8 +36,6 @@ import { SelfEditComponent } from './user/self-edit/self-edit.component';
 import { EntriesViewComponent } from './entries/entries-view/entries-view.component';
 import { EntriesOverviewComponent } from './entries/entries-overview/entries-overview.component';
 
-import { SelfEditComponent } from './user/self-edit/self-edit.component';
-
 @NgModule({
   declarations: [
     AppComponent,

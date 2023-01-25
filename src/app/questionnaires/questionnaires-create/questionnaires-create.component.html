@@ -202,7 +202,7 @@ Optie d"
                       deleteQuestionFromSegment(segmentIndex, questionIndex)
                     "
                   >
-                    <i for="vraagVerwijderen" class="bi bi-trash"></i>
+                    <i class="bi bi-trash"></i>
                   </button>
                 </div>
               </div>
@@ -227,7 +227,7 @@ Optie d"
         class="btn btn-primary mt-3"
         [disabled]="!questionnaireForm.valid"
       >
-      <span *ngIf="loading" class="btn btn-primary" type="button" disabled>
+      <span *ngIf="loading" class="btn btn-primary" disabled>
         <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
       </span>
       <div *ngIf="!loading">

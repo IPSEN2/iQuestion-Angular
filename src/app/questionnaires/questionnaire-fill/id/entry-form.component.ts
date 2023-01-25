@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { QuestionBase } from '../question-base';
-import { QuestionControlService } from '../question-controle.service';
+import { QuestionBase } from '../../../shared/form/question-base';
+import { QuestionControlService } from '../../../shared/form/question-controle.service';
 
 @Component({
   selector: 'app-entry-form',

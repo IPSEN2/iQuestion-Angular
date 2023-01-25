@@ -124,7 +124,9 @@
                 [attr.data-questionnaire-name]="questionnaire.name"
                 class="btn btn-outline-primary tableIcon exportCsvButton"
                 (click)="exportToCsv(questionnaire)"
-                title="Exporteer naar CSV"
+                placement="top" 
+                ngbTooltip="Exporteer naar CSV"
+                container="body"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +147,9 @@
                 [attr.data-questionnaire-name]="questionnaire.name"
                 class="btn btn-outline-primary tableIcon exportJsonButton"
                 (click)="exportToJson(questionnaire)"
-                title="Exporteer naar JSON"
+                placement="top" 
+                ngbTooltip="Exporteer naar JSON"
+                container="body"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -175,13 +179,15 @@
                 type="button"
                 class="btn btn-outline-primary tableIcon deleteQuestionnaireButton"
                 (click)="delete(questionnaire)"
-                title="Verwijder"
+                placement="top" 
+                ngbTooltip="Verwijder vragenlijst"
+                container="body"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
-                  fill="#CC0000"
+                  fill="currentColor"
                   class="bi bi-trash3-fill"
                   viewBox="0 0 16 16"
                 >
@@ -199,8 +205,11 @@
                 type="button"
                 class="btn btn-outline-primary tableIcon"
                 [routerLink]="['fill', questionnaire.id]"
+                placement="top" 
+                ngbTooltip="Vragenlijst invullen"
+                container="body"
               >
-                Vul vragenlijst in
+              <i class="bi bi-pen-fill"></i>
               </a>
             </div>
           </td>

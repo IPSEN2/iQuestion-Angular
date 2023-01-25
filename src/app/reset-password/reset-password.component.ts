@@ -12,6 +12,7 @@ import {UserService} from "../service/api/user.service";
 })
 export class ResetPasswordComponent implements OnInit, OnDestroy {
   changePasswordForm!: FormGroup;
+  loading: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -36,6 +37,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       '⚙️ - Bezig met het aanvragen van een nieuw wachtwoord...',
       {classname: 'bg-info text-light', delay: 15000}
     );
+    this.loading = true;
 
     this.userService.requestPasswordReset(email).subscribe({
         next: () => {
@@ -44,6 +46,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
             '✅ - We hebben een e-mail gestuurd met je verficatie token!',
             {classname: 'bg-success text-light', delay: 5000}
           );
+
+          this.loading = false;
         },
         error: errorMessage => {
           this.toastService.clear();
@@ -52,6 +56,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
               classname: 'bg-danger text-light', delay: 5000
             }
           );
+
+          this.loading = false;
         }
       }
     );

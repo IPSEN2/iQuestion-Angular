@@ -2,6 +2,22 @@
 <app-navigation> </app-navigation>
 
 <app-toasts></app-toasts>
+<nav class="navbar sticky-top bg-light">
+  <div class="container d-flex justify-content-end">
+    <div
+    class="d-grid gap-2 d-md-flex justify-content-md-end"
+    *ngIf="
+      this.user.user?.role == 'SPINE_USER' ||
+      this.user.user?.role == 'SPINE_ADMIN'
+    "
+  >
+    <a type="button" class="btn btn-primary" routerLink="new"
+      ><i class="bi bi-clipboard2-plus-fill"></i> Creëer vragenlijst</a
+    >
+  </div>
+  </div>
+</nav>
+
 <div class="container container-top-margin">
   <div class="searchbar__top">
     <h1>Vragenlijsten</h1>
@@ -216,16 +232,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-  <div
-    class="d-grid gap-2 d-md-flex justify-content-md-end"
-    *ngIf="
-      this.user.user?.role == 'SPINE_USER' ||
-      this.user.user?.role == 'SPINE_ADMIN'
-    "
-  >
-    <a type="button" class="btn btn-primary" routerLink="new"
-      ><i class="bi bi-clipboard2-plus-fill"></i> Creëer vragenlijst</a
-    >
   </div>
 </div>

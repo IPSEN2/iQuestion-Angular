@@ -7,7 +7,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavigationComponent} from './navigation/navigation.component';
 import {QuestionnairesComponent} from './questionnaires/questionnaires.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {HttpInterceptorService} from "./interceptors/http-interceptor.service";
 import {LoginComponent} from './auth/login/login.component';
 import {UserComponent} from './user/user.component';
@@ -23,14 +23,18 @@ import { EntryFormQuestionComponent } from './shared/form/entry/entry-form-quest
 import { EntryFormService } from './service/entry-form.service';
 import { QuestionControlService } from './shared/form/question-controle.service';
 import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
-import { UserDeleteComponent } from './user/user-delete/user-delete.component';
-import {QuestionnairesCreateComponent} from "./questionnaires/questionnaires-create/questionnaires-create.component";
+import { UserDisableComponent } from './user/user-disable/user-disable.component';
 import { EntriesComponent } from './entries/entries.component';
-import { FilterPipe } from './pipe/filter.pipe'; 
+import { FilterPipe } from './pipe/filter.pipe';
+import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { QuestionnairesViewComponent } from './questionnaires/questionnaires-view/questionnaires-view.component';
+import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-create/questionnaires-create.component';
 import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
 import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
+import { EntriesViewComponent } from './entries/entries-view/entries-view.component';
+import { EntriesOverviewComponent } from './entries/entries-overview/entries-overview.component';
+
 import { SelfEditComponent } from './user/self-edit/self-edit.component';
 
 @NgModule({
@@ -49,13 +53,15 @@ import { SelfEditComponent } from './user/self-edit/self-edit.component';
     QuestionnaireFillComponent,
     EntryFormQuestionComponent,
     EntryFormComponent,
-    UserDeleteComponent,
+    UserDisableComponent,
     EntriesComponent,
     FilterPipe,
     FooterComponent,
     QuestionnairesViewComponent,
     QuestionnairesCreateComponent,
     IdComponent,
+    EntriesViewComponent,
+    EntriesOverviewComponent,
     SelfEditComponent,
   ],
   imports: [

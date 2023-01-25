@@ -53,6 +53,7 @@ const routes: Routes = [
     ]
 
   },
+  {path: 'me', component: SelfEditComponent, canActivate: [AuthGuard], data: {roles: ['CAREGIVER']}},
   {path: '**', redirectTo: '/questionnaires'}
 ];
 

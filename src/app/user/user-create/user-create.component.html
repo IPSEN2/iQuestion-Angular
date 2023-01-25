@@ -1,5 +1,21 @@
 <router-outlet></router-outlet>
 <app-navigation></app-navigation>
+<nav class="navbar sticky-top bg-light">
+  <div class="container d-flex justify-content-end">
+    <div class="d-grid gap-2 d-md-flex justify-content-between">
+      <button type="button" class="m-2 btn btn-outline-primary" routerLink="/users">
+        <i class="bi bi-backspace"></i> &nbsp;
+        Terug
+      
+      </button>
+      <button type="submit" class="m-2 btn btn-primary" [disabled]="!registerForm.valid">
+        <i class="bi bi-person-add"></i> &nbsp;
+        Creëer gebruiker
+      </button>
+    </div>
+  </div>
+</nav>
+
 <div class="container container-top-margin">
   <app-toasts></app-toasts>
   <h1>Gebruiker aanmaken</h1>
@@ -22,16 +38,5 @@
       <option value="SPINE_ADMIN">Spine administrator</option>
       <option value="CAREGIVER">Hulpverlener</option>
     </select>
-    <div class="d-grid gap-2 d-md-flex justify-content-between">
-      <button type="button" class="m-2 btn btn-primary" routerLink="/users">
-        <i class="bi bi-backspace"></i> &nbsp;
-        Terug
-      
-      </button>
-      <button type="submit" class="m-2 btn btn-primary" [disabled]="!registerForm.valid">
-        <i class="bi bi-person-add"></i> &nbsp;
-        Creëer gebruiker
-      </button>
-    </div>
   </form>
 </div>

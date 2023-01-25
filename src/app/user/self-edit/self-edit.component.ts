@@ -63,8 +63,8 @@ export class SelfEditComponent {
 
         // Update the local user
         this.localUserService.localUser.user = result;
-        let userData = JSON.parse(localStorage.getItem('userData') || '{}');
-        userData.user = result;
+        let userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
+        userData = {'token': userData.token, 'user': result}
 
         if (localStorage.getItem('userData') !== null) {
           localStorage.setItem('userData', JSON.stringify(userData));

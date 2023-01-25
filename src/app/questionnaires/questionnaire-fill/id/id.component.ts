@@ -134,7 +134,6 @@ export class IdComponent {
 
     this.entryService.create(entry).subscribe({
       next: () => {
-        this.showSuccessToast();
         this.router.navigate(['/questionnaires']);
         this.toastService.show('✅ - Opgeslagen, u wordt doorverwezen...', {
           classname: 'bg-success text-light',

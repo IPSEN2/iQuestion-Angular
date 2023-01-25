@@ -19,6 +19,8 @@ export class UserCreateComponent implements OnDestroy {
     registerRole: new FormControl(null, Validators.required)
   })
 
+  loading: boolean = false;
+
 
   constructor(private http: HttpClient,
               private userService: UserService,
@@ -30,6 +32,8 @@ export class UserCreateComponent implements OnDestroy {
       classname: 'bg-info text-light', delay: 15000
     });
 
+    this.loading = true;
+
     this.userService.createUser(
       this.registerForm.value["registerName"],
       this.registerForm.value["registerEmail"],
@@ -40,6 +44,7 @@ export class UserCreateComponent implements OnDestroy {
           this.toastService.clear();
           this.toastService.show('Gebruiker succesvol aangemaakt!', {classname: 'bg-success text-light', delay: 3000});
           this.registerForm.reset();
+          this.loading = false;
         },
         error: errorMessage => {
           this.toastService.clear();
@@ -47,6 +52,7 @@ export class UserCreateComponent implements OnDestroy {
             '❌ - ' + errorMessage,
             {classname: 'bg-danger text-light', delay: 5000}
           );
+          this.loading = false;
         }
       }
     );

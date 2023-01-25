@@ -38,7 +38,7 @@
         <td>{{ entry.questionnaireName }}</td>
         <td>{{ entry.timestamp | date : "dd-MM-yyyy" }}</td>
         <td>
-          <a class="tableIcon btn btn-outline-primary" [routerLink]="[entry.id]">
+          <a class="entryViewButton tableIcon btn btn-outline-primary" [routerLink]="[entry.id]">
             <i class="bi bi-eye-fill"></i>
           </a>
         </td>

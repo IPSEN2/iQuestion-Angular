@@ -9,7 +9,7 @@ describe('QuestionnaireFillComponent', () => {
         cy.url().should('include', 'questionnaires');
 
         // go to questionnaire fill page
-        cy.visit('/questionnaires/fill/4f83415c-4489-4f4a-be74-4b1110ee5803');
+        cy.visit('/questionnaires/fill/4aea583c-61a3-4e89-a315-c2f30cc52fc9');
         cy.url().should('include', 'questionnaire');
 
         // create intercept so API request can be checked
@@ -19,8 +19,7 @@ describe('QuestionnaireFillComponent', () => {
         }).as('entryCreate');
 
         // fill in questionnaire
-        cy.get('#7e1a51b2-0fcb-42dc-b6bd-eadae267cba2').type('test');
-        cy.get('#c4d246d3-9c35-4363-9c21-faf30049f3e9').type('test');
+        cy.get('#20ed63a4-b160-4b9b-8665-422938').select('Optie a')
         cy.get('#submitBtn').click();
 
         // check if API request was successful

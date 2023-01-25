@@ -1,12 +1,12 @@
 <router-outlet></router-outlet>
-<app-navigation> </app-navigation>
+<app-navigation></app-navigation>
 <app-toasts></app-toasts>
 <div
   *ngIf="questionnaire$ && questions$"
   class="container container-top-margin"
 >
-  <h2>Invullen questionnaire</h2>
-  <hr />
+  <h2>Invullen vragenlijst</h2>
+  <hr/>
   <h3>{{ questionnaire$.name }}</h3>
   <p>
     <b>Auteur: </b>{{ questionnaire$.author.name }}<br>

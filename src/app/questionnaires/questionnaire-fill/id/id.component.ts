@@ -3,12 +3,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {EntryService} from '../../../service/api/entry.service';
 import {QuestionnaireService} from '../../../service/api/questionnaire.service';
+import {EntryFormService} from '../../../service/entry-form.service';
 import {QuestionBase} from '../../../shared/form/question-base';
 import {Questionnaire} from '../../../shared/models/questionnaire.model';
 import {ToastService} from '../../../shared/toast/toast-service';
 import {jsPDF} from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { EntryFormService } from 'src/app/service/entry-form.service';
 import { TextboxQuestion } from 'src/app/shared/form/question-textbox';
 
 @Component({
@@ -36,9 +36,17 @@ export class IdComponent {
     }
 
     // get questionnaire from api then create questions
-    this.questionnaireService.get(id).subscribe((questionnaire) => {    
+    this.questionnaireService.get(id).subscribe({
+    next: (questionnaire) => {
       this.questions$ = this.getDefaultQuestions().concat(service.getQuestions(questionnaire));
       this.questionnaire$ = questionnaire;
+    },
+      error: errorMessage => {
+        this.toastService.show('❌ - ' + errorMessage, {
+          classname: 'bg-danger text-light',
+          delay: 2000,
+        });
+      }
     });
   }
 
@@ -91,7 +99,7 @@ export class IdComponent {
 
     let answeredQuestions = [];
     let nonPrivateAnsweredQuestions = [];
-    
+
     // loop over form controls
     for (const control in this.formComponent.form.controls) {
         if (control != null) {
@@ -125,9 +133,21 @@ export class IdComponent {
       timestamp: undefined,
     };
 
-    this.entryService.create(entry).subscribe((entry) => {
-      this.showSuccessToast();
-      this.router.navigate(['/questionnaires']);
+    this.entryService.create(entry).subscribe({
+      next: () => {
+        this.showSuccessToast();
+        this.router.navigate(['/questionnaires']);
+        this.toastService.show('✅ - Opgeslagen, u wordt doorverwezen...', {
+          classname: 'bg-success text-light',
+          delay: 2000,
+        });
+      },
+      error: errorMessage => {
+        this.toastService.show('❌ - ' + errorMessage, {
+          classname: 'bg-danger text-light',
+          delay: 2000,
+        });
+      }
     });
   }
 

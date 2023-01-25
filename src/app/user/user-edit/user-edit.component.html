@@ -1,7 +1,7 @@
 <router-outlet></router-outlet>
 <app-navigation></app-navigation>
+<app-toasts></app-toasts>
 <div class="container container-top-margin">
-  <app-toasts></app-toasts>
   <div *ngIf="user$">
     <div class="table-responsive">
       <h1>Gebruiker {{this.user$.name}} aanpassen</h1>

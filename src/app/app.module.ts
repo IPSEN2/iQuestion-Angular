@@ -30,10 +30,10 @@ import { FooterComponent } from './footer/footer.component';
 import { QuestionnairesViewComponent } from './questionnaires/questionnaires-view/questionnaires-view.component';
 import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-create/questionnaires-create.component';
 import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
-import { QuestionnaireDeleteComponent } from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
+import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
+import { SelfEditComponent } from './user/self-edit/self-edit.component';
 import { EntriesViewComponent } from './entries/entries-view/entries-view.component';
 import { EntriesOverviewComponent } from './entries/entries-overview/entries-overview.component';
-
 
 @NgModule({
   declarations: [
@@ -58,8 +58,10 @@ import { EntriesOverviewComponent } from './entries/entries-overview/entries-ove
     QuestionnairesViewComponent,
     QuestionnairesCreateComponent,
     IdComponent,
+    SelfEditComponent,
     EntriesViewComponent,
     EntriesOverviewComponent,
+    SelfEditComponent,
   ],
   imports: [
     BrowserModule,

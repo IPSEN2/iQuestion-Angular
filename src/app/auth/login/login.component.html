@@ -51,8 +51,11 @@
                       type="submit"
                       [disabled]="!loginForm.valid"
                     >
-                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span *ngIf="loading" class="spinner-grow" role="status"></span>
+                    <div *ngIf="!loading">
+                      <i class="bi bi-box-arrow-in-right"></i>
                       Login
+                    </div>
                     </button>
                   </form>
                   <div class="text-center">

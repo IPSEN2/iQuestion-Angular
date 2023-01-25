@@ -14,6 +14,7 @@ import { ErrorModel } from 'src/app/shared/error.model';
 export class LoginComponent implements OnInit, AfterViewInit {
   loginForm!: FormGroup;
   error: string | undefined;
+  loading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -65,6 +66,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       classname: 'bg-info text-light',
       delay: 3000,
     });
+    this.loading = true;
 
     const email = this.loginForm.value['email'];
     const password = this.loginForm.value['password'];
@@ -80,6 +82,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             '✅ - Succesvol ingelogd, u word doorverwezen!',
             { classname: 'bg-success text-light', delay: 3000 }
           );
+          this.loading = false;
         }
       },
       error: (errorMessage) => {
@@ -88,6 +91,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             (ErrorModel.errorMap.get(errorMessage) || errorMessage),
           { classname: 'bg-danger text-light', delay: 5000 }
         );
+        this.loading = false;
         this.loginForm.get('password')?.reset();
       },
     });

@@ -97,9 +97,8 @@ export class IdComponent {
   onSubmit() {
     this.showProcessingToast();
     this.loading = true;
-
-    let questions = [];
-    let answers = [];
+    let answeredQuestions = [];
+    let nonPrivateAnsweredQuestions = [];
     // loop over form controls
     for (const control in this.formComponent.form.controls) {
         if (control != null) {

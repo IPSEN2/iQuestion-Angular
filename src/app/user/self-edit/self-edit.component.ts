@@ -76,6 +76,7 @@ export class SelfEditComponent {
             delay: 5000,
           });
         }
+        this.loading = false;
       },
       error: (error) => {
         let errorMessage = error.error.message;

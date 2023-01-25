@@ -46,7 +46,7 @@
               type="button"
               class="btn btn-outline-primary tableIcon userEditButton"
               [routerLink]="['edit', user.id]"
-              placement="top" 
+              placement="top"
               ngbTooltip="Gebruiker bewerken"
               container="body"
             >
@@ -71,8 +71,8 @@
             <button
               type="button"
               class="btn btn-outline-primary tableIcon userDeleteButton"
-              (click)="showDeleteModal(user)"
-              placement="top" 
+              (click)="showDisableModal(user)"
+              placement="top"
               ngbTooltip="Verwijder gebruiker"
               container="body"
               [disabled]="!user.enabled"

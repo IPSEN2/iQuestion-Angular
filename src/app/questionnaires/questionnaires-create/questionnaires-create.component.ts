@@ -49,7 +49,7 @@ export class QuestionnairesCreateComponent {
     const questions = this.getControlsFromSegment(segmentIndex);
     const newQuestion = this.formBuilder.group({
       label: ['', Validators.required],
-      options: ['', Validators.required],
+      options: [''],
     });
     questions.push(newQuestion);
   }

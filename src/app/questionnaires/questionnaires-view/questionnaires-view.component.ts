@@ -6,6 +6,7 @@ import {QuestionnaireService} from '../../service/api/questionnaire.service';
 import {Questionnaire} from '../../shared/models/questionnaire.model';
 import {LocalUserService} from '../../shared/services/localUser.service';
 import {QuestionnaireDeleteComponent} from '../questionnaire-delete/questionnaire-delete.component';
+import * as _ from 'cypress/types/lodash';
 
 @Component({
   selector: 'app-questionnaires-view',
@@ -39,6 +40,11 @@ export class QuestionnairesViewComponent implements OnDestroy{
   }
 
   exportToCsv(questionnaire: Questionnaire) {
+    questionnaire.name = questionnaire.name
+    .toLowerCase()
+    .replace(/[^\w ]+/g, '')
+    .replace(/ +/g, '_');
+
     this.entryService.exportToCsv(questionnaire.id).subscribe(
       {
         next: (blob) => {
@@ -53,8 +59,14 @@ export class QuestionnairesViewComponent implements OnDestroy{
       }
     );
   }
+  
 
   exportToJson(questionnaire: Questionnaire) {
+    questionnaire.name = questionnaire.name
+      .toLowerCase()
+      .replace(/[^\w ]+/g, '')
+      .replace(/ +/g, '_');
+
     this.entryService.exportToJson(questionnaire.id).subscribe({
         next: (blob) => {
           this.downloadFile(blob, questionnaire.name + '.json');

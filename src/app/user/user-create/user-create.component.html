@@ -1,5 +1,6 @@
 <router-outlet></router-outlet>
 <app-navigation></app-navigation>
+<app-toasts></app-toasts>
 <nav class="navbar sticky-top bg-light">
   <div class="container d-flex justify-content-end">
     <div class="d-grid gap-2 d-md-flex justify-content-between">
@@ -8,7 +9,7 @@
         Terug
       
       </button>
-      <button type="submit" class="m-2 btn btn-primary" [disabled]="!registerForm.valid">
+      <button type="submit" class="m-2 btn btn-primary" [disabled]="!registerForm.valid" (click)="createUser()">
         <i class="bi bi-person-add"></i> &nbsp;
         Creëer gebruiker
       </button>
@@ -17,9 +18,8 @@
 </nav>
 
 <div class="container container-top-margin">
-  <app-toasts></app-toasts>
   <h1>Gebruiker aanmaken</h1>
-  <form [formGroup]="registerForm" (ngSubmit)="createUser()">
+  <form [formGroup]="registerForm">
     <div class="mb-3">
       <label for="userEmailInput" class="form-label">E-mail addres</label>
       <input type="email" class="form-control" id="userEmailInput" formControlName="registerEmail">

@@ -10,7 +10,7 @@
     >
       Annuleer
     </button>
-    <button type="submit" class="m-2 btn btn-primary updateFinalButton">
+    <button type="submit" class="m-2 btn btn-primary updateFinalButton" (click)="updateUserData()">
       Update {{ this.user$.name }}'s profiel
     </button>
   </div>
@@ -19,7 +19,7 @@
   <div *ngIf="user$">
     <div class="table-responsive">
       <h1>Gebruiker {{ this.user$.name }} aanpassen</h1>
-      <form [formGroup]="updateUserForm" (ngSubmit)="updateUserData()">
+      <form [formGroup]="updateUserForm">
         <table class="table table-striped">
           <thead>
             <tr>

@@ -1,6 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs';
 import {EntryService} from '../../../service/api/entry.service';
 import {QuestionnaireService} from '../../../service/api/questionnaire.service';
 import {EntryFormService} from '../../../service/entry-form.service';
@@ -137,10 +136,6 @@ export class IdComponent {
       next: () => {
         this.showSuccessToast();
         this.router.navigate(['/questionnaires']);
-        this.toastService.show('✅ - Opgeslagen, u wordt doorverwezen...', {
-          classname: 'bg-success text-light',
-          delay: 2000,
-        });
       },
       error: errorMessage => {
         this.toastService.show('❌ - ' + errorMessage, {

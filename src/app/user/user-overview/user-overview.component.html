@@ -1,5 +1,15 @@
 <app-navigation></app-navigation>
 <app-toasts></app-toasts>
+<nav class="navbar sticky-top bg-light">
+  <div class="container d-flex justify-content-end">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="button" class="btn btn-primary" routerLink="new">
+        <i class="bi bi-person-add"></i>
+        Creëer gebruiker
+      </button>
+    </div>
+  </div>
+</nav>
 <div class="container container-top-margin">
   <div class="searchbar__top">
     <h1>Gebruikers</h1>
@@ -85,11 +95,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="button" class="btn btn-primary" routerLink="new">
-      <i class="bi bi-person-add"></i>
-      Creëer gebruiker
-    </button>
   </div>
 </div>

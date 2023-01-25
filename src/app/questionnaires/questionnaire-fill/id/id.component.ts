@@ -168,6 +168,11 @@ export class IdComponent {
       body: [...body],
     });
 
+    this.questionnaire$.name = this.questionnaire$.name
+    .toLowerCase()
+    .replace(/[^\w ]+/g, '')
+    .replace(/ +/g, '_');
+
     pdfDocument.save(this.questionnaire$.name + '.pdf');
   }
 

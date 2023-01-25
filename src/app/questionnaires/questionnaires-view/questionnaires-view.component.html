@@ -140,7 +140,7 @@
                 [attr.data-questionnaire-name]="questionnaire.name"
                 class="btn btn-outline-primary tableIcon exportCsvButton"
                 (click)="exportToCsv(questionnaire)"
-                placement="top" 
+                placement="top"
                 ngbTooltip="Exporteer naar CSV"
                 container="body"
               >
@@ -163,7 +163,7 @@
                 [attr.data-questionnaire-name]="questionnaire.name"
                 class="btn btn-outline-primary tableIcon exportJsonButton"
                 (click)="exportToJson(questionnaire)"
-                placement="top" 
+                placement="top"
                 ngbTooltip="Exporteer naar JSON"
                 container="body"
               >
@@ -195,7 +195,7 @@
                 type="button"
                 class="btn btn-outline-primary tableIcon deleteQuestionnaireButton"
                 (click)="delete(questionnaire)"
-                placement="top" 
+                placement="top"
                 ngbTooltip="Verwijder vragenlijst"
                 container="body"
               >
@@ -221,7 +221,7 @@
                 type="button"
                 class="btn btn-outline-primary tableIcon"
                 [routerLink]="['fill', questionnaire.id]"
-                placement="top" 
+                placement="top"
                 ngbTooltip="Vragenlijst invullen"
                 container="body"
               >
@@ -234,3 +234,4 @@
     </table>
   </div>
 </div>
+<app-footer></app-footer>

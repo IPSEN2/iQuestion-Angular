@@ -5,7 +5,7 @@ import { DropdownQuestion } from '../shared/form/question-dropdown';
 import { TextareaQuestion } from '../shared/form/question-textarea';
 import { Questionnaire } from '../shared/models/questionnaire.model';
 
-@Injectable()
+@Injectable({providedIn: "root"})
 export class EntryFormService {
   getQuestions(questionnaire: Questionnaire) {
     let questions: QuestionBase<string>[] = [];

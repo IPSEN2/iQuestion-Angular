@@ -1,11 +1,25 @@
 <router-outlet></router-outlet>
 <app-navigation></app-navigation>
 <app-toasts></app-toasts>
+<nav class="navbar sticky-top bg-light">
+  <div class="container d-flex justify-content-end">
+    <button
+      type="submit"
+      class="m-2 btn btn-outline-primary"
+      routerLink="/users"
+    >
+      Annuleer
+    </button>
+    <button type="submit" class="m-2 btn btn-primary updateFinalButton" (click)="updateUserData()">
+      Update {{ this.user$.name }}'s profiel
+    </button>
+  </div>
+</nav>
 <div class="container container-top-margin">
   <div *ngIf="user$">
     <div class="table-responsive">
-      <h1>Gebruiker {{this.user$.name}} aanpassen</h1>
-      <form [formGroup]="updateUserForm" (ngSubmit)="updateUserData()">
+      <h1>Gebruiker {{ this.user$.name }} aanpassen</h1>
+      <form [formGroup]="updateUserForm">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -72,18 +86,6 @@
             </tr>
           </tbody>
         </table>
-        <div class="d-flex flex-row-reverse">
-          <button type="submit" class="m-2 btn btn-primary updateFinalButton">
-            Update {{this.user$.name}}'s profiel
-          </button>
-          <button
-            type="submit"
-            class="m-2 btn btn-outline-primary"
-            routerLink="/users"
-          >
-            Annuleer
-          </button>
-        </div>
       </form>
     </div>
   </div>

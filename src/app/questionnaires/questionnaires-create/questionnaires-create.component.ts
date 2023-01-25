@@ -1,14 +1,9 @@
-import { Component } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { ToastService } from '../../shared/toast/toast-service';
-import { ErrorModel } from 'src/app/shared/error.model';
+import {Component} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators,} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {ToastService} from '../../shared/toast/toast-service';
+import {catchError} from "rxjs";
+import {ErrorHandlingService} from "../../shared/services/error-handling.service";
 
 @Component({
   selector: 'app-questionnaires-create',
@@ -27,8 +22,10 @@ export class QuestionnairesCreateComponent {
   constructor(
     private http: HttpClient,
     private toastService: ToastService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private errorHandlingService: ErrorHandlingService
+  ) {
+  }
 
   addSegment() {
     const segments = this.questionnaireForm.get('segments') as FormArray;
@@ -127,8 +124,8 @@ export class QuestionnairesCreateComponent {
         question.options = question.options.split('\n');
       });
     });
-    
-    this.http.put('/questionnaire/', this.questionnaireForm.value).subscribe({
+
+    this.http.put('/questionnaire/', this.questionnaireForm.value).pipe(catchError(this.errorHandlingService.handleError)).subscribe({
       next: () => {
         this.toastService.show('✅ - Vragenlijst is aangemaakt!', {
           classname: 'bg-success text-light',
@@ -138,11 +135,11 @@ export class QuestionnairesCreateComponent {
         this.loading = false;
         this.questionnaireForm.reset();
       },
-      error: (error) => {
-        this.toastService.show('❌ - ' + ErrorModel.errorMap.get(error) || "Onbekende fout opgetreden, probeer het later opnieuw", {
-          classname: 'bg-danger text-light',
-          delay: 3000,
-        });
+      error: errorMessage => {
+        this.toastService.show(
+          '❌ - ' + errorMessage,
+          {classname: 'bg-danger text-light', delay: 3000}
+        );
 
         this.loading = false;
       },

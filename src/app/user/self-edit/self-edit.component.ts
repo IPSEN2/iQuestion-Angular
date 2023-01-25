@@ -111,8 +111,7 @@ export class SelfEditComponent {
 
         this.loading = false;
       },
-      error: (error) => {
-        let errorMessage = error.error.message;
+      error: errorMessage => {
         this.toastService.show(
           '❌ - ' + errorMessage,
           {classname: 'bg-danger text-light', delay: 5000}

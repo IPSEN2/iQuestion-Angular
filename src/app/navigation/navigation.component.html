@@ -19,7 +19,8 @@
         </li>
         <li class="nav-item" routerLinkActive="active" *ngIf="this.user.user.role == 'CAREGIVER'">
           <a class="nav-link" routerLink="/entries">
-            <i class="bi bi-envelope-paper vAlignIcon pe-2"></i>Inzendingen
+            <i class="bi bi-envelope-check-fill vAlignIcon pe-2"></i>
+            Inzendingen
           </a>
         </li>
       </ul>
@@ -31,8 +32,12 @@
             class="bi bi-person-fill vAlignIcon ms-2"></i></a>
           <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
             <div>
-              <li><a ngbDropdownItem role="button" class="dropdown-item">Bewerk profiel</a></li>
-              <li><a ngbDropdownItem role="button" class="dropdown-item" (click)="onLogout()">Uitloggen</a></li>
+              <li><a ngbDropdownItem role="button" class="dropdown-item" routerLink="/me">Bewerk profiel
+                <i class="bi bi-person-fill-gear vAlignIcon ms-2"></i>
+              </a></li>
+              <li><a ngbDropdownItem role="button" class="dropdown-item" (click)="onLogout()">Uitloggen
+                <i class="bi bi-box-arrow-right vAlignIcon ms-2"></i>
+              </a></li>
             </div>
           </div>
         </div>

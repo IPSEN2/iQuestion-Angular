@@ -23,7 +23,7 @@ import { EntryFormQuestionComponent } from './shared/form/entry/entry-form-quest
 import { EntryFormService } from './service/entry-form.service';
 import { QuestionControlService } from './shared/form/question-controle.service';
 import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
-import { UserDeleteComponent } from './user/user-delete/user-delete.component';
+import { UserDisableComponent } from './user/user-disable/user-disable.component';
 import { EntriesComponent } from './entries/entries.component';
 import { FilterPipe } from './pipe/filter.pipe';
 import { FormsModule } from '@angular/forms';
@@ -33,6 +33,8 @@ import { QuestionnairesCreateComponent } from './questionnaires/questionnaires-c
 import { IdComponent } from './questionnaires/questionnaire-fill/id/id.component';
 import {QuestionnaireDeleteComponent} from "./questionnaires/questionnaire-delete/questionnaire-delete.component";
 import { SelfEditComponent } from './user/self-edit/self-edit.component';
+import { EntriesViewComponent } from './entries/entries-view/entries-view.component';
+import { EntriesOverviewComponent } from './entries/entries-overview/entries-overview.component';
 
 
 @NgModule({
@@ -51,7 +53,7 @@ import { SelfEditComponent } from './user/self-edit/self-edit.component';
     QuestionnaireFillComponent,
     EntryFormQuestionComponent,
     EntryFormComponent,
-    UserDeleteComponent,
+    UserDisableComponent,
     EntriesComponent,
     FilterPipe,
     FooterComponent,
@@ -59,6 +61,8 @@ import { SelfEditComponent } from './user/self-edit/self-edit.component';
     QuestionnairesCreateComponent,
     IdComponent,
     SelfEditComponent,
+    EntriesViewComponent,
+    EntriesOverviewComponent,
   ],
   imports: [
     BrowserModule,

@@ -124,6 +124,26 @@
                 </div>
               </div>
             </div>
+            <div *ngIf="getControlsFromSegment(segmentIndex).length === 0">
+              <div class="card-body">
+                <div class="alert alert-info d-flex align-items-center" role="alert">
+                  <i class="bi bi-info-circle-fill"></i>
+                  <div>
+                    Er zijn nog geen vragen toegevoegd aan dit segment. Voeg een vraag toe door op de knop "Vraag toevoegen" te klikken.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="getControlsFromSegment(segmentIndex).length >= 1">
+              <div class="m-2">
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+                  <div>
+                    Bij het opgeven van opties word de vraag automatisch een meerkeuzevraag. Houd dit vak leeg als je een open vraag wilt.
+                  </div>
+                </div>
+              </div>
+            </div>
             <ng-container formArrayName="questions">
               <div
                 class="card-body create__singular_question"
@@ -147,7 +167,7 @@
                         class="form-control"
                         formControlName="label"
                         id="vraagNaam"
-                        placeholder="Schrijf hier je vraag op. Als je geen mogelijke opties opgeeft, dan wordt het een open vraag."
+                        placeholder="Schrijf hier je vraag op."
                         rows="4"
                         required
                       ></textarea>
@@ -168,6 +188,9 @@
 Optie b
 Optie c
 Optie d"
+                        ngbTooltip="Alle opties voor de meerkeuze vraag moeten worden opgesplitst met een enter."
+                        placement="top"
+                        container="body"
                       ></textarea>
                     </div>
                   </div>

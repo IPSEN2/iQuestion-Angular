@@ -20,6 +20,7 @@ export class IdComponent {
   questionnaire$!: Questionnaire;
   @ViewChild('form') formComponent: any;
   submitBtnDisabled: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +56,8 @@ export class IdComponent {
       delay: 1000,
     });
 
+    this.loading = true;
+
     let questions = [];
     let answers = [];
     // loop over form controls
@@ -84,12 +87,16 @@ export class IdComponent {
           classname: 'bg-success text-light',
           delay: 2000,
         });
+
+        this.loading = false;
       },
       error: errorMessage => {
         this.toastService.show('❌ - ' + errorMessage, {
           classname: 'bg-danger text-light',
           delay: 2000,
         });
+
+        this.loading = false;
       }
     });
   }

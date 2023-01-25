@@ -20,7 +20,12 @@
     class="btn btn-primary"
     (click)="onSubmit()"
   >
-  <i class="bi bi-cloud-arrow-up-fill"></i>
+
+  <span *ngIf="loading" class="spinner-grow" role="status"></span>
+  <div *ngIf="!loading">
+    <i class="bi bi-cloud-arrow-up-fill"></i>
     Opslaan en versturen
+  </div>
+
   </button>
 </div>

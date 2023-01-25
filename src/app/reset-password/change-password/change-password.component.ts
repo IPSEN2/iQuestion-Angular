@@ -23,6 +23,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   passwordToken = this.route.snapshot.paramMap.get('token');
+  loading: boolean = false;
 
   ngOnInit() {
     this.initForm(this.passwordToken ? this.passwordToken : '');
@@ -49,12 +50,17 @@ export class ChangePasswordComponent implements OnInit {
       {classname: 'bg-info text-light', delay: 3000}
     );
 
+    this.loading = true;
+
     this.userService.changePassword(this.passwordToken!, newPassword).subscribe({
       next: () => {
         this.toastService.show(
           '✅ - Je wachtwoord is succesvol gewijzigd, je wordt doorgestuurd naar de login pagina',
           {classname: 'bg-success text-light', delay: 3000}
         );
+
+        this.loading = false;
+
         setTimeout(() => {
           window.location.href = '/login';
         }, 2500);
@@ -65,6 +71,8 @@ export class ChangePasswordComponent implements OnInit {
             classname: 'bg-danger text-light', delay: 5000
           }
         );
+
+        this.loading = false;
       }
     });
   }

@@ -1,0 +1,15 @@
+.create__singular_question {
+  /* Add margin everywhere and add a border with drop shadow */
+  margin: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 3px #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  /* Add a transition for the box-shadow */
+  transition: all 0.3s ease-out;
+
+}
+
+.d-flex{
+  gap:1rem;
+}

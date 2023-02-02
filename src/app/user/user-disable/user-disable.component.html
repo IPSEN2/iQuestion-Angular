@@ -1,0 +1,20 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h4>Gebruiker deactiveren</h4>
+      <button type="button" aria-label="Close button" aria-describedby="modal-title" class="btn-close" (click)="activeModal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <p>Weet u zeker dat u de gebruiker:
+        <span class="text-info"> {{user?.name}} </span>
+        wilt deactiveren?
+      </p>
+      <p>
+        <span class="text-danger">De gebruiker kan niet meer inloggen</span>
+        <br>De gebruiker kan wel hersteld worden in het gebruiker-aanpassen menu.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-primary" type="button" (click)="activeModal.dismiss()">Annuleren</button>
+      <button class="btn btn-danger deleteButton"  type="button" (click)="disableUser()">Deactiveren</button>
+    </div>
+</div>

@@ -1,8 +1,13 @@
-<div class="vh-100 bg-secondary">
-  <div class="container">
+<nav class="blobNavBar">
+  <!-- This should display a blob svg -->
+  <div class="blob"></div>
+</nav>
+<app-toasts></app-toasts>
+<div class="vh-100 bg-secondary d-flex centrerenIsMoeielijkHeVince">
+  <div class="container container-top-margin" style="z-index: 10">
     <div class="row justify-content-center">
       <div class="col-md-9 col-lg-12 col-xl-10">
-        <div class="card shadow-lg border-0 my-5">
+        <div class="card shadow-lg border-0 my-5" style="z-index: 10">
           <div class="card-body p-0">
             <div class="row">
               <div class="col-lg-6 d-none d-lg-flex pe-0">
@@ -12,26 +17,53 @@
                 <div class="p-5">
                   <h4 class="text-center text-primary mb-4">Welkom terug!</h4>
                   <div class="alert alert-danger" *ngIf="error">
-                    <p class="m-0">{{error}}</p>
+                    <p class="m-0">{{ error }}</p>
                   </div>
                   <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-                    <input class="mb-3 form-control form-control-user" type="email"
-                           placeholder="E-mail adres" formControlName="email" name="email">
-                    <input class="mb-3 form-control form-control-user" type="password"
-                           placeholder="Wachtwoord" formControlName="password" name="password">
+                    <input
+                      class="mb-3 form-control form-control-user"
+                      type="email"
+                      placeholder="E-mail adres"
+                      formControlName="email"
+                      name="email"
+                    />
+                    <input
+                      class="mb-3 form-control form-control-user"
+                      type="password"
+                      placeholder="Wachtwoord"
+                      formControlName="password"
+                      name="password"
+                    />
                     <div class="form-check mb-3">
-                      <input class="form-check-input" formControlName="rememberMe" type="checkbox" value="" id="rememberMe">
+                      <input
+                        class="form-check-input"
+                        formControlName="rememberMe"
+                        type="checkbox"
+                        value=""
+                        id="rememberMe"
+                      />
                       <label class="form-check-label" for="rememberMe">
-                        Remember me
+                        Onthoud mij
                       </label>
                     </div>
-                    <button class="btn btn-primary d-block btn-user w-100 mb-2" type="submit"
-                            [disabled]="!loginForm.valid">
+                    <button
+                      class="btn btn-primary d-block btn-user w-100 mb-2"
+                      type="submit"
+                      [disabled]="!loginForm.valid"
+                    >
+                    <span *ngIf="loading" class="spinner-grow" role="status"></span>
+                    <div *ngIf="!loading">
+                      <i class="bi bi-box-arrow-in-right"></i>
                       Login
+                    </div>
                     </button>
                   </form>
                   <div class="text-center">
-                    <a class="small text-decoration-none" routerLink="/change-password">Wachtwoord herstellen</a>
+                    <a
+                      class="small text-decoration-none"
+                      routerLink="/change-password"
+                    >Wachtwoord herstellen</a
+                    >
                   </div>
                 </div>
               </div>
@@ -41,4 +73,7 @@
       </div>
     </div>
   </div>
+  <footer>
+    <div class="wave" id="wave"></div>
+  </footer>
 </div>

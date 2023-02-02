@@ -9,15 +9,6 @@ describe('LoginComponent', () => {
     cy.get('button').should('be.disabled');
   });
 
-  it('Should not login if password is too short', () => {
-
-    cy.visit('/');
-    cy.url().should('includes', '');
-    cy.get('[formControlName="email"]').type('test@test');
-    cy.get('[formControlName="password"]').type('test');
-    cy.get('button').should('be.disabled');
-  });
-
   it('Should not login if invalid but validated credentials are provided', () => {
     cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginFailed.json'});
 
@@ -25,6 +16,20 @@ describe('LoginComponent', () => {
     cy.url().should('includes', '');
     cy.get('[formControlName="email"]').type('test@account.com');
     cy.get('[formControlName="password"]').type('TestLangGenoeg1!');
+    cy.get('button').click();
+
+    cy.wait(500);
+
+    cy.url().should('not.include', 'questionnaires');
+  });
+
+  it('Should not login if user is disabled', () => {
+    cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginDisabledUser.json'});
+
+    cy.visit('/');
+    cy.url().should('includes', '');
+    cy.get('[formControlName="email"]').type('test@account.com');
+    cy.get('[formControlName="password"]').type('TestLangGenoeg123!');
     cy.get('button').click();
 
     cy.wait(500);

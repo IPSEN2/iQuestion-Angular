@@ -1,0 +1,15 @@
+.footer{
+    background: white;
+    z-index: 100;
+}
+
+@media only screen and (min-width: 600px) {
+    .footer {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+  }
+
+.container {
+    padding-bottom: 8rem;
+}

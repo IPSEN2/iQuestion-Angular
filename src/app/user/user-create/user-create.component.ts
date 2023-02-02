@@ -2,6 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastService} from "../../shared/toast/toast-service";
+import {UserService} from "../../service/api/user.service";
 
 
 @Component({
@@ -18,23 +19,44 @@ export class UserCreateComponent implements OnDestroy {
     registerRole: new FormControl(null, Validators.required)
   })
 
+  loading: boolean = false;
 
-  constructor(private http: HttpClient, private toastService: ToastService) {
+
+  constructor(private http: HttpClient,
+              private userService: UserService,
+              private toastService: ToastService) {
   }
 
   createUser() {
-    this.toastService.show('We zijn bezig om een account aan te maken!', {classname: 'bg-info text-light', delay: 3000});
-    this.http.post('/auth/register/', {
-      name: this.registerForm.value.registerName,
-      email: this.registerForm.value.registerEmail,
-      organization: this.registerForm.value.registerOrganization,
-      role: this.registerForm.value.registerRole,
-    })
-      .subscribe({
+    this.toastService.show('We zijn bezig om een account aan te maken!', {
+      classname: 'bg-info text-light', delay: 15000
+    });
+
+    this.loading = true;
+
+    this.userService.createUser(
+      this.registerForm.value["registerName"],
+      this.registerForm.value["registerEmail"],
+      this.registerForm.value["registerOrganization"],
+      this.registerForm.value["registerRole"],
+    ).subscribe({
         next: () => {
-          this.toastService.show('Gebruiker succesvol aangemaakt', {classname: 'bg-success text-light', delay: 3000});
+          this.toastService.clear();
+          this.toastService.show('Gebruiker succesvol aangemaakt!', {classname: 'bg-success text-light', delay: 3000});
+          this.registerForm.reset();
+          this.loading = false;
+        },
+        error: errorMessage => {
+          this.toastService.clear();
+          this.toastService.show(
+            '❌ - ' + errorMessage,
+            {classname: 'bg-danger text-light', delay: 5000}
+          );
+          this.loading = false;
         }
-      });
+      }
+    );
+
   }
 
   ngOnDestroy(): void {

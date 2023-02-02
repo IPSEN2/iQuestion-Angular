@@ -9,7 +9,6 @@ import {ErrorHandlingService} from "../../shared/services/error-handling.service
 @Component({
   selector: 'app-self-edit',
   templateUrl: './self-edit.component.html',
-  styleUrls: ['./self-edit.component.scss'],
 })
 export class SelfEditComponent {
   constructor(

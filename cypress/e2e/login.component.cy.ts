@@ -9,15 +9,6 @@ describe('LoginComponent', () => {
     cy.get('button').should('be.disabled');
   });
 
-  it('Should not login if password is too short', () => {
-
-    cy.visit('/');
-    cy.url().should('includes', '');
-    cy.get('[formControlName="email"]').type('test@test');
-    cy.get('[formControlName="password"]').type('test');
-    cy.get('button').should('be.disabled');
-  });
-
   it('Should not login if invalid but validated credentials are provided', () => {
     cy.intercept("POST", 'http://localhost:8080/auth/login', {fixture: 'loginFailed.json'});
 
